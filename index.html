@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SE Brain — Conceptual Overview</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #232733;
+    --border: #2e3345;
+    --text: #e2e4eb;
+    --text-dim: #8b8fa3;
+    --accent: #7c6aef;
+    --accent-light: #9b8df5;
+    --green: #3ecf8e;
+    --orange: #f5a623;
+    --blue: #4ba3f5;
+    --red: #ef6a6a;
+    --pink: #e06abf;
+    --cyan: #6ae0ef;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+  }
+
+  /* ─── Hero ─── */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    background: linear-gradient(180deg, #191c28 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+  }
+  .hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--accent-light), var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero .subtitle {
+    margin-top: 16px;
+    font-size: 1.2rem;
+    color: var(--text-dim);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ─── Container ─── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  /* ─── Sections ─── */
+  section { padding: 64px 0; }
+  section + section { border-top: 1px solid var(--border); }
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--accent-light);
+  }
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  p { color: var(--text-dim); margin-bottom: 16px; }
+  .lead { font-size: 1.05rem; color: var(--text); margin-bottom: 32px; }
+
+  /* ─── Concept Card ─── */
+  .concept-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 24px;
+  }
+
+  /* ─── Two-Layer Diagram ─── */
+  .layers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  .layer-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .layer-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .layer-card.raw::before { background: var(--orange); }
+  .layer-card.wiki::before { background: var(--green); }
+
+  .layer-card h3 { display: flex; align-items: center; gap: 10px; }
+  .layer-card .badge {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .badge.immutable { background: rgba(245,166,35,.15); color: var(--orange); }
+  .badge.owned { background: rgba(62,207,142,.15); color: var(--green); }
+
+  .layer-card ul {
+    list-style: none;
+    margin-top: 12px;
+  }
+  .layer-card ul li {
+    padding: 6px 0;
+    color: var(--text-dim);
+    font-size: 0.92rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .layer-card ul li::before {
+    content: '→';
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ─── Skill Cards ─── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: border-color .2s, box-shadow .2s;
+    cursor: default;
+  }
+  .skill-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(124,106,239,.12);
+  }
+  .skill-card .icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+  }
+  .skill-card h3 { font-size: 1.1rem; }
+  .skill-card p { font-size: 0.9rem; margin-bottom: 12px; }
+  .skill-card .triggers {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .skill-card .triggers span {
+    font-size: 0.75rem;
+    background: var(--surface2);
+    color: var(--text-dim);
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+  }
+
+  .s1 .icon { background: rgba(75,163,245,.15); color: var(--blue); }
+  .s2 .icon { background: rgba(62,207,142,.15); color: var(--green); }
+  .s3 .icon { background: rgba(245,166,35,.15); color: var(--orange); }
+  .s4 .icon { background: rgba(124,106,239,.15); color: var(--accent-light); }
+  .s5 .icon { background: rgba(224,106,191,.15); color: var(--pink); }
+
+  /* ─── Workflow Diagram ─── */
+  .workflow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 40px 0;
+    flex-wrap: wrap;
+  }
+  .wf-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 160px;
+  }
+  .wf-step .circle {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    border: 2px solid;
+  }
+  .wf-step .label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .wf-step .desc {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    line-height: 1.4;
+  }
+  .wf-arrow {
+    font-size: 1.5rem;
+    color: var(--text-dim);
+    margin: 0 8px;
+    flex-shrink: 0;
+  }
+  .wf1 .circle { background: rgba(75,163,245,.12); border-color: var(--blue); color: var(--blue); }
+  .wf2 .circle { background: rgba(62,207,142,.12); border-color: var(--green); color: var(--green); }
+  .wf3 .circle { background: rgba(124,106,239,.12); border-color: var(--accent); color: var(--accent-light); }
+  .wf4 .circle { background: rgba(245,166,35,.12); border-color: var(--orange); color: var(--orange); }
+  .wf5 .circle { background: rgba(239,106,106,.12); border-color: var(--red); color: var(--red); }
+
+  /* ─── Rules ─── */
+  .rules-list {
+    list-style: none;
+    counter-reset: rules;
+  }
+  .rules-list li {
+    counter-increment: rules;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .rules-list li:last-child { border-bottom: none; }
+  .rules-list li::before {
+    content: counter(rules);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--surface2);
+    color: var(--accent-light);
+    font-weight: 700;
+    font-size: 0.85rem;
+    border: 1px solid var(--border);
+  }
+  .rules-list li strong { color: var(--text); }
+
+  /* ─── Structure Tree ─── */
+  .tree {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.88rem;
+    line-height: 1.8;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .tree .dir { color: var(--blue); font-weight: 600; }
+  .tree .file { color: var(--text-dim); }
+  .tree .comment { color: #555b72; font-style: italic; }
+
+  /* ─── Data-flow Table ─── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.92rem;
+  }
+  th {
+    text-align: left;
+    padding: 12px 16px;
+    background: var(--surface2);
+    color: var(--text);
+    font-weight: 600;
+    border-bottom: 2px solid var(--border);
+  }
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
+  }
+  tr:hover td { background: rgba(124,106,239,.04); }
+
+  code {
+    background: var(--surface2);
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 0.88em;
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    color: var(--accent-light);
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 768px) {
+    .layers { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2.2rem; }
+    .workflow { flex-direction: column; gap: 16px; }
+    .wf-arrow { transform: rotate(90deg); }
+    .wf-step { width: auto; }
+  }
+
+  /* ─── Interaction Diagram ─── */
+  .interaction-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin: 40px 0 20px;
+    flex-wrap: wrap;
+  }
+  .actor-box {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 28px;
+    text-align: center;
+    min-width: 160px;
+  }
+  .actor-box.user { border-color: var(--blue); }
+  .actor-box.llm { border-color: var(--accent); }
+  .actor-box .actor-icon { font-size: 2rem; margin-bottom: 8px; }
+  .actor-box h4 { font-size: 1rem; margin-bottom: 4px; }
+  .actor-box p { font-size: 0.8rem; margin: 0; }
+  .arrow-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+  }
+  .arrow-block .arrow-line {
+    font-size: 1.6rem;
+    color: var(--accent);
+  }
+
+  /* ─── Footer ─── */
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    color: var(--text-dim);
+    font-size: 0.82rem;
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<div class="hero">
+  <h1>🧠 SE Brain</h1>
+  <p class="subtitle">
+    An <strong>LLM-powered personal wiki system</strong> that turns scattered web research
+    into a structured, interlinked, citation-grounded knowledge base — entirely managed
+    by an AI agent inside VS Code.
+  </p>
+</div>
+
+<!-- ═══════════════════════ WHAT IS IT ═══════════════════════ -->
+<section>
+  <div class="container">
+    <h2>What Is SE Brain?</h2>
+    <p class="lead">
+      SE Brain is a <strong>Software Engineering knowledge management pattern</strong>. You point the AI at a topic,
+      it researches it on the internet, saves the raw sources, then compiles them into a richly interlinked wiki
+      — complete with concept pages, entity profiles, comparisons, cross-references, and contradiction tracking.
+      Every claim traces back to a source. The wiki grows incrementally as you add more sources or ask more questions.
+    </p>
+
+    <div class="concept-box">
+      <h3>The Core Idea: Two Layers</h3>
+      <p>The system separates <strong>immutable source material</strong> from <strong>LLM-generated synthesis</strong>,
+         so you always know what's a raw fact vs. what's a compiled analysis.</p>
+
+      <div class="layers">
+        <div class="layer-card raw">
+          <h3><code>raw/</code> <span class="badge immutable">Immutable</span></h3>
+          <p>User-curated source documents fetched from the web. The LLM reads these but <em>never modifies</em> them.</p>
+          <ul>
+            <li>Each source is a markdown file with YAML frontmatter (title, URL, date, type, tags)</li>
+            <li><code>sources.md</code> — a manifest cataloging every source</li>
+            <li><code>assets/</code> — downloaded images and binary files</li>
+            <li>Once written, a source file is never changed (append a <code>-v2</code> for updates)</li>
+          </ul>
+        </div>
+        <div class="layer-card wiki">
+          <h3><code>wiki/</code> <span class="badge owned">LLM-Owned</span></h3>
+          <p>AI-generated, structured, interlinked wiki. The LLM creates, updates, and maintains this entirely.</p>
+          <ul>
+            <li><code>sources/</code> — one summary page per raw source</li>
+            <li><code>concepts/</code> — synthesized topic pages across multiple sources</li>
+            <li><code>entities/</code> — people, organizations, tools, places</li>
+            <li><code>comparisons/</code> — side-by-side analyses</li>
+            <li><code>analyses/</code> — filed answers to user questions</li>
+            <li><code>index.md</code> — master catalog &amp; <code>log.md</code> — append-only changelog</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ WHO DOES WHAT ═══════════════════════ -->
+<section>
+  <div class="container">
+    <h2>Who Does What?</h2>
+    <p class="lead">The user directs; the LLM executes. Clear separation of roles keeps the system reliable.</p>
+
+    <div class="interaction-diagram">
+      <div class="actor-box user">
+        <div class="actor-icon">👤</div>
+        <h4>You (the User)</h4>
+        <p>Curate topics, ask questions,<br>direct analysis, decide on contradictions</p>
+      </div>
+      <div class="arrow-block">
+        <span>research X / build wiki / query / lint</span>
+        <span class="arrow-line">⟷</span>
+        <span>structured answers / wiki pages / reports</span>
+      </div>
+      <div class="actor-box llm">
+        <div class="actor-icon">🤖</div>
+        <h4>LLM Agent (Copilot)</h4>
+        <p>Researches, summarizes, synthesizes,<br>cross-references, maintains quality</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ THE 5 SKILLS ═══════════════════════ -->
+<section>
+  <div class="container">
+    <h2>The 5 Skills</h2>
+    <p class="lead">
+      Skills are modular instruction sets that teach the LLM <em>how</em> to perform each part of the workflow.
+      Each skill is a <code>SKILL.md</code> file with trigger phrases, prerequisites, and step-by-step workflows.
+    </p>
+
+    <div class="skills-grid">
+
+      <div class="skill-card s1">
+        <div class="icon">🔍</div>
+        <h3>open-research</h3>
+        <p>Scours the internet for articles, papers, and data on a given topic. Converts each to clean markdown
+           with YAML frontmatter and saves them as immutable files in <code>raw/</code>. Builds the source manifest.</p>
+        <div class="triggers">
+          <span>research X</span>
+          <span>gather sources</span>
+          <span>find papers on</span>
+          <span>collect articles</span>
+        </div>
+      </div>
+
+      <div class="skill-card s2">
+        <div class="icon">🏗️</div>
+        <h3>wiki-generator</h3>
+        <p>Reads every raw source and compiles the <code>wiki/</code> — source summaries, concept pages, entity profiles,
+           comparisons, overview, index, and changelog. Updates incrementally when new sources arrive.</p>
+        <div class="triggers">
+          <span>build the wiki</span>
+          <span>ingest sources</span>
+          <span>update wiki</span>
+          <span>create wiki pages</span>
+        </div>
+      </div>
+
+      <div class="skill-card s4">
+        <div class="icon">💬</div>
+        <h3>query-wiki</h3>
+        <p>Answers questions by searching the wiki index, reading relevant pages, and synthesizing cited answers.
+           Substantial answers get filed as <code>wiki/analyses/</code> pages so insights compound over time.</p>
+        <div class="triggers">
+          <span>what does the wiki say about</span>
+          <span>compare X and Y</span>
+          <span>analyze X</span>
+          <span>summarize what we know</span>
+        </div>
+      </div>
+
+      <div class="skill-card s3">
+        <div class="icon">🩺</div>
+        <h3>lint-wiki</h3>
+        <p>Runs 7 health checks: orphan pages, dead links, stale content, contradictions,
+           coverage gaps, missing backlinks, and index consistency. Auto-fixes safe issues; asks before fixing warnings.</p>
+        <div class="triggers">
+          <span>lint the wiki</span>
+          <span>health-check</span>
+          <span>find broken links</span>
+          <span>find gaps</span>
+        </div>
+      </div>
+
+      <div class="skill-card s5">
+        <div class="icon">🧩</div>
+        <h3>make-skill-template</h3>
+        <p>A meta-skill for creating new skills. Scaffolds the folder structure, generates <code>SKILL.md</code>
+           with proper frontmatter, and supports bundled scripts, references, and assets.</p>
+        <div class="triggers">
+          <span>create a skill</span>
+          <span>scaffold a skill</span>
+          <span>make a new skill</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ END-TO-END WORKFLOW ═══════════════════════ -->
+<section>
+  <div class="container">
+    <h2>End-to-End Workflow</h2>
+    <p class="lead">A typical session flows through these stages. Each stage maps to a skill.</p>
+
+    <div class="workflow">
+      <div class="wf-step wf1">
+        <div class="circle">1</div>
+        <div class="label">Research</div>
+        <div class="desc">Fetch sources from the web → save to <code>raw/</code></div>
+      </div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-step wf2">
+        <div class="circle">2</div>
+        <div class="label">Build / Ingest</div>
+        <div class="desc">Compile raw sources into structured <code>wiki/</code> pages</div>
+      </div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-step wf3">
+        <div class="circle">3</div>
+        <div class="label">Query</div>
+        <div class="desc">Ask questions, get cited answers from the wiki</div>
+      </div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-step wf4">
+        <div class="circle">4</div>
+        <div class="label">File Analysis</div>
+        <div class="desc">Save substantial answers back into <code>wiki/analyses/</code></div>
+      </div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-step wf5">
+        <div class="circle">5</div>
+        <div class="label">Lint</div>
+        <div class="desc">Health-check for dead links, gaps, contradictions</div>
+      </div>
+    </div>
+
+    <div class="concept-box">
+      <h3>The Compounding Loop</h3>
+      <p>
+        The system is designed so that <strong>everything compounds</strong>. New sources strengthen existing
+        concept pages. Answered questions become analysis pages that future queries can reference.
+        Lint runs surface gaps that drive new research. The wiki gets richer with every interaction
+        — it's not just a static dump, it's a <em>living knowledge base</em>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ DIRECTORY STRUCTURE ═══════════════════════ -->
+<section>
+  <div class="container">
+    <h2>Project Structure</h2>
+    <p class="lead">Here's how the files are organized on disk.</p>
+    <div class="tree"><span class="dir">SE_Brain/</span>
+├── <span class="dir">raw/</span>                        <span class="comment"># Immutable source documents</span>
+│   ├── <span class="file">sources.md</span>              <span class="comment"># Manifest of all collected sources</span>
+│   ├── <span class="dir">assets/</span>                 <span class="comment"># Downloaded images &amp; binaries</span>
+│   └── <span class="file">*.md</span>                    <span class="comment"># Individual source files (YAML frontmatter)</span>
+│
+├── <span class="dir">wiki/</span>                       <span class="comment"># LLM-generated wiki (AI owns entirely)</span>
+│   ├── <span class="file">index.md</span>                <span class="comment"># Master catalog of all pages</span>
+│   ├── <span class="file">log.md</span>                  <span class="comment"># Append-only chronological record</span>
+│   ├── <span class="file">overview.md</span>             <span class="comment"># High-level synthesis</span>
+│   ├── <span class="dir">sources/</span>                <span class="comment"># One summary per raw source</span>
+│   ├── <span class="dir">concepts/</span>               <span class="comment"># Synthesized topic pages</span>
+│   ├── <span class="dir">entities/</span>               <span class="comment"># People, orgs, tools, places</span>
+│   ├── <span class="dir">comparisons/</span>            <span class="comment"># Side-by-side analyses</span>
+│   └── <span class="dir">analyses/</span>               <span class="comment"># Filed query answers</span>
+│
+└── <span class="dir">.github/</span>
+    ├── <span class="file">copilot-instructions.md</span> <span class="comment"># Schema: rules, conventions, workflows</span>
+    └── <span class="dir">skills/</span>
+        ├── <span class="dir">open-research/</span>      <span class="comment"># Skill: gather raw sources</span>
+        ├── <span class="dir">wiki-generator/</span>     <span class="comment"># Skill: build &amp; maintain wiki</span>
+        ├── <span class="dir">query-wiki/</span>         <span class="comment"># Skill: answer questions from wiki</span>
+        ├── <span class="dir">lint-wiki/</span>          <span class="comment"># Skill: health-check quality</span>
+        └── <span class="dir">make-skill-template/</span><span class="comment"># Skill: scaffold new skills</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ DATA FLOW ═══════════════════════ -->
+<section>
+  <div class="container">
+    <h2>How Data Flows</h2>
+    <p class="lead">Each skill reads from and writes to specific parts of the system.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th>Reads From</th>
+          <th>Writes To</th>
+          <th>Key Output</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>open-research</strong></td>
+          <td>Internet (web pages)</td>
+          <td><code>raw/*.md</code>, <code>raw/sources.md</code></td>
+          <td>Curated markdown source files</td>
+        </tr>
+        <tr>
+          <td><strong>wiki-generator</strong></td>
+          <td><code>raw/*.md</code></td>
+          <td><code>wiki/**/*.md</code></td>
+          <td>Summary, concept, entity, comparison pages</td>
+        </tr>
+        <tr>
+          <td><strong>query-wiki</strong></td>
+          <td><code>wiki/index.md</code> → wiki pages → <code>raw/</code> (fallback)</td>
+          <td><code>wiki/analyses/*.md</code> (filed answers)</td>
+          <td>Cited answers, filed analysis pages</td>
+        </tr>
+        <tr>
+          <td><strong>lint-wiki</strong></td>
+          <td><code>wiki/**/*.md</code>, <code>raw/</code></td>
+          <td><code>wiki/</code> (fixes), <code>wiki/log.md</code></td>
+          <td>Structured lint report + auto-fixes</td>
+        </tr>
+        <tr>
+          <td><strong>make-skill-template</strong></td>
+          <td>User instructions</td>
+          <td><code>.github/skills/&lt;name&gt;/SKILL.md</code></td>
+          <td>New skill folder &amp; SKILL.md</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CORE PRINCIPLES ═══════════════════════ -->
+<section>
+  <div class="container">
+    <h2>Core Principles</h2>
+    <p class="lead">Six rules that keep the wiki trustworthy and maintainable.</p>
+
+    <ol class="rules-list">
+      <li><strong>Never modify <code>raw/</code>.</strong> Source files are immutable. Only <code>sources.md</code> (the manifest) gets updated.</li>
+      <li><strong>Every claim traces to a source.</strong> No hallucinated facts. Every wiki statement is grounded in a raw source document.</li>
+      <li><strong>Flag contradictions, don't resolve them.</strong> When sources disagree, show both sides with citations. The user decides.</li>
+      <li><strong>Update incrementally.</strong> When new sources arrive, update existing pages — don't regenerate the whole wiki.</li>
+      <li><strong>Maintain cross-references.</strong> Every page links to related pages. Backlinks stay current. The index reflects reality.</li>
+      <li><strong>Explorations compound.</strong> Filed analysis pages are as valuable as ingested sources — they build the knowledge base over time.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ═══════════════════════ LINT CHECKS ═══════════════════════ -->
+<section>
+  <div class="container">
+    <h2>The 7 Lint Checks</h2>
+    <p class="lead">
+      The <strong>lint-wiki</strong> skill runs these checks to keep the wiki healthy as it grows.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Check</th>
+          <th>What It Finds</th>
+          <th>Severity</th>
+          <th>Auto-fix?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Orphan Pages</td><td>Pages with zero inbound links</td><td style="color:var(--orange)">warning</td><td>No</td></tr>
+        <tr><td>2</td><td>Dead Links</td><td>Links pointing to non-existent files</td><td style="color:var(--red)">error</td><td>Yes (typo fix)</td></tr>
+        <tr><td>3</td><td>Stale Content</td><td>Pages older than newer related sources</td><td style="color:var(--orange)">warning</td><td>No</td></tr>
+        <tr><td>4</td><td>Contradictions</td><td>Conflicting claims across pages</td><td style="color:var(--orange)">warning</td><td>No</td></tr>
+        <tr><td>5</td><td>Coverage Gaps</td><td>Concepts/entities mentioned but lacking a page</td><td style="color:var(--text-dim)">info</td><td>No</td></tr>
+        <tr><td>6</td><td>Missing Backlinks</td><td>Backlinks frontmatter out of date</td><td style="color:var(--red)">error</td><td>Yes</td></tr>
+        <tr><td>7</td><td>Index Consistency</td><td>Index doesn't match actual files on disk</td><td style="color:var(--red)">error</td><td>Yes</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════ EXAMPLE SESSION ═══════════════════════ -->
+<section>
+  <div class="container">
+    <h2>Example Session</h2>
+    <p class="lead">Here's what a real session might look like:</p>
+    <div class="concept-box" style="font-size: 0.92rem;">
+      <p style="color: var(--blue); font-weight: 600; margin-bottom: 4px;">👤 You:</p>
+      <p style="color: var(--text);">"Research the CAP theorem and distributed consensus algorithms"</p>
+      <p style="color: var(--accent-light); font-weight: 600; margin-bottom: 4px; margin-top: 16px;">🤖 Agent (open-research):</p>
+      <p style="color: var(--text);">Fetches 8 sources → saves to <code>raw/</code> → updates <code>sources.md</code></p>
+
+      <hr style="border: none; border-top: 1px solid var(--border); margin: 16px 0;">
+
+      <p style="color: var(--blue); font-weight: 600; margin-bottom: 4px;">👤 You:</p>
+      <p style="color: var(--text);">"Build the wiki"</p>
+      <p style="color: var(--accent-light); font-weight: 600; margin-bottom: 4px; margin-top: 16px;">🤖 Agent (wiki-generator):</p>
+      <p style="color: var(--text);">Creates 24 pages: 8 source summaries, 6 concepts (CAP theorem, Paxos, Raft, …), 7 entities (Leslie Lamport, …), 2 comparisons, 1 overview</p>
+
+      <hr style="border: none; border-top: 1px solid var(--border); margin: 16px 0;">
+
+      <p style="color: var(--blue); font-weight: 600; margin-bottom: 4px;">👤 You:</p>
+      <p style="color: var(--text);">"How does Raft differ from Paxos?"</p>
+      <p style="color: var(--accent-light); font-weight: 600; margin-bottom: 4px; margin-top: 16px;">🤖 Agent (query-wiki):</p>
+      <p style="color: var(--text);">Reads index → finds concept pages → produces comparison table with citations → offers to file as <code>wiki/analyses/raft-vs-paxos.md</code></p>
+
+      <hr style="border: none; border-top: 1px solid var(--border); margin: 16px 0;">
+
+      <p style="color: var(--blue); font-weight: 600; margin-bottom: 4px;">👤 You:</p>
+      <p style="color: var(--text);">"Lint the wiki"</p>
+      <p style="color: var(--accent-light); font-weight: 600; margin-bottom: 4px; margin-top: 16px;">🤖 Agent (lint-wiki):</p>
+      <p style="color: var(--text);">Finds 2 orphan pages, 1 missing backlink, suggests creating a page for "Byzantine fault tolerance" (mentioned in 4 sources)</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer>
+  <div class="container">
+    SE Brain — LLM Wiki Pattern &nbsp;·&nbsp; Powered by GitHub Copilot Agent Skills &nbsp;·&nbsp; All wiki content is AI-generated and source-cited
+  </div>
+</footer>
+
+</body>
+</html>
