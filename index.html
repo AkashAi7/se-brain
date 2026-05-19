@@ -184,6 +184,8 @@
   .s3 .icon { background: rgba(245,166,35,.15); color: var(--orange); }
   .s4 .icon { background: rgba(124,106,239,.15); color: var(--accent-light); }
   .s5 .icon { background: rgba(224,106,191,.15); color: var(--pink); }
+  .s6 .icon { background: rgba(106,224,239,.15); color: var(--cyan); }
+  .s7 .icon { background: rgba(239,106,106,.15); color: var(--red); }
 
   /* ─── Workflow Diagram ─── */
   .workflow {
@@ -448,7 +450,7 @@
 <!-- ═══════════════════════ THE 5 SKILLS ═══════════════════════ -->
 <section>
   <div class="container">
-    <h2>The 5 Skills</h2>
+    <h2>The 7 Skills</h2>
     <p class="lead">
       Skills are modular instruction sets that teach the LLM <em>how</em> to perform each part of the workflow.
       Each skill is a <code>SKILL.md</code> file with trigger phrases, prerequisites, and step-by-step workflows.
@@ -508,6 +510,32 @@
         </div>
       </div>
 
+      <div class="skill-card s6">
+        <div class="icon">📧</div>
+        <h3>work-research</h3>
+        <p>Gathers sources from <strong>internal workplace data</strong> — Outlook emails, Teams messages, meetings, and shared documents
+           via the WorkIQ MCP server. Saves results to <code>raw/</code> with a <code>work--</code> prefix for easy identification.</p>
+        <div class="triggers">
+          <span>check work emails about</span>
+          <span>find internal context on</span>
+          <span>what did the team discuss</span>
+          <span>gather internal sources</span>
+        </div>
+      </div>
+
+      <div class="skill-card s7">
+        <div class="icon">🎨</div>
+        <h3>html-explainer</h3>
+        <p>Converts dense markdown — wiki pages, raw sources, or LLM responses — into polished, self-contained HTML
+           explainer pages with dark theme, visual hierarchy, and responsive design. Saves to <code>html-files/</code>.</p>
+        <div class="triggers">
+          <span>visualize this</span>
+          <span>make an HTML explainer</span>
+          <span>convert to HTML</span>
+          <span>generate a visual summary</span>
+        </div>
+      </div>
+
       <div class="skill-card s5">
         <div class="icon">🧩</div>
         <h3>make-skill-template</h3>
@@ -534,7 +562,7 @@
       <div class="wf-step wf1">
         <div class="circle">1</div>
         <div class="label">Research</div>
-        <div class="desc">Fetch sources from the web → save to <code>raw/</code></div>
+        <div class="desc">Fetch sources from the web <em>or work email</em> → save to <code>raw/</code></div>
       </div>
       <div class="wf-arrow">→</div>
       <div class="wf-step wf2">
@@ -595,13 +623,19 @@
 │   ├── <span class="dir">comparisons/</span>            <span class="comment"># Side-by-side analyses</span>
 │   └── <span class="dir">analyses/</span>               <span class="comment"># Filed query answers</span>
 │
+├── <span class="dir">html-files/</span>                 <span class="comment"># Visual HTML explainer pages</span>
+│   ├── <span class="file">index.html</span>              <span class="comment"># Optional catalog of all explainers</span>
+│   └── <span class="file">*.html</span>                  <span class="comment"># Self-contained HTML pages (dark theme)</span>
+│
 └── <span class="dir">.github/</span>
     ├── <span class="file">copilot-instructions.md</span> <span class="comment"># Schema: rules, conventions, workflows</span>
     └── <span class="dir">skills/</span>
-        ├── <span class="dir">open-research/</span>      <span class="comment"># Skill: gather raw sources</span>
+        ├── <span class="dir">open-research/</span>      <span class="comment"># Skill: gather sources from the internet</span>
+        ├── <span class="dir">work-research/</span>      <span class="comment"># Skill: gather sources from work data (M365)</span>
         ├── <span class="dir">wiki-generator/</span>     <span class="comment"># Skill: build &amp; maintain wiki</span>
         ├── <span class="dir">query-wiki/</span>         <span class="comment"># Skill: answer questions from wiki</span>
         ├── <span class="dir">lint-wiki/</span>          <span class="comment"># Skill: health-check quality</span>
+        ├── <span class="dir">html-explainer/</span>     <span class="comment"># Skill: convert to visual HTML pages</span>
         └── <span class="dir">make-skill-template/</span><span class="comment"># Skill: scaffold new skills</span></div>
   </div>
 </section>
@@ -645,6 +679,18 @@
           <td><code>wiki/**/*.md</code>, <code>raw/</code></td>
           <td><code>wiki/</code> (fixes), <code>wiki/log.md</code></td>
           <td>Structured lint report + auto-fixes</td>
+        </tr>
+        <tr>
+          <td><strong>work-research</strong></td>
+          <td>Microsoft 365 (WorkIQ MCP server)</td>
+          <td><code>raw/work--*.md</code>, <code>raw/sources.md</code></td>
+          <td>Internal source files from emails, meetings, Teams</td>
+        </tr>
+        <tr>
+          <td><strong>html-explainer</strong></td>
+          <td><code>wiki/**/*.md</code>, <code>raw/*.md</code>, LLM responses</td>
+          <td><code>html-files/*.html</code></td>
+          <td>Self-contained visual HTML explainer pages</td>
         </tr>
         <tr>
           <td><strong>make-skill-template</strong></td>
