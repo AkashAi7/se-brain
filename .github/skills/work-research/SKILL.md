@@ -110,6 +110,8 @@ Use the `mcp_workiq_ask_work_iq` tool to search workplace data. Strategy:
 
 ### Step 4: Convert Results to Source Documents
 
+**This step is MANDATORY — do not skip it.** Every substantive result from WorkIQ MUST be written to disk as a markdown file in `raw/`. Do not just report findings to the user — actually create the files.
+
 For each substantive result from WorkIQ:
 
 1. **Extract the key content** — the actual information, discussion points, decisions made
@@ -118,10 +120,23 @@ For each substantive result from WorkIQ:
    - Timeline of the discussion
    - Any decisions or action items mentioned
    - Links to documents or resources shared
-3. **Add YAML frontmatter** with all metadata
-4. **Save to `raw/work--<slug>.md`**
+3. **Generate YAML frontmatter** with all required fields:
+   ```yaml
+   ---
+   title: "<Descriptive title>"
+   url: "outlook://message-id-or-reference"
+   date_retrieved: "<today's date>"
+   source_type: email | meeting | teams-message | document | calendar
+   source_origin: work-research
+   tags: [tag1, tag2]
+   participants: [person-a, person-b]
+   date_original: "<when the original communication happened>"
+   ---
+   ```
+4. **Create the file** at `raw/work--<slug>.md` using the file creation tool
+5. **Verify the file was created** before moving to the next result
 
-**Important:** Summarize and extract insights — don't dump raw email bodies wholesale. Focus on the knowledge content, not the email formatting.
+**Important:** Summarize and extract insights — don't dump raw email bodies wholesale. Focus on the knowledge content, not the email formatting. But DO create the actual file — the whole point is populating `raw/` for the wiki pipeline.
 
 ### Step 5: Handle Sensitive Content
 
@@ -135,7 +150,11 @@ Workplace data may contain sensitive information. Follow these rules:
 
 ### Step 6: Update the Source Manifest
 
-Add new entries to `raw/sources.md`:
+**This step is MANDATORY.** After all source files are created, update `raw/sources.md`:
+
+- If `raw/sources.md` does not exist, create it with the full manifest template (see open-research skill for format)
+- If it exists, append the new entries to the existing table
+- Increment the source count in the Summary section
 
 ```markdown
 | # | Title | Type | Tags | File |
@@ -144,14 +163,26 @@ Add new entries to `raw/sources.md`:
 | 15 | [Q3 Security Review Meeting](outlook://ref) | meeting | security, quarterly | [work--q3-security-review-meeting.md](work--q3-security-review-meeting.md) |
 ```
 
-### Step 7: Report Results to the User
+### Step 7: Report Results and Offer Wiki Build
 
 Provide a summary:
-- How many internal sources were collected
+- How many internal sources were collected and saved to `raw/`
 - Brief description of each (1 line)
 - Key people/threads surfaced
 - Suggestions for follow-up queries or areas to dig deeper
 - Note if any results seem stale or contradictory
+
+**Then immediately offer the next steps in this order:**
+
+1. **"Would you like me to build/update the wiki from these sources?"** — Trigger the wiki-generator skill to ingest the new raw sources into structured wiki pages.
+2. **"Would you also like me to do open-research on this topic?"** — Suggest complementing internal knowledge with external public sources for full coverage.
+
+**Do NOT stop after just reporting.** The natural flow is:
+```
+work-research (query + save to raw/) → wiki-generator (ingest into wiki/) → done
+```
+
+If the user says yes to wiki build, immediately proceed to run the wiki-generator skill's Ingest workflow on the newly created sources.
 
 ## Immutability Rule
 

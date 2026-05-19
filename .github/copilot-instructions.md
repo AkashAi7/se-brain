@@ -101,9 +101,10 @@ backlinks: [wiki/concepts/related.md]
 
 ### When the user asks to research from work data
 1. Use the **work-research** skill to query the WorkIQ MCP server for internal workplace sources (Outlook emails, Teams messages, meetings, documents).
-2. Save results to `raw/` with `work--` prefix and `source_origin: work-research` in frontmatter.
-3. After collecting, offer to build or update the wiki.
-4. For comprehensive coverage, suggest combining with **open-research** for external sources on the same topic.
+2. **Convert every substantive result into a markdown file** in `raw/` with `work--` prefix and `source_origin: work-research` in frontmatter. Do not just report results — create the files.
+3. Update `raw/sources.md` manifest with all new entries.
+4. After collecting and saving all sources, **offer to build or update the wiki** using the wiki-generator skill.
+5. For comprehensive coverage, suggest combining with **open-research** for external sources on the same topic.
 
 ### When the user asks you to build or update the wiki
 1. Use the **wiki-generator** skill.
