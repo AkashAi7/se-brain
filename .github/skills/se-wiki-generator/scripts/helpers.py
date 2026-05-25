@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Helper utilities for the wiki-generator skill.
+Helper utilities for the se-wiki-generator skill.
 Generates slugs, frontmatter, backlink maps, and index tables.
 """
 

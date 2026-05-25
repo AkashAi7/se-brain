@@ -1,5 +1,5 @@
 ---
-name: lint-wiki
+name: se-lint-wiki
 description: 'Health-check and maintain quality of an LLM-generated wiki. Use when asked to "lint the wiki", "health-check wiki", "check wiki quality", "find broken links", "find orphan pages", "check for contradictions", "find gaps in the wiki", "validate wiki", or "audit wiki". Scans wiki/ for orphan pages, dead links, stale content, contradictions, missing backlinks, coverage gaps, and index inconsistencies. Produces a structured report and offers to auto-fix safe issues.'
 ---
 
@@ -17,7 +17,7 @@ Periodically health-check the wiki to keep it accurate, well-linked, and complet
 
 ## Prerequisites
 
-- A `wiki/` directory with existing pages (produced by the **wiki-generator** skill)
+- A `wiki/` directory with existing pages (produced by the **se-wiki-generator** skill)
 - A `raw/` directory with source files for cross-checking coverage
 - `wiki/index.md` for index consistency checks
 
@@ -265,7 +265,7 @@ Auto-fix: Add missing pages to index, remove phantom entries.
 - **Don't fix everything at once.** Focus on errors first, then warnings. Info items are suggestions, not problems.
 - **Coverage gaps are research leads.** When the lint finds a concept mentioned in 3+ sources but lacking a page, that's a signal it's important enough to deserve one.
 - **Contradictions are the most valuable findings.** They tell the user where to dig deeper or re-evaluate sources.
-- **Run the helpers script for quick checks.** Use `python .github/skills/wiki-generator/scripts/helpers.py orphans wiki/` for a fast orphan scan without a full lint.
+- **Run the helpers script for quick checks.** Use `python .github/skills/se-wiki-generator/scripts/helpers.py orphans wiki/` for a fast orphan scan without a full lint.
 
 ## Troubleshooting
 

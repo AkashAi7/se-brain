@@ -1,5 +1,5 @@
 ---
-name: open-research
+name: se-open-research
 description: 'Research a topic on the internet and build a curated collection of raw source documents. Use when asked to "research a topic", "gather sources", "collect articles", "find papers on", "build a source collection", "populate raw sources", "open research on", or "curate sources for". Fetches web articles, papers, and data, converts them to markdown, and saves them as immutable files in a raw/ directory. Supports the LLM Wiki pattern by populating the raw source layer.'
 ---
 

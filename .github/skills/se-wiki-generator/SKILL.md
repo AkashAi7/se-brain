@@ -1,5 +1,5 @@
 ---
-name: wiki-generator
+name: se-wiki-generator
 description: 'Incrementally build and maintain an LLM-generated wiki from raw source documents. Use when asked to "build the wiki", "generate wiki", "ingest sources", "update wiki", "compile wiki", "create wiki pages", "synthesize sources", "link concepts", "lint wiki", or "health-check wiki". Reads from raw/ sources and produces a structured, interlinked collection of markdown files in wiki/ — summaries, entity pages, concept pages, comparisons, an overview, and a synthesis. Maintains cross-references, backlinks, index, and changelog automatically.'
 ---
 
@@ -18,7 +18,7 @@ Incrementally compile and maintain a structured, interlinked wiki from the raw s
 
 ## Prerequisites
 
-- A `raw/` directory with at least one source file (produced by the **open-research** skill or added manually)
+- A `raw/` directory with at least one source file (produced by the **se-open-research** skill or added manually)
 - Each source in `raw/` should have YAML frontmatter with `title`, `url`, `date_retrieved`, `source_type`, and `tags`
 - `raw/sources.md` manifest (recommended but not required — the skill can scan `raw/*.md` directly)
 
@@ -360,7 +360,7 @@ The wiki is designed to grow incrementally. Key principle: **never regenerate fr
 
 | Issue | Solution |
 |-------|---------|
-| No `raw/` directory or empty | Run the **open-research** skill first to populate sources. |
+| No `raw/` directory or empty | Run the **se-open-research** skill first to populate sources. |
 | Source has no frontmatter | Parse what you can from the filename and content. Note the missing metadata in the source summary. |
 | Wiki pages are getting too long | Split into sub-pages (e.g., `concepts/machine-learning/supervised.md`) and link from the parent. |
 | Backlinks are stale | Run the **lint** operation to detect and fix stale backlinks. |

@@ -603,7 +603,7 @@
 
       <div class="skill-card s1">
         <div class="icon">🔍</div>
-        <h3>open-research</h3>
+        <h3>se-open-research</h3>
         <p>Scours the internet for articles, papers, and data on a given topic. Converts each to clean markdown
            with YAML frontmatter and saves them as immutable files in <code>raw/</code>. Builds the source manifest.</p>
         <div class="triggers">
@@ -616,7 +616,7 @@
 
       <div class="skill-card s2">
         <div class="icon">🏗️</div>
-        <h3>wiki-generator</h3>
+        <h3>se-wiki-generator</h3>
         <p>Reads every raw source and compiles the <code>wiki/</code> — source summaries, concept pages, entity profiles,
            comparisons, overview, index, and changelog. Updates incrementally when new sources arrive.</p>
         <div class="triggers">
@@ -629,7 +629,7 @@
 
       <div class="skill-card s4">
         <div class="icon">💬</div>
-        <h3>query-wiki</h3>
+        <h3>se-query-wiki</h3>
         <p>Answers questions by searching the wiki index, reading relevant pages, and synthesizing cited answers.
            Substantial answers get filed as <code>wiki/analyses/</code> pages so insights compound over time.</p>
         <div class="triggers">
@@ -642,7 +642,7 @@
 
       <div class="skill-card s3">
         <div class="icon">🩺</div>
-        <h3>lint-wiki</h3>
+        <h3>se-lint-wiki</h3>
         <p>Runs 7 health checks: orphan pages, dead links, stale content, contradictions,
            coverage gaps, missing backlinks, and index consistency. Auto-fixes safe issues; asks before fixing warnings.</p>
         <div class="triggers">
@@ -655,7 +655,7 @@
 
       <div class="skill-card s6">
         <div class="icon">📧</div>
-        <h3>work-research</h3>
+        <h3>se-work-research</h3>
         <p>Gathers sources from <strong>internal workplace data</strong> — Outlook emails, Teams messages, meetings, and shared documents
            via the WorkIQ MCP server. Saves results to <code>raw/</code> with a <code>work--</code> prefix for easy identification.</p>
         <div class="triggers">
@@ -668,7 +668,7 @@
 
       <div class="skill-card s7">
         <div class="icon">🎨</div>
-        <h3>html-explainer</h3>
+        <h3>se-html-explainer</h3>
         <p>Converts dense markdown — wiki pages, raw sources, or LLM responses — into polished, self-contained HTML
            explainer pages with dark theme, visual hierarchy, and responsive design. Saves to <code>html-files/</code>.</p>
         <div class="triggers">
@@ -681,7 +681,7 @@
 
       <div class="skill-card s5">
         <div class="icon">🧩</div>
-        <h3>make-skill-template</h3>
+        <h3>se-make-skill-template</h3>
         <p>A meta-skill for creating new skills. Scaffolds the folder structure, generates <code>SKILL.md</code>
            with proper frontmatter, and supports bundled scripts, references, and assets.</p>
         <div class="triggers">
@@ -835,13 +835,13 @@
 └── <span class="dir">.github/</span>
     ├── <span class="file">copilot-instructions.md</span> <span class="comment"># Schema: rules, conventions, workflows</span>
     └── <span class="dir">skills/</span>
-        ├── <span class="dir">open-research/</span>      <span class="comment"># Skill: gather sources from the internet</span>
-        ├── <span class="dir">work-research/</span>      <span class="comment"># Skill: gather sources from work data (M365)</span>
-        ├── <span class="dir">wiki-generator/</span>     <span class="comment"># Skill: build &amp; maintain wiki</span>
-        ├── <span class="dir">query-wiki/</span>         <span class="comment"># Skill: answer questions from wiki</span>
-        ├── <span class="dir">lint-wiki/</span>          <span class="comment"># Skill: health-check quality</span>
-        ├── <span class="dir">html-explainer/</span>     <span class="comment"># Skill: convert to visual HTML pages</span>
-        └── <span class="dir">make-skill-template/</span><span class="comment"># Skill: scaffold new skills</span></div>
+        ├── <span class="dir">se-open-research/</span>      <span class="comment"># Skill: gather sources from the internet</span>
+        ├── <span class="dir">se-work-research/</span>      <span class="comment"># Skill: gather sources from work data (M365)</span>
+        ├── <span class="dir">se-wiki-generator/</span>     <span class="comment"># Skill: build &amp; maintain wiki</span>
+        ├── <span class="dir">se-query-wiki/</span>         <span class="comment"># Skill: answer questions from wiki</span>
+        ├── <span class="dir">se-lint-wiki/</span>          <span class="comment"># Skill: health-check quality</span>
+        ├── <span class="dir">se-html-explainer/</span>     <span class="comment"># Skill: convert to visual HTML pages</span>
+        └── <span class="dir">se-make-skill-template/</span><span class="comment"># Skill: scaffold new skills</span></div>
   </div>
 </section>
 
@@ -862,43 +862,43 @@
       </thead>
       <tbody>
         <tr>
-          <td><strong>open-research</strong></td>
+          <td><strong>se-open-research</strong></td>
           <td>Internet (web pages)</td>
           <td><code>raw/*.md</code>, <code>raw/sources.md</code></td>
           <td>Curated markdown source files</td>
         </tr>
         <tr>
-          <td><strong>wiki-generator</strong></td>
+          <td><strong>se-wiki-generator</strong></td>
           <td><code>raw/*.md</code></td>
           <td><code>wiki/**/*.md</code></td>
           <td>Summary, concept, entity, comparison pages</td>
         </tr>
         <tr>
-          <td><strong>query-wiki</strong></td>
+          <td><strong>se-query-wiki</strong></td>
           <td><code>wiki/index.md</code> → wiki pages → <code>raw/</code> (fallback)</td>
           <td><code>wiki/analyses/*.md</code> (filed answers)</td>
           <td>Cited answers, filed analysis pages</td>
         </tr>
         <tr>
-          <td><strong>lint-wiki</strong></td>
+          <td><strong>se-lint-wiki</strong></td>
           <td><code>wiki/**/*.md</code>, <code>raw/</code></td>
           <td><code>wiki/</code> (fixes), <code>wiki/log.md</code></td>
           <td>Structured lint report + auto-fixes</td>
         </tr>
         <tr>
-          <td><strong>work-research</strong></td>
+          <td><strong>se-work-research</strong></td>
           <td>Microsoft 365 (WorkIQ MCP server)</td>
           <td><code>raw/work--*.md</code>, <code>raw/sources.md</code></td>
           <td>Internal source files from emails, meetings, Teams</td>
         </tr>
         <tr>
-          <td><strong>html-explainer</strong></td>
+          <td><strong>se-html-explainer</strong></td>
           <td><code>wiki/**/*.md</code>, <code>raw/*.md</code>, LLM responses</td>
           <td><code>html-files/*.html</code></td>
           <td>Self-contained visual HTML explainer pages</td>
         </tr>
         <tr>
-          <td><strong>make-skill-template</strong></td>
+          <td><strong>se-make-skill-template</strong></td>
           <td>User instructions</td>
           <td><code>.github/skills/&lt;name&gt;/SKILL.md</code></td>
           <td>New skill folder &amp; SKILL.md</td>
@@ -930,7 +930,7 @@
   <div class="container">
     <h2>The 7 Lint Checks</h2>
     <p class="lead">
-      The <strong>lint-wiki</strong> skill runs these checks to keep the wiki healthy as it grows.
+      The <strong>se-lint-wiki</strong> skill runs these checks to keep the wiki healthy as it grows.
     </p>
 
     <table>
@@ -964,28 +964,28 @@
     <div class="concept-box" style="font-size: 0.92rem;">
       <p style="color: var(--blue); font-weight: 600; margin-bottom: 4px;">👤 You:</p>
       <p style="color: var(--text);">"Research the CAP theorem and distributed consensus algorithms"</p>
-      <p style="color: var(--accent-light); font-weight: 600; margin-bottom: 4px; margin-top: 16px;">🤖 Agent (open-research):</p>
+      <p style="color: var(--accent-light); font-weight: 600; margin-bottom: 4px; margin-top: 16px;">🤖 Agent (se-open-research):</p>
       <p style="color: var(--text);">Fetches 8 sources → saves to <code>raw/</code> → updates <code>sources.md</code></p>
 
       <hr style="border: none; border-top: 1px solid var(--border); margin: 16px 0;">
 
       <p style="color: var(--blue); font-weight: 600; margin-bottom: 4px;">👤 You:</p>
       <p style="color: var(--text);">"Build the wiki"</p>
-      <p style="color: var(--accent-light); font-weight: 600; margin-bottom: 4px; margin-top: 16px;">🤖 Agent (wiki-generator):</p>
+      <p style="color: var(--accent-light); font-weight: 600; margin-bottom: 4px; margin-top: 16px;">🤖 Agent (se-wiki-generator):</p>
       <p style="color: var(--text);">Creates 24 pages: 8 source summaries, 6 concepts (CAP theorem, Paxos, Raft, …), 7 entities (Leslie Lamport, …), 2 comparisons, 1 overview</p>
 
       <hr style="border: none; border-top: 1px solid var(--border); margin: 16px 0;">
 
       <p style="color: var(--blue); font-weight: 600; margin-bottom: 4px;">👤 You:</p>
       <p style="color: var(--text);">"How does Raft differ from Paxos?"</p>
-      <p style="color: var(--accent-light); font-weight: 600; margin-bottom: 4px; margin-top: 16px;">🤖 Agent (query-wiki):</p>
+      <p style="color: var(--accent-light); font-weight: 600; margin-bottom: 4px; margin-top: 16px;">🤖 Agent (se-query-wiki):</p>
       <p style="color: var(--text);">Reads index → finds concept pages → produces comparison table with citations → offers to file as <code>wiki/analyses/raft-vs-paxos.md</code></p>
 
       <hr style="border: none; border-top: 1px solid var(--border); margin: 16px 0;">
 
       <p style="color: var(--blue); font-weight: 600; margin-bottom: 4px;">👤 You:</p>
       <p style="color: var(--text);">"Lint the wiki"</p>
-      <p style="color: var(--accent-light); font-weight: 600; margin-bottom: 4px; margin-top: 16px;">🤖 Agent (lint-wiki):</p>
+      <p style="color: var(--accent-light); font-weight: 600; margin-bottom: 4px; margin-top: 16px;">🤖 Agent (se-lint-wiki):</p>
       <p style="color: var(--text);">Finds 2 orphan pages, 1 missing backlink, suggests creating a page for "Byzantine fault tolerance" (mentioned in 4 sources)</p>
     </div>
   </div>

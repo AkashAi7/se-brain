@@ -1,5 +1,5 @@
 ---
-name: html-explainer
+name: se-html-explainer
 description: 'Convert verbose markdown files, wiki pages, or LLM responses into clean, visually appealing, conceptually clear HTML explainer pages. Use when asked to "explain this visually", "make an HTML explainer", "convert to HTML", "visualize this markdown", "make this easier to understand", "create an HTML view", "generate a visual summary", or when the user wants a polished, browsable HTML page from dense text. Saves output to html-files/ directory. Supports single-page and batch conversion.'
 ---
 

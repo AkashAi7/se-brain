@@ -29,12 +29,12 @@
 └── .github/
     ├── copilot-instructions.md # This file — the schema
     └── skills/
-        ├── open-research/      # Skill: gather raw sources from the internet
-        ├── wiki-generator/     # Skill: build and maintain the wiki from raw sources
-        ├── lint-wiki/          # Skill: health-check the wiki for quality issues
-        ├── work-research/      # Skill: gather raw sources from workplace data (WorkIQ)
-        ├── query-wiki/         # Skill: answer questions from wiki with citations
-        └── html-explainer/     # Skill: convert markdown/responses to visual HTML explainers
+        ├── se-open-research/      # Skill: gather raw sources from the internet
+        ├── se-wiki-generator/     # Skill: build and maintain the wiki from raw sources
+        ├── se-lint-wiki/          # Skill: health-check the wiki for quality issues
+        ├── se-work-research/      # Skill: gather raw sources from workplace data (WorkIQ)
+        ├── se-query-wiki/         # Skill: answer questions from wiki with citations
+        └── se-html-explainer/     # Skill: convert markdown/responses to visual HTML explainers
 ```
 
 ## Your Role
@@ -96,24 +96,24 @@ backlinks: [wiki/concepts/related.md]
 ## Workflows
 
 ### When the user asks you to research a topic
-1. Use the **open-research** skill to gather sources into `raw/`.
+1. Use the **se-open-research** skill to gather sources into `raw/`.
 2. After collecting sources, offer to build or update the wiki.
 
 ### When the user asks to research from work data
-1. Use the **work-research** skill to query the WorkIQ MCP server for internal workplace sources (Outlook emails, Teams messages, meetings, documents).
+1. Use the **se-work-research** skill to query the WorkIQ MCP server for internal workplace sources (Outlook emails, Teams messages, meetings, documents).
 2. **Convert every substantive result into a markdown file** in `raw/` with `work--` prefix and `source_origin: work-research` in frontmatter. Do not just report results — create the files.
 3. Update `raw/sources.md` manifest with all new entries.
-4. After collecting and saving all sources, **offer to build or update the wiki** using the wiki-generator skill.
-5. For comprehensive coverage, suggest combining with **open-research** for external sources on the same topic.
+4. After collecting and saving all sources, **offer to build or update the wiki** using the se-wiki-generator skill.
+5. For comprehensive coverage, suggest combining with **se-open-research** for external sources on the same topic.
 
 ### When the user asks you to build or update the wiki
-1. Use the **wiki-generator** skill.
+1. Use the **se-wiki-generator** skill.
 2. If the wiki doesn't exist yet, run a **Full Build** (create directory structure, ingest all sources, cross-reference pass).
 3. If the wiki exists and new sources are in `raw/`, run **Ingest** on each new source.
 4. Always report what was created/updated and highlight interesting findings.
 
 ### When the user asks a question
-1. Use the **query-wiki** skill.
+1. Use the **se-query-wiki** skill.
 2. **Read `wiki/index.md` first** to find relevant pages.
 3. Read the relevant wiki pages to gather synthesized knowledge.
 4. If wiki pages don't have enough detail, fall back to reading relevant `raw/` source files directly.
@@ -121,10 +121,10 @@ backlinks: [wiki/concepts/related.md]
 6. **Choose the right output format** based on the question type (see Answer Formats below).
 7. If the answer is substantial (synthesizes 3+ pages, reveals new connections, or is a comparison), **file it into the wiki** as `wiki/analyses/<slug>.md`.
 8. When filing: update `wiki/index.md`, update backlinks on all referenced pages, and append to `wiki/log.md`.
-9. If answering reveals a gap (topic not covered, concept page missing, stale info), note it and offer to fix it — or suggest running **lint-wiki**.
+9. If answering reveals a gap (topic not covered, concept page missing, stale info), note it and offer to fix it — or suggest running **se-lint-wiki**.
 
 ### When the user asks to lint or health-check
-1. Use the **lint-wiki** skill.
+1. Use the **se-lint-wiki** skill.
 2. Run all 7 checks: orphan pages, dead links, stale content, contradictions, coverage gaps, missing backlinks, index consistency.
 3. Present findings as a structured lint report with severity levels (error/warning/info).
 4. Auto-fix safe issues (backlinks, index). Ask before fixing warnings.
@@ -138,7 +138,7 @@ backlinks: [wiki/concepts/related.md]
 - If you notice stale backlinks or dead links while answering a question, flag it and offer a lint run.
 
 ### When the user asks for an HTML explainer
-1. Use the **html-explainer** skill.
+1. Use the **se-html-explainer** skill.
 2. Identify the source content — a wiki page, raw source, markdown file, or the last LLM response.
 3. Restructure the content for conceptual clarity (don't just reformat — rethink the layout).
 4. Generate a self-contained HTML file with inline CSS, dark theme, and visual hierarchy.
@@ -149,7 +149,7 @@ backlinks: [wiki/concepts/related.md]
 ### When the user adds a source manually
 1. Check if the source has proper frontmatter. If not, generate it from the content.
 2. Update `raw/sources.md` manifest.
-3. Run the Ingest workflow from the wiki-generator skill.
+3. Run the Ingest workflow from the se-wiki-generator skill.
 
 ## Indexing and Logging
 

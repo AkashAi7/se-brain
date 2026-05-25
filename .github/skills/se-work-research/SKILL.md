@@ -1,6 +1,6 @@
 ---
-name: work-research
-description: 'Research topics from internal work sources (Outlook emails, Teams messages, meetings, documents) using the WorkIQ MCP server. Use when asked to "check work emails about", "find internal context on", "what did the team discuss about", "pull from emails", "gather internal sources", "work research on", "find meeting notes about", "what emails mention X", or when building source material from Microsoft 365 workplace data. Saves results as immutable raw source files in raw/ directory, same as open-research but from internal workplace sources.'
+name: se-work-research
+description: 'Research topics from internal work sources (Outlook emails, Teams messages, meetings, documents) using the WorkIQ MCP server. Use when asked to "check work emails about", "find internal context on", "what did the team discuss about", "pull from emails", "gather internal sources", "work research on", "find meeting notes about", "what emails mention X", or when building source material from Microsoft 365 workplace data. Saves results as immutable raw source files in raw/ directory, same as se-open-research but from internal workplace sources.'
 ---
 
 # Work Research
@@ -14,7 +14,7 @@ Gather raw sources from **internal workplace data** — Outlook emails, Teams me
 - User says "find internal context on X", "pull from emails about X"
 - User says "gather internal sources on X", "work research on X"
 - User says "what meetings discussed X", "find Teams messages about X"
-- User wants to combine internal knowledge with external research (use alongside **open-research**)
+- User wants to combine internal knowledge with external research (use alongside **se-open-research**)
 - User is building context for onboarding from real workplace conversations
 
 ## Prerequisites
@@ -27,7 +27,7 @@ Gather raw sources from **internal workplace data** — Outlook emails, Teams me
 
 ## How It Differs from Open Research
 
-| Aspect | open-research | work-research |
+| Aspect | se-open-research | se-work-research |
 |--------|--------------|---------------|
 | Source | Public internet (web articles, papers) | Microsoft 365 (emails, Teams, meetings, docs) |
 | Tool | `fetch_webpage` | `mcp_workiq_ask_work_iq` |
@@ -37,11 +37,11 @@ Gather raw sources from **internal workplace data** — Outlook emails, Teams me
 
 ## Directory Structure
 
-Same as open-research — sources land in `raw/`:
+Same as se-open-research — sources land in `raw/`:
 
 ```
 raw/
-├── sources.md              # Manifest (shared with open-research sources)
+├── sources.md              # Manifest (shared with se-open-research sources)
 ├── assets/                 # Downloaded attachments if relevant
 ├── <source-slug>.md        # Individual source documents from work
 └── ...
@@ -72,7 +72,7 @@ date_original: "2026-05-15"
 ---
 ```
 
-**Additional fields vs open-research:**
+**Additional fields vs se-open-research:**
 - `source_origin: work-research` — marks this as internal workplace data
 - `participants` — people involved in the email/meeting/thread
 - `date_original` — when the original communication happened (not when retrieved)
@@ -152,7 +152,7 @@ Workplace data may contain sensitive information. Follow these rules:
 
 **This step is MANDATORY.** After all source files are created, update `raw/sources.md`:
 
-- If `raw/sources.md` does not exist, create it with the full manifest template (see open-research skill for format)
+- If `raw/sources.md` does not exist, create it with the full manifest template (see se-open-research skill for format)
 - If it exists, append the new entries to the existing table
 - Increment the source count in the Summary section
 
@@ -174,15 +174,15 @@ Provide a summary:
 
 **Then immediately offer the next steps in this order:**
 
-1. **"Would you like me to build/update the wiki from these sources?"** — Trigger the wiki-generator skill to ingest the new raw sources into structured wiki pages.
-2. **"Would you also like me to do open-research on this topic?"** — Suggest complementing internal knowledge with external public sources for full coverage.
+1. **"Would you like me to build/update the wiki from these sources?"** — Trigger the se-wiki-generator skill to ingest the new raw sources into structured wiki pages.
+2. **"Would you also like me to do se-open-research on this topic?"** — Suggest complementing internal knowledge with external public sources for full coverage.
 
 **Do NOT stop after just reporting.** The natural flow is:
 ```
-work-research (query + save to raw/) → wiki-generator (ingest into wiki/) → done
+se-work-research (query + save to raw/) → se-wiki-generator (ingest into wiki/) → done
 ```
 
-If the user says yes to wiki build, immediately proceed to run the wiki-generator skill's Ingest workflow on the newly created sources.
+If the user says yes to wiki build, immediately proceed to run the se-wiki-generator skill's Ingest workflow on the newly created sources.
 
 ## Immutability Rule
 
@@ -194,9 +194,9 @@ The only exception is `raw/sources.md`, which is updated whenever new sources ar
 
 The most powerful workflow combines both skills:
 
-1. **work-research** first — gather what the team already knows internally
-2. **open-research** second — fill gaps with external public sources
-3. **wiki-generator** — build the wiki from both internal and external sources together
+1. **se-work-research** first — gather what the team already knows internally
+2. **se-open-research** second — fill gaps with external public sources
+3. **se-wiki-generator** — build the wiki from both internal and external sources together
 
 This gives the wiki a mix of:
 - What the market/industry says (external)

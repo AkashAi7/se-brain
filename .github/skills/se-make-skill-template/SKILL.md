@@ -1,5 +1,5 @@
 ---
-name: make-skill-template
+name: se-make-skill-template
 description: 'Create new Agent Skills for GitHub Copilot from prompts or by duplicating this template. Use when asked to "create a skill", "make a new skill", "scaffold a skill", or when building specialized AI capabilities with bundled resources. Generates SKILL.md files with proper frontmatter, directory structure, and optional scripts/references/assets folders.'
 ---
 
@@ -114,7 +114,7 @@ my-awesome-skill/
 
 ## Quick Start: Duplicate This Template
 
-1. Copy the `make-skill-template/` folder
+1. Copy the `se-make-skill-template/` folder
 2. Rename to your skill name (lowercase, hyphens)
 3. Update `SKILL.md`:
    - Change `name:` to match folder name

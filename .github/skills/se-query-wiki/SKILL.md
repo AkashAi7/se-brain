@@ -1,5 +1,5 @@
 ---
-name: query-wiki
+name: se-query-wiki
 description: 'Answer complex questions by searching and synthesizing from the LLM wiki. Use when asked to "query the wiki", "answer from wiki", "what does the wiki say about", "synthesize an answer", "compare X and Y", "analyze X", "summarize what we know about", or any question that should be answered from the knowledge base. Searches wiki/index.md, reads relevant pages, synthesizes answers with citations, and optionally files answers back into wiki/analyses/ so insights compound over time. Supports multiple output formats: markdown, comparison tables, and structured analyses.'
 ---
 
@@ -18,7 +18,7 @@ Answer questions by searching the wiki, reading relevant pages, and synthesizing
 
 ## Prerequisites
 
-- A `wiki/` directory with pages (produced by the **wiki-generator** skill)
+- A `wiki/` directory with pages (produced by the **se-wiki-generator** skill)
 - `wiki/index.md` — the master catalog used to find relevant pages
 - For rich answers: `raw/` sources available as fallback for detail the wiki summaries may lack
 
@@ -83,7 +83,7 @@ Compose the answer following these rules:
 3. **Acknowledge gaps.** If the wiki doesn't fully cover the question:
    > The wiki doesn't currently have a dedicated page on this subtopic. Based on available sources, here's what we know: [...]. I can create a new concept page if you'd like.
 
-4. **Don't hallucinate.** If the wiki and raw sources don't contain the answer, say so. Offer to research the topic using the **open-research** skill.
+4. **Don't hallucinate.** If the wiki and raw sources don't contain the answer, say so. Offer to research the topic using the **se-open-research** skill.
 
 ### Step 6: Choose the Output Format
 
@@ -177,10 +177,10 @@ backlinks: []
 ## Handling Edge Cases
 
 ### Question outside wiki scope
-> The wiki doesn't cover this topic yet. I can research it using the **open-research** skill to gather sources, then build wiki pages on it. Want me to proceed?
+> The wiki doesn't cover this topic yet. I can research it using the **se-open-research** skill to gather sources, then build wiki pages on it. Want me to proceed?
 
 ### Wiki is empty or doesn't exist
-> The wiki hasn't been built yet. Run the **wiki-generator** skill first to compile the wiki from raw sources, then I can answer questions against it.
+> The wiki hasn't been built yet. Run the **se-wiki-generator** skill first to compile the wiki from raw sources, then I can answer questions against it.
 
 ### Answer contradicts itself
 Never hide contradictions. Present both sides:
@@ -205,8 +205,8 @@ Mark speculative claims clearly so the user knows the difference.
 
 | Issue | Solution |
 |-------|---------|
-| `wiki/index.md` missing | The wiki hasn't been built. Run **wiki-generator** first. |
-| Index is stale | Run **lint-wiki** to check index consistency, then rebuild. |
-| Answer requires info not in any source | Say so explicitly. Don't make things up. Offer to research with **open-research**. |
+| `wiki/index.md` missing | The wiki hasn't been built. Run **se-wiki-generator** first. |
+| Index is stale | Run **se-lint-wiki** to check index consistency, then rebuild. |
+| Answer requires info not in any source | Say so explicitly. Don't make things up. Offer to research with **se-open-research**. |
 | Too many relevant pages | Prioritize: concept pages > entity pages > source summaries. Read the most-linked pages first. |
 | User wants a format you can't produce | Stay within markdown. Tables, headings, bullet points, and code blocks handle most needs. Note the limitation if the user wants something like a chart. |

@@ -31,13 +31,13 @@ Skills are modular instruction sets (`.github/skills/*/SKILL.md`) that teach Cop
 
 | Skill | What It Does | Trigger Phrases |
 |-------|-------------|-----------------|
-| **open-research** | Fetches sources from the internet → saves to `raw/` | "research X", "gather sources", "find papers on" |
-| **wiki-generator** | Compiles raw sources into structured `wiki/` pages | "build the wiki", "ingest sources", "update wiki" |
-| **query-wiki** | Answers questions from the wiki with citations | "what does the wiki say about", "compare X and Y" |
-| **lint-wiki** | Health-checks the wiki (dead links, gaps, contradictions) | "lint the wiki", "health-check", "find gaps" |
-| **work-research** | Gathers sources from M365 (emails, Teams, meetings) | "check work emails about", "find internal context on" |
-| **html-explainer** | Converts markdown/responses to visual HTML pages | "visualize this", "make an HTML explainer" |
-| **make-skill-template** | Scaffolds new custom skills | "create a skill", "scaffold a skill" |
+| **se-open-research** | Fetches sources from the internet → saves to `raw/` | "research X", "gather sources", "find papers on" |
+| **se-wiki-generator** | Compiles raw sources into structured `wiki/` pages | "build the wiki", "ingest sources", "update wiki" |
+| **se-query-wiki** | Answers questions from the wiki with citations | "what does the wiki say about", "compare X and Y" |
+| **se-lint-wiki** | Health-checks the wiki (dead links, gaps, contradictions) | "lint the wiki", "health-check", "find gaps" |
+| **se-work-research** | Gathers sources from M365 (emails, Teams, meetings) | "check work emails about", "find internal context on" |
+| **se-html-explainer** | Converts markdown/responses to visual HTML pages | "visualize this", "make an HTML explainer" |
+| **se-make-skill-template** | Scaffolds new custom skills | "create a skill", "scaffold a skill" |
 
 ## Typical Workflow
 
@@ -86,13 +86,13 @@ Everything compounds: new sources strengthen existing pages, answered questions 
 └── .github/
     ├── copilot-instructions.md # Schema: rules, conventions, workflows
     └── skills/                 # Modular skill definitions
-        ├── open-research/
-        ├── work-research/
-        ├── wiki-generator/
-        ├── query-wiki/
-        ├── lint-wiki/
-        ├── html-explainer/
-        └── make-skill-template/
+        ├── se-open-research/
+        ├── se-work-research/
+        ├── se-wiki-generator/
+        ├── se-query-wiki/
+        ├── se-lint-wiki/
+        ├── se-html-explainer/
+        └── se-make-skill-template/
 ```
 
 ## Requirements

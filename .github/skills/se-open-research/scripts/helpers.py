@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Helper utilities for the open-research skill.
+Helper utilities for the se-open-research skill.
 Generates slugs, frontmatter, and source manifest entries.
 """
 
