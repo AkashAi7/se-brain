@@ -514,9 +514,8 @@
 <div class="hero">
   <h1>🧠 SE Brain</h1>
   <p class="subtitle">
-    An <strong>LLM-powered personal wiki system</strong> that turns scattered web research
-    into a structured, interlinked, citation-grounded knowledge base — entirely managed
-    by an AI agent inside VS Code.
+    An <strong>agent-centered SE onboarding system</strong> where engineers interact with agents,
+    and the agents use skills plus grounded knowledge bases to deliver onboarding guidance inside VS Code.
   </p>
 </div>
 
@@ -525,38 +524,36 @@
   <div class="container">
     <h2>What Is SE Brain?</h2>
     <p class="lead">
-      SE Brain is a <strong>Software Engineering knowledge management pattern</strong>. You point the AI at a topic,
-      it researches it on the internet, saves the raw sources, then compiles them into a richly interlinked wiki
-      — complete with concept pages, entity profiles, comparisons, cross-references, and contradiction tracking.
-      Every claim traces back to a source. The wiki grows incrementally as you add more sources or ask more questions.
+      SE Brain is an <strong>SE onboarding interaction pattern</strong>. The engineer asks an agent for help,
+      the agent invokes the right skills, and those skills read or update grounded knowledge bases
+      so the response stays useful, reusable, and source-backed over time.
     </p>
 
     <div class="concept-box">
-      <h3>The Core Idea: Two Layers</h3>
-      <p>The system separates <strong>immutable source material</strong> from <strong>LLM-generated synthesis</strong>,
-         so you always know what's a raw fact vs. what's a compiled analysis.</p>
+      <h3>The Core Idea: Engineer → Agent → Skills + KBs</h3>
+      <p>The primary setup is an interaction chain: <strong>engineers interact with agents</strong>, and
+         <strong>agents interact with skills and knowledge bases</strong>. Raw and wiki content are part of the KB layer,
+         not the first thing the engineer has to think about.</p>
 
       <div class="layers">
         <div class="layer-card raw">
-          <h3><code>raw/</code> <span class="badge immutable">Immutable</span></h3>
-          <p>User-curated source documents fetched from the web. The LLM reads these but <em>never modifies</em> them.</p>
+          <h3>Engineer + Agent <span class="badge immutable">Interaction</span></h3>
+          <p>The engineer asks onboarding questions in chat. The agent interprets the request and chooses the right path.</p>
           <ul>
-            <li>Each source is a markdown file with YAML frontmatter (title, URL, date, type, tags)</li>
-            <li><code>sources.md</code> — a manifest cataloging every source</li>
-            <li><code>assets/</code> — downloaded images and binary files</li>
-            <li>Once written, a source file is never changed (append a <code>-v2</code> for updates)</li>
+            <li>The engineer does not need to manually choose raw files or wiki pages first</li>
+            <li>The agent is the orchestration layer between the engineer and the repo internals</li>
+            <li>Prompt examples: Day 1, Week 2, tooling, stakeholders, account context</li>
+            <li>The portal and repo are optional helpers, not the main interaction contract</li>
           </ul>
         </div>
         <div class="layer-card wiki">
-          <h3><code>wiki/</code> <span class="badge owned">LLM-Owned</span></h3>
-          <p>AI-generated, structured, interlinked wiki. The LLM creates, updates, and maintains this entirely.</p>
+          <h3>Skills + Knowledge Bases <span class="badge owned">Backend</span></h3>
+          <p>Agents use skills to read and update the backing knowledge bases that keep onboarding answers grounded.</p>
           <ul>
-            <li><code>sources/</code> — one summary page per raw source</li>
-            <li><code>concepts/</code> — synthesized topic pages across multiple sources</li>
-            <li><code>entities/</code> — people, organizations, tools, places</li>
-            <li><code>comparisons/</code> — side-by-side analyses</li>
-            <li><code>analyses/</code> — filed answers to user questions</li>
-            <li><code>index.md</code> — master catalog &amp; <code>log.md</code> — append-only changelog</li>
+            <li>Skills handle research, wiki generation, querying, linting, work-data ingest, and explainers</li>
+            <li><code>raw/</code> stores immutable source documents</li>
+            <li><code>wiki/</code> stores synthesized concepts, entities, analyses, and summaries</li>
+            <li><code>html-files/</code> stores visual explainers generated from the knowledge base</li>
           </ul>
         </div>
       </div>
@@ -568,23 +565,23 @@
 <section>
   <div class="container">
     <h2>Who Does What?</h2>
-    <p class="lead">The user directs; the LLM executes. Clear separation of roles keeps the system reliable.</p>
+    <p class="lead">The engineer interacts with agents. Agents orchestrate skills and knowledge bases. Clear separation of roles keeps the setup understandable.</p>
 
     <div class="interaction-diagram">
       <div class="actor-box user">
         <div class="actor-icon">👤</div>
-        <h4>You (the User)</h4>
-        <p>Curate topics, ask questions,<br>direct analysis, decide on contradictions</p>
+        <h4>Engineer</h4>
+        <p>Asks onboarding questions,<br>shares docs, requests guidance</p>
       </div>
       <div class="arrow-block">
-        <span>research X / build wiki / query / lint</span>
+        <span>day 1 / week 2 / tooling / stakeholders</span>
         <span class="arrow-line">⟷</span>
-        <span>structured answers / wiki pages / reports</span>
+        <span>grounded answers / updated KB / reusable outputs</span>
       </div>
       <div class="actor-box llm">
         <div class="actor-icon">🤖</div>
-        <h4>LLM Agent (Copilot)</h4>
-        <p>Researches, summarizes, synthesizes,<br>cross-references, maintains quality</p>
+        <h4>Agent Layer</h4>
+        <p>Chooses skills, queries KBs,<br>synthesizes answers, updates outputs</p>
       </div>
     </div>
   </div>
@@ -595,7 +592,7 @@
   <div class="container">
     <h2>The 7 Skills</h2>
     <p class="lead">
-      Skills are modular instruction sets that teach the LLM <em>how</em> to perform each part of the workflow.
+      Skills are modular instruction sets that agents use to perform each part of the workflow.
       Each skill is a <code>SKILL.md</code> file with trigger phrases, prerequisites, and step-by-step workflows.
     </p>
 
@@ -699,25 +696,25 @@
 <section>
   <div class="container">
     <h2>End-to-End Workflow</h2>
-    <p class="lead">A typical session flows through these stages. Each stage maps to a skill.</p>
+    <p class="lead">A typical session starts with the engineer, flows through an agent, then reaches the skills and knowledge bases behind it.</p>
 
     <div class="workflow-container">
       <div class="workflow-groups">
 
         <!-- Group 1: Setup (SE Core Team) -->
         <div class="wf-group setup">
-          <span class="wf-group-label">One-time setup · SE Core Team</span>
+          <span class="wf-group-label">Interaction path · Engineer to Agent</span>
           <div class="wf-group-inner">
             <div class="wf-step wf1">
               <div class="circle">1</div>
-              <div class="label">Research</div>
-              <div class="desc">Fetch sources from the web <em>or work email</em> → save to <code>raw/</code></div>
+              <div class="label">Engineer Ask</div>
+              <div class="desc">Ask the agent for Day 1, Week 2, tools, stakeholders, or account help</div>
             </div>
             <div class="wf-arrow">→</div>
             <div class="wf-step wf2">
               <div class="circle">2</div>
-              <div class="label">Build / Ingest</div>
-              <div class="desc">Compile raw sources into structured <code>wiki/</code> pages</div>
+              <div class="label">Agent Route</div>
+              <div class="desc">The agent decides which skills and KB paths are needed for the request</div>
             </div>
           </div>
         </div>
@@ -726,24 +723,24 @@
 
         <!-- Group 2: Consumption (End SE Users) -->
         <div class="wf-group consume">
-          <span class="wf-group-label">Consumption layer · End SE Users</span>
+          <span class="wf-group-label">Execution path · Skills and KBs</span>
           <div class="wf-group-inner">
             <div class="wf-step wf3">
               <div class="circle">3</div>
-              <div class="label">Query</div>
-              <div class="desc">Ask questions, get cited answers from the wiki</div>
+              <div class="label">Skills Run</div>
+              <div class="desc">Skills query, ingest, lint, or generate using <code>raw/</code>, <code>wiki/</code>, and <code>html-files/</code></div>
             </div>
             <div class="wf-arrow">→</div>
             <div class="wf-step wf4">
               <div class="circle">4</div>
-              <div class="label">File Analysis</div>
-              <div class="desc">Save substantial answers back into <code>wiki/analyses/</code></div>
+              <div class="label">KB Update</div>
+              <div class="desc">Useful results are saved back into the knowledge bases for reuse</div>
             </div>
             <div class="wf-arrow">→</div>
             <div class="wf-step wf5">
               <div class="circle">5</div>
-              <div class="label">Lint</div>
-              <div class="desc">Health-check for dead links, gaps, contradictions</div>
+              <div class="label">Agent Reply</div>
+              <div class="desc">The agent returns a grounded answer, checklist, plan, or explainer to the engineer</div>
             </div>
           </div>
         </div>
@@ -754,10 +751,9 @@
     <div class="concept-box">
       <h3>The Compounding Loop</h3>
       <p>
-        The system is designed so that <strong>everything compounds</strong>. New sources strengthen existing
-        concept pages. Answered questions become analysis pages that future queries can reference.
-        Lint runs surface gaps that drive new research. The wiki gets richer with every interaction
-        — it's not just a static dump, it's a <em>living knowledge base</em>.
+        The system is designed so that <strong>everything compounds</strong>. Engineers keep using the same agent-facing
+        experience, while agents keep improving the skills and knowledge bases behind it. New sources strengthen existing
+        concept pages, answered questions become reusable analyses, and the knowledge bases get richer with every interaction.
       </p>
 
       <!-- Compounding Loop Schematic -->
