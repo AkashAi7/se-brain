@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SE Onboarding Overview</title>
+<style>
+  :root {
+    --bg: #f4efe5;
+    --paper: #fffaf0;
+    --ink: #1f2a2e;
+    --muted: #5c6a70;
+    --line: #d8cdb8;
+    --accent: #0f766e;
+    --accent-2: #c2410c;
+    --gold: #b58900;
+    --soft: #e8ddd0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background:
+      radial-gradient(circle at top left, rgba(15,118,110,.08), transparent 28%),
+      radial-gradient(circle at bottom right, rgba(194,65,12,.08), transparent 26%),
+      var(--bg);
+    color: var(--ink);
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 32px 20px 64px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap: 24px;
+    align-items: stretch;
+    margin-bottom: 28px;
+  }
+
+  .hero-card,
+  .panel,
+  .stage,
+  .tool-card,
+  .note {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(31,42,46,.06);
+  }
+
+  .hero-card {
+    padding: 32px;
+  }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: .75rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 4.8rem);
+    line-height: .95;
+    margin-bottom: 14px;
+  }
+
+  .hero-card p {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 54ch;
+  }
+
+  .hero-side {
+    padding: 24px;
+    display: grid;
+    gap: 14px;
+  }
+
+  .mini-stat {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px 16px;
+    background: linear-gradient(180deg, rgba(255,255,255,.7), rgba(232,221,208,.45));
+  }
+
+  .mini-stat .label {
+    display: block;
+    font-size: .75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 6px;
+  }
+
+  .mini-stat strong {
+    font-size: 1.2rem;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+  }
+
+  .panel {
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+
+  h2 {
+    font-size: 1.55rem;
+    margin-bottom: 10px;
+  }
+
+  .panel > p,
+  .note p,
+  .tool-card p {
+    color: var(--muted);
+  }
+
+  .timeline {
+    display: grid;
+    gap: 14px;
+    margin-top: 18px;
+  }
+
+  .stage {
+    padding: 18px 18px 18px 20px;
+    border-left: 6px solid var(--accent);
+  }
+
+  .stage:nth-child(2n) { border-left-color: var(--accent-2); }
+  .stage:nth-child(3n) { border-left-color: var(--gold); }
+
+  .stage h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+
+  .stage ul,
+  .panel ul {
+    margin-top: 10px;
+    padding-left: 18px;
+  }
+
+  .stage li,
+  .panel li {
+    margin-bottom: 6px;
+  }
+
+  .tools-grid {
+    display: grid;
+    gap: 14px;
+    margin-top: 18px;
+  }
+
+  .tool-card {
+    padding: 16px;
+  }
+
+  .tool-card h3 {
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+
+  .chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .chip {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 5px 10px;
+    font-size: .8rem;
+    color: var(--ink);
+    background: rgba(255,255,255,.65);
+  }
+
+  .note {
+    padding: 18px;
+    margin-bottom: 18px;
+  }
+
+  .note strong {
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .footer {
+    margin-top: 20px;
+    font-size: .9rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 900px) {
+    .hero,
+    .layout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <div class="hero-card">
+        <span class="eyebrow">SE Onboarding</span>
+        <h1>Ramp Fast.<br>Know The Terrain.</h1>
+        <p>
+          A visual front page for the seeded SE onboarding knowledge base. It combines the staged onboarding journey,
+          the platform capability model, and the tooling map into one quick-start view for new solution engineers.
+          The operational portal now lives at <a href="../index.html">../index.html</a>.
+        </p>
+      </div>
+      <div class="hero-side hero-card">
+        <div class="mini-stat">
+          <span class="label">Journey Shape</span>
+          <strong>Day 1 to Ongoing</strong>
+        </div>
+        <div class="mini-stat">
+          <span class="label">Seed Sources</span>
+          <strong>5 captured sources</strong>
+        </div>
+        <div class="mini-stat">
+          <span class="label">Immediate Outputs</span>
+          <strong>Portal + Day 1 + 30 day plan</strong>
+        </div>
+      </div>
+    </section>
+
+    <div class="layout">
+      <main>
+        <section class="panel">
+          <h2>Stage Journey</h2>
+          <p>The onboarding model is stage-based. Day 1 is the strongest sourced stage today, and the rest of the sequence is scaffolded for expansion as better internal sources arrive.</p>
+          <div class="timeline">
+            <article class="stage">
+              <h3>Day 1</h3>
+              <p>Become operationally reachable and context-aware.</p>
+              <ul>
+                <li>Profile hydration and role context</li>
+                <li>Access setup and environment readiness</li>
+                <li>Pod discovery and stakeholder visibility</li>
+                <li>Initial customer portfolio unlock</li>
+              </ul>
+            </article>
+            <article class="stage">
+              <h3>Week 1</h3>
+              <p>Establish the working surface.</p>
+              <ul>
+                <li>Verify execution tools and subscriptions</li>
+                <li>Meet pod members and understand cadence</li>
+                <li>Review learning paths and certifications</li>
+              </ul>
+            </article>
+            <article class="stage">
+              <h3>Week 2</h3>
+              <p>Move from setup into account understanding.</p>
+              <ul>
+                <li>Deep-dive assigned accounts</li>
+                <li>Map specialty owners and account coverage</li>
+                <li>Shadow customer and internal account discussions</li>
+              </ul>
+            </article>
+            <article class="stage">
+              <h3>Weeks 3-4</h3>
+              <p>Start operating with mentor support.</p>
+              <ul>
+                <li>Lead or co-lead an early customer interaction</li>
+                <li>Document findings and propose focus areas</li>
+                <li>Run a 30-day check-in with the manager</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Platform Capabilities</h2>
+          <p>The onboarding platform is framed as more than a checklist. It is a personalized intelligence layer spanning onboarding, learning, and account execution.</p>
+          <div class="chip-row">
+            <span class="chip">Personalized dashboard</span>
+            <span class="chip">Access checklist</span>
+            <span class="chip">Pod resolution</span>
+            <span class="chip">Account intelligence</span>
+            <span class="chip">Learning guidance</span>
+            <span class="chip">Wiki integration</span>
+          </div>
+        </section>
+      </main>
+
+      <aside>
+        <section class="panel">
+          <h2>Tooling Map</h2>
+          <div class="tools-grid">
+            <article class="tool-card">
+              <h3>Execution</h3>
+              <p>MSX, MSXI, Customer360, Azure Portal</p>
+            </article>
+            <article class="tool-card">
+              <h3>Onboarding</h3>
+              <p>MCAPS Subscription, Managed Environment, External Subscription, GitHub Sales</p>
+            </article>
+            <article class="tool-card">
+              <h3>Learning</h3>
+              <p>Seismic, Role Library, Cloud Academy</p>
+            </article>
+            <article class="tool-card">
+              <h3>Support</h3>
+              <p>TechWeb, GetHelp</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="note">
+          <strong>Current Gaps</strong>
+          <p>Week 1 onward still needs stronger internal source material. Several tool rows also still need canonical URLs rather than labels.</p>
+        </section>
+
+        <section class="note">
+          <strong>What To Ask Next</strong>
+          <p>Ask for a Day 1 checklist, a first 30 days plan, a pod and stakeholder map, or a tooling guide by category.</p>
+        </section>
+      </aside>
+    </div>
+
+    <p class="footer">Built from the seeded SE onboarding wiki and intended as a visual quick-start surface for the custom SE Onboarding agent.</p>
+  </div>
+</body>
+</html>
