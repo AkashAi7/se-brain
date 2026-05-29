@@ -244,6 +244,15 @@ backlinks: [wiki/concepts/related.md]
 2. Update `raw/sources.md` manifest.
 3. Run the Ingest workflow from the se-wiki-generator skill.
 
+### When the user provides onboarding material directly
+1. Normalize the material into one or more clean `raw/` markdown files before ingest.
+2. Split mixed material when that keeps account coverage, tooling, stage guidance, or transcript content cleaner.
+3. Add YAML frontmatter and choose `source_type: reference` for docs and notes or `source_type: data` for spreadsheets, tables, screenshots, and account lists.
+4. Put general onboarding sources in `raw/`, account artifacts in `raw/accounts/`, and binary assets in `raw/assets/`.
+5. Preserve caveats when the material is screenshot-derived, transcribed, partial, or user-curated.
+6. Update `raw/sources.md`.
+7. Run the Ingest workflow from the se-wiki-generator skill, then lint if the change touched multiple connected pages.
+
 ## Indexing and Logging
 
 Two special files help the LLM (and you) navigate the wiki. They serve different purposes.

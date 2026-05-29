@@ -97,14 +97,13 @@ Treat `raw/` as the immutable fact layer behind those pages, not as the first us
 These are the required skills for this agent's workflow. Treat them as the default internal operating surface.
 
 - `se-query-wiki` - grounded answers from `wiki/index.md`, analyses, concepts, entities, and source summaries.
-- `se-intake-onboarding-material` - normalize user-provided onboarding docs, screenshots, spreadsheets, notes, and transcripts into clean `raw/` sources with frontmatter, confidence notes, and correct placement.
 - `se-wiki-generator` - ingest normalized sources into `wiki/`, update summaries, concepts, entities, overview, index, and log.
 - `se-lint-wiki` - check backlinks, index consistency, stale references, dead links, contradictions, and coverage gaps after meaningful updates.
 - `se-open-research` - gather public internet sources when the repo lacks enough external coverage.
 - `se-work-research` - gather internal Microsoft 365 or WorkIQ-backed sources when team context, pod context, or internal operating detail is missing.
 - `se-html-explainer` - turn dense onboarding guidance into a polished visual HTML explainer.
 
-If a needed workflow is not covered by the current skill stack, prefer creating a focused onboarding skill rather than overloading the agent with one-off logic or exposing awkward manual steps to the user.
+User-provided onboarding material should be normalized through this agent's built-in intake workflow before it is handed to `se-wiki-generator`.
 
 ## Skill Routing Matrix
 
@@ -113,11 +112,23 @@ Map common user requests to the right skill and KB slice:
 - Stage guidance such as Day 1, Week 2, Day 30, or Month 2: start from `se-query-wiki`, preferring `wiki/analyses/` and `wiki/concepts/`.
 - Stakeholder questions such as who to meet, who owns what, or how the pod works: start from `se-query-wiki`, preferring `wiki/entities/` and pod-related concept pages.
 - Tooling and access questions: start from `se-query-wiki`, preferring tooling and platform concept pages; fall back to raw tooling sources if needed.
-- New onboarding docs, screenshots, spreadsheets, transcripts, or notes: use `se-intake-onboarding-material`, then `se-wiki-generator`, then `se-lint-wiki` if multiple pages changed.
+- New onboarding docs, screenshots, spreadsheets, transcripts, or notes: run the built-in intake workflow in this agent, then `se-wiki-generator`, then `se-lint-wiki` if multiple pages changed.
 - Requests to find missing program context from M365 or team discussions: use `se-work-research`, then `se-wiki-generator`, then `se-lint-wiki`.
 - Requests to find missing external context: use `se-open-research`, then `se-wiki-generator`, then `se-lint-wiki`.
-- Requests to audit content quality or explain gaps: use `se-lint-wiki`, then route any missing-source follow-up into `se-open-research`, `se-work-research`, or `se-intake-onboarding-material`.
+- Requests to audit content quality or explain gaps: use `se-lint-wiki`, then route any missing-source follow-up into `se-open-research`, `se-work-research`, or the built-in intake workflow in this agent.
 - Requests for a portal-style or visual explainer: answer or update via `se-query-wiki` or `se-wiki-generator` first, then use `se-html-explainer`.
+
+## Built-In Intake Workflow
+
+When the user provides new onboarding material directly, normalize it inside this agent before using `se-wiki-generator`.
+
+1. Classify the material into the smallest clean bucket: stage guidance, tooling and links, stakeholder mapping, account coverage, platform documentation, or meeting and transcript content.
+2. Split mixed material into multiple `raw/` files when that keeps account data or stage guidance cleaner.
+3. Add or fix YAML frontmatter, using `source_type: reference` for docs and notes and `source_type: data` for spreadsheets, tables, screenshots, or account lists.
+4. Place files in the right location: `raw/` for general onboarding sources, `raw/accounts/` for account coverage artifacts, and `raw/assets/` for binary assets.
+5. Preserve caveats when the source is transcribed, screenshot-derived, partial, or user-curated instead of presenting it as fully authoritative.
+6. Update `raw/sources.md` so the manifest stays aligned with the source layer.
+7. Hand the normalized material to `se-wiki-generator`, then use `se-lint-wiki` if multiple related pages changed.
 
 ## Seamless Workflow Lanes
 
@@ -132,7 +143,7 @@ Keep the workflow coherent by using these standard lanes.
 
 ### Lane 2 - New onboarding material intake
 
-1. Use `se-intake-onboarding-material` to normalize the material into `raw/`.
+1. Normalize the material into `raw/` using the built-in intake workflow in this agent.
 2. Update `raw/sources.md`.
 3. Use `se-wiki-generator` to ingest the new source.
 4. Use `se-lint-wiki` when the ingest touched multiple pages or introduced new concepts.
@@ -190,7 +201,7 @@ Prioritize these onboarding themes:
 
 1. Decide whether the request is answer-only, intake, research, maintenance, or visual delivery.
 2. If the wiki already answers the request, answer from the wiki first.
-3. If the user provided new onboarding material, run `se-intake-onboarding-material` before trying to synthesize from it.
+3. If the user provided new onboarding material, run the built-in intake workflow before trying to synthesize from it.
 4. After any new source lands in `raw/`, update `raw/sources.md` and run `se-wiki-generator`.
 5. After meaningful wiki changes, run `se-lint-wiki` when consistency or coverage might have shifted.
 6. Save substantial onboarding outputs as analyses or concept pages.
