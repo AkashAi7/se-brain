@@ -364,14 +364,14 @@
     <span class="kicker">◐ Agent-native SE companion</span>
     <h1>A brain for every<br><span class="accent">Solutions Engineer</span>.</h1>
     <p class="sub">
-      SE Brain works like a biological brain. A fixed knowledge grounding forms the
-      <strong>static wiki</strong> — and the more an SE uses it, the more it adapts to their
-      accounts, work data, and preferences. One companion across the entire SE journey,
-      and the brain keeps getting better.
+      SE Brain works like a biological brain. A shared <strong>SharePoint wiki</strong> forms the
+      universal foundation every answer is grounded in — and your private <strong>KB-Local</strong>
+      layer adds personal context on top, so the brain adapts to your accounts and notes.
+      One companion across the entire SE journey, and the brain keeps getting better.
     </p>
     <div class="meta">
-      <span class="chip"><span class="dot" style="background:var(--grounding)"></span> Static grounding</span>
-      <span class="chip"><span class="dot" style="background:var(--adaptive)"></span> Adapts with use</span>
+      <span class="chip"><span class="dot" style="background:var(--grounding)"></span> SharePoint foundation</span>
+      <span class="chip"><span class="dot" style="background:var(--adaptive)"></span> Private KB-Local layer</span>
       <span class="chip"><span class="dot" style="background:var(--accent)"></span> Spans the whole journey</span>
     </div>
   </div>
@@ -382,40 +382,41 @@
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">The core idea</div>
-      <h2>Grounded like long-term memory.<br>Adaptive like everyday learning.</h2>
+      <h2>A shared foundation on SharePoint.<br>A private layer that's all yours.</h2>
       <p class="section-lead">
         A human brain has a stable base of knowledge it's built on, then refines that base through
-        lived experience. SE Brain mirrors that: a fixed grounding builds the static wiki, and continued
-        use layers in the SE's own world until answers become personal. Onboarding is the first phase it
-        supports today — but the same brain is built to support an SE through every phase that follows.
+        lived experience. SE Brain mirrors that with a <strong>two-tier knowledge model</strong>: a
+        universal SharePoint wiki is the authoritative source of truth every SE shares, and your local-only
+        <code>KB-Local/</code> folder layers your own deal notes and context on top — never overwriting the
+        shared truth, just sharpening answers for you.
       </p>
     </div>
 
     <div class="brain-flow">
       <div class="brain-card grounding">
-        <span class="tag">● Static brain</span>
-        <h3>Knowledge grounding</h3>
-        <p>A curated, source-cited wiki is built from trusted material — onboarding, product, process, and account knowledge. This is the stable base every answer stands on.</p>
+        <span class="tag">● Tier 1 · Universal</span>
+        <h3>SharePoint wiki foundation</h3>
+        <p>The shared, source-cited wiki lives on SharePoint at <code>se-brain-wiki</code> and is reached only through the <code>se-graph-wiki</code> MCP tools. This is the authoritative base every answer is grounded in first.</p>
         <ul>
-          <li>Guides, playbooks, tooling, and stakeholder maps for each phase</li>
-          <li>Every claim traces back to an immutable source document</li>
-          <li>Shared, consistent, and the same starting point for everyone</li>
+          <li>One source of truth for every SE — accounts, pipeline, compete, concepts</li>
+          <li>Read &amp; written via <code>wiki_read</code> / <code>wiki_write</code> over Microsoft Graph</li>
+          <li><strong>Always</strong> queried first; local mirrors are never used as a fallback</li>
         </ul>
       </div>
 
       <div class="brain-bridge">
         <span class="plus">+</span>
-        <span class="lbl">compounds</span>
+        <span class="lbl">augments</span>
       </div>
 
       <div class="brain-card adaptive">
-        <span class="tag">● Adaptive layer</span>
-        <h3>Learns as you use it</h3>
-        <p>Every question, answered query, and pulled-in work source feeds back into the wiki — so the brain grows around the individual.</p>
+        <span class="tag">● Tier 2 · Private</span>
+        <h3>Your KB-Local layer</h3>
+        <p>A gitignored <code>KB-Local/</code> folder holds your personal notes and private deal context. The agent optionally folds it in after SharePoint — only when it genuinely adds value.</p>
         <ul>
-          <li>Internal email, Teams, and meeting context gets folded in</li>
-          <li>Substantial answers are filed as reusable analyses</li>
-          <li>Preferences and account context sharpen future replies</li>
+          <li>Private deal notes, prep, and context that stay on your machine</li>
+          <li>Local content is clearly labeled <em>"From your local notes (KB-Local)"</em></li>
+          <li>Additive only — on a conflict, SharePoint wins and the discrepancy is flagged</li>
         </ul>
       </div>
     </div>
@@ -424,7 +425,7 @@
       <div class="ic">◐</div>
       <div>
         <h3>The result: a brain that knows your SE</h3>
-        <p>Static grounding keeps answers trustworthy; the adaptive layer keeps them relevant at every phase. Each interaction leaves the wiki richer than it found it.</p>
+        <p>The SharePoint foundation keeps answers trustworthy and consistent for everyone; your private KB-Local layer keeps them personal and relevant. Shared truth plus your own context, on every answer.</p>
       </div>
     </div>
   </div>
@@ -437,8 +438,9 @@
       <div class="eyebrow">Who does what</div>
       <h2>SEs talk to an agent. The agent runs the brain.</h2>
       <p class="section-lead">
-        SEs never have to think about files or wiki pages. They ask in plain language;
-        the agent chooses the right skills and reads or updates the knowledge base behind the scenes.
+        SEs never have to think about files, SharePoint, or wiki pages. They ask in plain language;
+        the agent chooses the right skills and reads or updates the knowledge base behind the scenes —
+        grounding in the shared SharePoint wiki, then optionally layering in private KB-Local notes.
         The onboarding agent is live today, with more journey-phase agents sharing the same brain.
       </p>
     </div>
@@ -460,14 +462,14 @@
         <p>Interprets intent, routes to the right skills, synthesizes the reply</p>
       </div>
       <div class="flow-link">
-        <span>query · ingest · lint · generate</span>
+        <span>wiki_read · wiki_write · augment · generate</span>
         <span class="ar">⟶</span>
         <span>reads &amp; updates the KB</span>
       </div>
       <div class="actor">
         <div class="ic">📚</div>
         <h4>Skills &amp; KB</h4>
-        <p><code>raw/</code> sources, the <code>wiki/</code> brain, and HTML explainers</p>
+        <p>SharePoint <code>wiki/</code> foundation, private <code>KB-Local/</code>, and HTML explainers</p>
       </div>
     </div>
   </div>
@@ -478,14 +480,27 @@
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">The toolkit</div>
-      <h2>Seven skills the agent composes</h2>
+      <h2>The skills the agent composes</h2>
       <p class="section-lead">
         Each skill is a single <code>SKILL.md</code> with trigger phrases and a step-by-step workflow.
-        Together they research, build, query, and maintain the brain.
+        Together they research, build, query, and maintain the brain — all data flowing through the
+        SharePoint gateway, with KB-Local as the optional private layer.
       </p>
     </div>
 
     <div class="skills">
+      <div class="skill">
+        <div class="top"><span class="ic i-green">🗄️</span><h3>se_brain_sharepoint-data</h3></div>
+        <p>The unified data gateway and <strong>only</strong> sanctioned path to SE Brain knowledge. Runs the two-tier retrieval: <code>wiki_read</code> the SharePoint foundation first, then optionally augment from <code>KB-Local/</code>.</p>
+        <div class="tags"><span>two-tier retrieval</span><span>wiki_read / wiki_list</span><span>SharePoint gateway</span></div>
+      </div>
+
+      <div class="skill">
+        <div class="top"><span class="ic i-cyan">📋</span><h3>se_brain_customer-intel</h3></div>
+        <p>Generates sharp pre-meeting intelligence briefs — talking points, landmines, demo plan — from account and pipeline data on SharePoint, enriched with your private KB-Local notes.</p>
+        <div class="tags"><span>prep me for a meeting</span><span>customer brief</span><span>account context</span></div>
+      </div>
+
       <div class="skill">
         <div class="top"><span class="ic i-blue">🔍</span><h3>se-open-research</h3></div>
         <p>Scours the internet for articles, papers, and data, converts each to clean markdown with frontmatter, and saves them as immutable files in <code>raw/</code>.</p>
@@ -557,7 +572,7 @@
         <span class="phase">Run</span>
         <div class="num">3</div>
         <h4>Skills run</h4>
-        <p>Query, ingest, lint, or generate across <code>raw/</code>, <code>wiki/</code>, <code>html-files/</code>.</p>
+        <p>Query, ingest, lint, or generate — SharePoint wiki first, then optional <code>KB-Local/</code>.</p>
       </div>
       <div class="wstep p-run">
         <span class="phase">Compound</span>
@@ -619,40 +634,41 @@
 <section id="structure" class="soft">
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow">On disk</div>
+      <div class="eyebrow">On SharePoint &amp; on disk</div>
       <h2>How the brain is organized</h2>
-      <p class="section-lead">Immutable sources in <code>raw/</code>, the synthesized brain in <code>wiki/</code>, visual explainers in <code>html-files/</code>, and the skills that operate them.</p>
+      <p class="section-lead">The universal foundation lives on <strong>SharePoint</strong> (read/written only through the <code>se-graph-wiki</code> MCP server); your private notes and the skills that operate the brain live <strong>locally</strong> — with <code>KB-Local/</code> gitignored so it never leaves your machine.</p>
     </div>
 
-    <div class="tree"><span class="dir">SE_Brain/</span>
-├── <span class="dir">raw/</span>                        <span class="c"># Immutable source documents</span>
-│   ├── <span class="file">sources.md</span>              <span class="c"># Manifest of all collected sources</span>
-│   ├── <span class="dir">assets/</span>                 <span class="c"># Downloaded images &amp; binaries</span>
-│   └── <span class="file">*.md</span>                    <span class="c"># Individual sources (YAML frontmatter)</span>
+    <div class="tree"><span class="c"># ── TIER 1 · Universal foundation (cloud, authoritative) ──</span>
+<span class="dir">SharePoint:</span> microsoftapc.sharepoint.com/teams/se-brain-wiki  <span class="c"># via wiki_read / wiki_write</span>
+<span class="dir">Documents/</span>
+├── <span class="dir">wiki/</span>                       <span class="c"># Onboarding KB — index, concepts, entities, analyses</span>
+├── <span class="dir">wiki-steady-state/</span>          <span class="c"># Execution KB — compete, MCEM, pitch, workshop, learning</span>
+├── <span class="dir">mock-data/</span>                  <span class="c"># Live JSON — accounts, opportunities, skills-and-growth</span>
+├── <span class="dir">raw/</span> &amp; <span class="dir">raw-steady-state/</span>      <span class="c"># Immutable source documents (the raw dump)</span>
+└── <span class="dir">broadcasts/</span>                 <span class="c"># Shared SE insights across the team</span>
+
+<span class="c"># ── TIER 2 · Private layer + local tooling (your machine) ──</span>
+<span class="dir">se-brain/</span>
+├── <span class="dir">KB-Local/</span>                   <span class="c"># Private, GITIGNORED — your personal notes &amp; deal context</span>
+│   ├── <span class="file">README.md</span>               <span class="c"># How the private layer works (the only tracked file)</span>
+│   └── <span class="dir">accounts/</span>               <span class="c"># e.g. tata-steel.md — personal account notes</span>
 │
-├── <span class="dir">wiki/</span>                       <span class="c"># The brain — AI-owned, source-cited</span>
-│   ├── <span class="file">index.md</span>                <span class="c"># Master catalog of all pages</span>
-│   ├── <span class="file">log.md</span>                  <span class="c"># Append-only chronological record</span>
-│   ├── <span class="file">overview.md</span>             <span class="c"># High-level synthesis</span>
-│   ├── <span class="dir">sources/</span>                <span class="c"># One summary per raw source</span>
-│   ├── <span class="dir">concepts/</span>               <span class="c"># Synthesized topic pages</span>
-│   ├── <span class="dir">entities/</span>               <span class="c"># People, orgs, tools, places</span>
-│   ├── <span class="dir">comparisons/</span>            <span class="c"># Side-by-side analyses</span>
-│   └── <span class="dir">analyses/</span>               <span class="c"># Filed query answers (compounding)</span>
+├── <span class="dir">mcp-servers/</span>
+│   └── <span class="dir">se-graph-wiki/</span>          <span class="c"># MCP server bridging skills → Graph API → SharePoint</span>
 │
 ├── <span class="dir">html-files/</span>                 <span class="c"># Visual HTML explainer pages</span>
-│   └── <span class="file">*.html</span>                  <span class="c"># Self-contained, dark-theme pages</span>
 │
-└── <span class="dir">.github/</span>
-    ├── <span class="file">copilot-instructions.md</span> <span class="c"># Schema: rules, conventions, workflows</span>
-    └── <span class="dir">skills/</span>
-        ├── <span class="dir">se-open-research/</span>      <span class="c"># Gather sources from the internet</span>
-        ├── <span class="dir">se-work-research/</span>      <span class="c"># Gather sources from work data (M365)</span>
-        ├── <span class="dir">se-wiki-generator/</span>     <span class="c"># Build &amp; maintain the wiki</span>
-        ├── <span class="dir">se-query-wiki/</span>         <span class="c"># Answer questions from the wiki</span>
-        ├── <span class="dir">se-lint-wiki/</span>          <span class="c"># Health-check quality</span>
-        ├── <span class="dir">se-html-explainer/</span>     <span class="c"># Convert to visual HTML pages</span>
-        └── <span class="dir">se-make-skill-template/</span><span class="c"># Scaffold new skills</span></div>
+└── <span class="dir">.github/skills/</span>
+    ├── <span class="dir">se_brain_sharepoint-data/</span>  <span class="c"># The ONLY sanctioned data gateway (two-tier retrieval)</span>
+    ├── <span class="dir">se_brain_query-wiki/</span>      <span class="c"># Answer questions from the wiki</span>
+    ├── <span class="dir">se_brain_customer-intel/</span>  <span class="c"># Pre-meeting intelligence briefs</span>
+    ├── <span class="dir">se-open-research/</span>      <span class="c"># Gather sources from the internet</span>
+    ├── <span class="dir">se-work-research/</span>      <span class="c"># Gather sources from work data (M365)</span>
+    ├── <span class="dir">se-wiki-generator/</span>     <span class="c"># Build &amp; maintain the wiki</span>
+    ├── <span class="dir">se-lint-wiki/</span>          <span class="c"># Health-check quality</span>
+    ├── <span class="dir">se-html-explainer/</span>     <span class="c"># Convert to visual HTML pages</span>
+    └── <span class="dir">se-make-skill-template/</span><span class="c"># Scaffold new skills</span></div>
   </div>
 </section>
 
@@ -662,6 +678,7 @@
     <div class="section-head">
       <div class="eyebrow">Data flow</div>
       <h2>What each skill reads and writes</h2>
+      <p class="section-lead">Shared data moves through the SharePoint MCP tools (<code>wiki_read</code> / <code>wiki_write</code>); private notes are read locally from <code>KB-Local/</code> only.</p>
     </div>
     <div class="table-wrap">
       <table>
@@ -669,13 +686,14 @@
           <tr><th>Skill</th><th>Reads from</th><th>Writes to</th><th>Key output</th></tr>
         </thead>
         <tbody>
-          <tr><td><strong>se-open-research</strong></td><td>Internet (web pages)</td><td><code>raw/*.md</code></td><td>Curated markdown sources</td></tr>
-          <tr><td><strong>se-wiki-generator</strong></td><td><code>raw/*.md</code></td><td><code>wiki/**/*.md</code></td><td>Summary, concept, entity pages</td></tr>
-          <tr><td><strong>se-query-wiki</strong></td><td><code>wiki/index.md</code> → pages → <code>raw/</code></td><td><code>wiki/analyses/*.md</code></td><td>Cited answers, filed analyses</td></tr>
-          <tr><td><strong>se-lint-wiki</strong></td><td><code>wiki/**/*.md</code>, <code>raw/</code></td><td><code>wiki/</code> fixes, <code>log.md</code></td><td>Lint report + auto-fixes</td></tr>
-          <tr><td><strong>se-work-research</strong></td><td>Microsoft 365 (WorkIQ)</td><td><code>raw/work--*.md</code></td><td>Internal source files</td></tr>
-          <tr><td><strong>se-html-explainer</strong></td><td><code>wiki/</code>, <code>raw/</code>, responses</td><td><code>html-files/*.html</code></td><td>Visual HTML explainers</td></tr>
-          <tr><td><strong>se-make-skill-template</strong></td><td>User instructions</td><td><code>.github/skills/&lt;name&gt;/</code></td><td>New skill scaffold</td></tr>
+          <tr><td><strong>se_brain_sharepoint-data</strong></td><td><code>wiki_read</code> (SharePoint) + <code>KB-Local/</code></td><td>—</td><td>Grounded two-tier data</td></tr>
+          <tr><td><strong>se_brain_query-wiki</strong></td><td><code>wiki/index.md</code> → pages, then <code>KB-Local/</code></td><td><code>wiki_write</code> → <code>wiki/analyses/</code></td><td>Cited answers, filed analyses</td></tr>
+          <tr><td><strong>se_brain_customer-intel</strong></td><td><code>mock-data/*.json</code> + <code>KB-Local/</code></td><td>—</td><td>Pre-meeting briefs</td></tr>
+          <tr><td><strong>se-open-research</strong></td><td>Internet (web pages)</td><td><code>wiki_write</code> → <code>raw/*.md</code></td><td>Curated markdown sources</td></tr>
+          <tr><td><strong>se-wiki-generator</strong></td><td><code>raw/*.md</code> (SharePoint)</td><td><code>wiki_write</code> → <code>wiki/</code></td><td>Summary, concept, entity pages</td></tr>
+          <tr><td><strong>se-lint-wiki</strong></td><td><code>wiki/**/*.md</code> (SharePoint)</td><td><code>wiki/</code> fixes, <code>log.md</code></td><td>Lint report + auto-fixes</td></tr>
+          <tr><td><strong>se-work-research</strong></td><td>Microsoft 365 (WorkIQ)</td><td><code>wiki_write</code> → <code>raw/work--*.md</code></td><td>Internal source files</td></tr>
+          <tr><td><strong>se-html-explainer</strong></td><td>wiki pages, sources, responses</td><td><code>html-files/*.html</code></td><td>Visual HTML explainers</td></tr>
         </tbody>
       </table>
     </div>
@@ -690,12 +708,12 @@
       <h2>Six rules that keep the brain trustworthy</h2>
     </div>
     <div class="principles">
-      <div class="principle"><span class="n">1</span><p><strong>Never modify <code>raw/</code>.</strong> Source files are immutable — only the <code>sources.md</code> manifest updates.</p></div>
-      <div class="principle"><span class="n">2</span><p><strong>Every claim traces to a source.</strong> No hallucinated facts; every wiki statement is grounded.</p></div>
-      <div class="principle"><span class="n">3</span><p><strong>Flag contradictions, don't resolve them.</strong> When sources disagree, show both sides with citations.</p></div>
-      <div class="principle"><span class="n">4</span><p><strong>Update incrementally.</strong> New sources strengthen existing pages — never regenerate the whole wiki.</p></div>
-      <div class="principle"><span class="n">5</span><p><strong>Maintain cross-references.</strong> Every page links to related pages; backlinks and index stay current.</p></div>
-      <div class="principle"><span class="n">6</span><p><strong>Explorations compound.</strong> Filed analyses are as valuable as ingested sources — the brain grows.</p></div>
+      <div class="principle"><span class="n">1</span><p><strong>SharePoint is the source of truth.</strong> Shared facts are always grounded in the SharePoint wiki first, via <code>wiki_read</code> — never a stale local mirror.</p></div>
+      <div class="principle"><span class="n">2</span><p><strong>KB-Local augments, never substitutes.</strong> Private notes add personal context only; if SharePoint is down, the agent stops rather than answering from local alone.</p></div>
+      <div class="principle"><span class="n">3</span><p><strong>SharePoint wins conflicts.</strong> When a local note disagrees with shared truth, SharePoint prevails and the discrepancy is flagged to you.</p></div>
+      <div class="principle"><span class="n">4</span><p><strong>Label where it came from.</strong> Local-sourced content is marked <em>"From your local notes (KB-Local)"</em> so you always know what's shared vs. personal.</p></div>
+      <div class="principle"><span class="n">5</span><p><strong>Every claim traces to a source.</strong> No hallucinated facts; answers cite the SharePoint pages they used as clickable links.</p></div>
+      <div class="principle"><span class="n">6</span><p><strong>Explorations compound.</strong> Substantial answers are filed back to the wiki as analyses — the shared brain grows for everyone.</p></div>
     </div>
   </div>
 </section>
@@ -775,7 +793,7 @@
 <footer>
   <div class="wrap">
     <div class="brand"><span class="mark">◐</span> SE Brain</div>
-    <p>A grounded, agent-native brain for Solutions Engineers — across the whole journey. All wiki content is AI-generated and source-cited: static grounding that compounds with every interaction.</p>
+    <p>A grounded, agent-native brain for Solutions Engineers — across the whole journey. A shared SharePoint wiki is the source of truth; your private KB-Local layer makes it personal. All answers are source-cited and compound with every interaction.</p>
   </div>
 </footer>
 
