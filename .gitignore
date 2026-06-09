@@ -1,2 +1,16 @@
-KB-Local/
+# Editor / vault
 .obsidian/
+
+# MCP server build artifacts and dependencies
+mcp-servers/**/node_modules/
+mcp-servers/**/dist/
+mcp-servers/**/.env
+
+# Private knowledge layer (KB-Local):
+# Ship the README + example note as a template, but keep everyone's
+# real personal notes out of git. Any NEW file added here stays private.
+KB-Local/*
+!KB-Local/README.md
+!KB-Local/accounts/
+KB-Local/accounts/*
+!KB-Local/accounts/tata-steel.md
