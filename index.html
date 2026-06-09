@@ -286,6 +286,51 @@
   .tree .file { color: #aeb3c2; }
   .tree .c { color: #5b6072; }
 
+  /* ─── Brain org (wiki at the center) ─── */
+  .org {
+    display: grid; grid-template-columns: 1fr auto 1.25fr auto 1fr;
+    align-items: stretch; gap: 0; margin-bottom: 26px;
+  }
+  .org-src {
+    border: 1px solid var(--line-2); border-radius: var(--radius-lg);
+    padding: 26px 24px; background: var(--bg); display: flex; flex-direction: column;
+  }
+  .org-src.static { border-top: 3px solid var(--grounding); }
+  .org-src.private { border-top: 3px solid var(--adaptive); }
+  .org-src .tag {
+    display: inline-flex; align-items: center; gap: 7px; align-self: flex-start;
+    font-size: .72rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+    padding: 5px 11px; border-radius: 999px; margin-bottom: 14px;
+  }
+  .org-src.static .tag { color: var(--grounding); background: var(--grounding-soft); }
+  .org-src.private .tag { color: var(--adaptive); background: var(--adaptive-soft); }
+  .org-src h3 { font-size: 1.08rem; font-weight: 700; letter-spacing: -.02em; margin-bottom: 8px; }
+  .org-src p { font-size: .88rem; color: var(--muted); margin-bottom: 16px; }
+  .org-src ul { list-style: none; display: grid; gap: 7px; margin-top: auto; }
+  .org-src li { font-family: 'JetBrains Mono', monospace; font-size: .76rem; color: var(--ink-2); }
+  .org-feed {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 0 16px; gap: 8px;
+  }
+  .org-feed .ar { font-size: 1.5rem; color: var(--accent); }
+  .org-feed .lbl { font-size: .66rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; color: var(--muted); text-align: center; }
+  .org-brain {
+    border-radius: var(--radius-lg); background: var(--ink); color: #fff;
+    padding: 32px 28px; display: flex; flex-direction: column; align-items: center; text-align: center;
+    box-shadow: 0 18px 50px -22px rgba(20,21,27,.6);
+  }
+  .org-brain .ic { width: 52px; height: 52px; border-radius: 14px; background: rgba(255,255,255,.08); display: grid; place-items: center; font-size: 1.6rem; margin-bottom: 14px; }
+  .org-brain .tag { font-size: .68rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #fff; background: rgba(255,255,255,.12); padding: 5px 12px; border-radius: 999px; margin-bottom: 12px; }
+  .org-brain h3 { font-size: 1.5rem; font-weight: 700; letter-spacing: -.025em; margin-bottom: 8px; }
+  .org-brain p { font-size: .9rem; color: rgba(255,255,255,.68); margin-bottom: 18px; }
+  .org-brain .parts { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; }
+  .org-brain .parts span { font-family: 'JetBrains Mono', monospace; font-size: .74rem; color: #cdd0db; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); padding: 4px 10px; border-radius: 999px; }
+  @media (max-width: 860px){
+    .org { grid-template-columns: 1fr; }
+    .org-feed { flex-direction: row; padding: 16px 0; }
+    .org-feed .ar { transform: rotate(90deg); }
+  }
+
   /* ─── Tables ─── */
   .table-wrap { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
   table { width: 100%; border-collapse: collapse; font-size: .9rem; }
@@ -634,41 +679,71 @@
 <section id="structure" class="soft">
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow">On SharePoint &amp; on disk</div>
-      <h2>How the brain is organized</h2>
-      <p class="section-lead">The universal foundation lives on <strong>SharePoint</strong> (read/written only through the <code>se-graph-wiki</code> MCP server); your private notes and the skills that operate the brain live <strong>locally</strong> — with <code>KB-Local/</code> gitignored so it never leaves your machine.</p>
+      <div class="eyebrow">How it fits together</div>
+      <h2>The wiki <em>is</em> the SE Brain</h2>
+      <p class="section-lead">The SE Brain is the wiki in the middle — a synthesized, source-cited knowledge base built from two inputs: the <strong>static SharePoint</strong> foundation every SE shares, and your <strong>private KB-Local</strong> notes. Both feed the wiki, and the wiki is the one thing the SE actually talks to.</p>
     </div>
 
-    <div class="tree"><span class="c"># ── TIER 1 · Universal foundation (cloud, authoritative) ──</span>
-<span class="dir">SharePoint:</span> microsoftapc.sharepoint.com/teams/se-brain-wiki  <span class="c"># via wiki_read / wiki_write</span>
-<span class="dir">Documents/</span>
-├── <span class="dir">wiki/</span>                       <span class="c"># Onboarding KB — index, concepts, entities, analyses</span>
-├── <span class="dir">wiki-steady-state/</span>          <span class="c"># Execution KB — compete, MCEM, pitch, workshop, learning</span>
-├── <span class="dir">mock-data/</span>                  <span class="c"># Live JSON — accounts, opportunities, skills-and-growth</span>
-├── <span class="dir">raw/</span> &amp; <span class="dir">raw-steady-state/</span>      <span class="c"># Immutable source documents (the raw dump)</span>
-└── <span class="dir">broadcasts/</span>                 <span class="c"># Shared SE insights across the team</span>
+    <div class="org">
+      <div class="org-src static">
+        <span class="tag">● Static · shared</span>
+        <h3>SharePoint foundation</h3>
+        <p>The authoritative raw dump and shared data, identical for every SE. Read via <code>wiki_read</code>.</p>
+        <ul>
+          <li>raw/ · raw-steady-state/</li>
+          <li>mock-data/*.json</li>
+          <li>broadcasts/</li>
+        </ul>
+      </div>
 
-<span class="c"># ── TIER 2 · Private layer + local tooling (your machine) ──</span>
-<span class="dir">se-brain/</span>
-├── <span class="dir">KB-Local/</span>                   <span class="c"># Private, GITIGNORED — your personal notes &amp; deal context</span>
-│   ├── <span class="file">README.md</span>               <span class="c"># How the private layer works (the only tracked file)</span>
-│   └── <span class="dir">accounts/</span>               <span class="c"># e.g. tata-steel.md — personal account notes</span>
-│
-├── <span class="dir">mcp-servers/</span>
-│   └── <span class="dir">se-graph-wiki/</span>          <span class="c"># MCP server bridging skills → Graph API → SharePoint</span>
-│
-├── <span class="dir">html-files/</span>                 <span class="c"># Visual HTML explainer pages</span>
-│
-└── <span class="dir">.github/skills/</span>
-    ├── <span class="dir">se_brain_sharepoint-data/</span>  <span class="c"># The ONLY sanctioned data gateway (two-tier retrieval)</span>
-    ├── <span class="dir">se_brain_query-wiki/</span>      <span class="c"># Answer questions from the wiki</span>
-    ├── <span class="dir">se_brain_customer-intel/</span>  <span class="c"># Pre-meeting intelligence briefs</span>
-    ├── <span class="dir">se-open-research/</span>      <span class="c"># Gather sources from the internet</span>
-    ├── <span class="dir">se-work-research/</span>      <span class="c"># Gather sources from work data (M365)</span>
-    ├── <span class="dir">se-wiki-generator/</span>     <span class="c"># Build &amp; maintain the wiki</span>
-    ├── <span class="dir">se-lint-wiki/</span>          <span class="c"># Health-check quality</span>
-    ├── <span class="dir">se-html-explainer/</span>     <span class="c"># Convert to visual HTML pages</span>
-    └── <span class="dir">se-make-skill-template/</span><span class="c"># Scaffold new skills</span></div>
+      <div class="org-feed">
+        <span class="ar">⟶</span>
+        <span class="lbl">grounds</span>
+      </div>
+
+      <div class="org-brain">
+        <div class="ic">◐</div>
+        <span class="tag">The SE Brain</span>
+        <h3>The Wiki</h3>
+        <p>Synthesized, cross-linked, source-cited knowledge — fed by both sides. This is what the SE actually talks to.</p>
+        <div class="parts">
+          <span>wiki/</span><span>wiki-steady-state/</span><span>index.md</span><span>concepts/</span><span>entities/</span><span>comparisons/</span><span>analyses/</span>
+        </div>
+      </div>
+
+      <div class="org-feed">
+        <span class="ar">⟵</span>
+        <span class="lbl">augments</span>
+      </div>
+
+      <div class="org-src private">
+        <span class="tag">● Private · yours</span>
+        <h3>KB-Local layer</h3>
+        <p>Your gitignored personal notes and deal context, folded in only when they add value.</p>
+        <ul>
+          <li>KB-Local/README.md</li>
+          <li>KB-Local/accounts/</li>
+          <li>local-only · never shared</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tree"><span class="c"># ── THE WIKI · the SE Brain (synthesized, lives on SharePoint) ──</span>
+<span class="dir">wiki/</span> &amp; <span class="dir">wiki-steady-state/</span>
+├── <span class="file">index.md</span>                <span class="c"># Master catalog of every page</span>
+├── <span class="file">overview.md</span>, <span class="file">log.md</span>      <span class="c"># Synthesis + append-only record</span>
+├── <span class="dir">concepts/</span>               <span class="c"># Synthesized topic pages</span>
+├── <span class="dir">entities/</span>               <span class="c"># Accounts, people, competitors, tools</span>
+├── <span class="dir">comparisons/</span>            <span class="c"># Side-by-side analyses</span>
+└── <span class="dir">analyses/</span>               <span class="c"># Filed answers (compounding)</span>
+
+<span class="c"># ── Feeds INTO the wiki ──</span>
+↑ <span class="dir">Static (SharePoint):</span> raw/ · raw-steady-state/ · mock-data/ · broadcasts/
+↑ <span class="dir">Private (your machine):</span> KB-Local/   <span class="c"># gitignored, never shared</span>
+
+<span class="c"># ── Operates the wiki ──</span>
+<span class="dir">mcp-servers/se-graph-wiki/</span>     <span class="c"># Bridges skills → Graph API → SharePoint</span>
+<span class="dir">.github/skills/</span>              <span class="c"># sharepoint-data gateway, query-wiki, customer-intel, …</span></div>
   </div>
 </section>
 
