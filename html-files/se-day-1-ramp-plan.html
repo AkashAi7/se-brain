@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SE Day 1 &amp; First-30-Days Ramp Plan — SE Brain</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --bg-2: #151823;
+    --card: #1a1d27;
+    --card-2: #1f2330;
+    --border: #2a2f3e;
+    --text: #e7ecf5;
+    --muted: #97a1b8;
+    --accent: #38bdf8;
+    --accent-2: #a78bfa;
+    --green: #34d399;
+    --orange: #fbbf24;
+    --pink: #fb7185;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: radial-gradient(1200px 600px at 15% -10%, #1a2238 0%, var(--bg) 55%);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 22px 80px; }
+
+  /* Hero */
+  .hero { padding: 56px 0 30px; }
+  .eyebrow {
+    display: inline-block; font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent); background: rgba(56,189,248,.1); border: 1px solid rgba(56,189,248,.3);
+    padding: 5px 12px; border-radius: 30px; font-weight: 600;
+  }
+  h1 { font-size: 40px; line-height: 1.15; margin: 18px 0 12px; letter-spacing: -.5px; }
+  h1 .grad { background: linear-gradient(90deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lede { font-size: 17px; color: var(--muted); max-width: 760px; margin: 0; }
+
+  /* Stat strip */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 34px 0 10px; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
+  .stat .n { font-size: 26px; font-weight: 700; }
+  .stat .l { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; margin-top: 2px; }
+  .stat.a .n { color: var(--accent); }
+  .stat.b .n { color: var(--accent-2); }
+  .stat.c .n { color: var(--green); }
+  .stat.d .n { color: var(--orange); }
+
+  /* TOC */
+  .toc { display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0 8px; }
+  .toc a {
+    font-size: 13px; color: var(--text); text-decoration: none; background: var(--card);
+    border: 1px solid var(--border); padding: 7px 13px; border-radius: 30px; transition: .15s;
+  }
+  .toc a:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Sections */
+  section { margin-top: 46px; scroll-margin-top: 20px; }
+  .sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .sec-head h2 { font-size: 24px; margin: 0; }
+  .chip { font-size: 12px; font-weight: 600; padding: 3px 11px; border-radius: 20px; }
+  .chip.today { background: rgba(52,211,153,.14); color: var(--green); border: 1px solid rgba(52,211,153,.35); }
+  .sec-sub { color: var(--muted); margin: 4px 0 22px; font-size: 15px; }
+  .divider { height: 1px; background: linear-gradient(90deg, var(--border), transparent); margin: 0 0 26px; }
+
+  /* Callout */
+  .callout {
+    background: linear-gradient(180deg, rgba(56,189,248,.08), rgba(56,189,248,.02));
+    border: 1px solid rgba(56,189,248,.3); border-left: 4px solid var(--accent);
+    border-radius: 12px; padding: 16px 20px; margin: 22px 0;
+  }
+  .callout.warn { background: linear-gradient(180deg, rgba(251,191,36,.08), transparent); border-color: rgba(251,191,36,.3); border-left-color: var(--orange); }
+  .callout strong { color: var(--text); }
+  .callout .tag { display: block; font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 4px; }
+  .callout.warn .tag { color: var(--orange); }
+
+  /* Day 1 time blocks */
+  .blocks { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .block { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; position: relative; overflow: hidden; }
+  .block::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--accent); opacity: .8; }
+  .block.b2::before { background: var(--accent-2); }
+  .block.b3::before { background: var(--green); }
+  .block.b4::before { background: var(--orange); }
+  .block .when { font-size: 12px; letter-spacing: .8px; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .block h3 { margin: 4px 0 12px; font-size: 17px; }
+  .block ul { margin: 0; padding-left: 0; list-style: none; }
+  .block li { position: relative; padding-left: 24px; margin: 9px 0; font-size: 14.5px; color: #d4dbe8; }
+  .block li::before { content: ""; position: absolute; left: 4px; top: 8px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .block.b2 li::before { background: var(--accent-2); }
+  .block.b3 li::before { background: var(--green); }
+  .block.b4 li::before { background: var(--orange); }
+  .block b { color: #fff; }
+
+  /* Timeline */
+  .timeline { position: relative; margin-left: 8px; padding-left: 28px; border-left: 2px solid var(--border); }
+  .tl-item { position: relative; margin-bottom: 22px; }
+  .tl-item::before { content: ""; position: absolute; left: -36px; top: 4px; width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 3px solid var(--accent); }
+  .tl-item.t2::before { border-color: var(--accent-2); }
+  .tl-item.t3::before { border-color: var(--green); }
+  .tl-item.t4::before { border-color: var(--orange); }
+  .tl-item.t5::before { border-color: var(--pink); }
+  .tl-item .ph { font-size: 12px; letter-spacing: .6px; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  .tl-item.t2 .ph { color: var(--accent-2); }
+  .tl-item.t3 .ph { color: var(--green); }
+  .tl-item.t4 .ph { color: var(--orange); }
+  .tl-item.t5 .ph { color: var(--pink); }
+  .tl-item h3 { margin: 2px 0 6px; font-size: 17px; }
+  .tl-item p { margin: 0; color: var(--muted); font-size: 14.5px; }
+
+  /* Tables */
+  .tbl-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+  thead th { background: var(--bg-2); color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .6px; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: var(--card-2); }
+  td b { color: var(--text); }
+
+  /* People grid */
+  .people { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .person { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+  .person .role { font-weight: 600; color: var(--accent-2); font-size: 14.5px; }
+  .person .desc { font-size: 13px; color: var(--muted); margin-top: 3px; }
+
+  /* Tags */
+  .pill { display: inline-block; font-size: 12px; background: var(--card-2); border: 1px solid var(--border); color: var(--muted); padding: 3px 10px; border-radius: 7px; margin: 3px 4px 0 0; }
+  .pill b { color: var(--accent); }
+
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 12.5px; }
+
+  @media (max-width: 720px) {
+    h1 { font-size: 30px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .blocks { grid-template-columns: 1fr; }
+    .people { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="eyebrow">Solution Engineer · Onboarding</span>
+    <h1>Your <span class="grad">Day 1 &amp; First-30-Days</span><br />Ramp Plan</h1>
+    <p class="lede">Day 1 is about becoming reachable, set up, and oriented — not deep technical work. Clear your access dependencies, meet your people, and lock in the weekly rhythm. Here's the full arc, at a glance.</p>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat a"><div class="n">Day 1</div><div class="l">Access &amp; orient</div></div>
+    <div class="stat b"><div class="n">Wk 1</div><div class="l">Org &amp; tooling</div></div>
+    <div class="stat c"><div class="n">Wk 2–3</div><div class="l">Tech foundations</div></div>
+    <div class="stat d"><div class="n">Day 30</div><div class="l">Manager check-in</div></div>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <a href="#day1">Day 1 plan</a>
+    <a href="#people">Your people</a>
+    <a href="#tools">Day 1 tools</a>
+    <a href="#arc">The 30-day arc</a>
+    <a href="#caveats">Caveats</a>
+  </div>
+
+  <!-- DAY 1 -->
+  <section id="day1">
+    <div class="sec-head">
+      <h2>Today — Day 1</h2>
+      <span class="chip today">Start here</span>
+    </div>
+    <p class="sec-sub">Four blocks across the day. Goal: be operational, oriented, and unblocked by tonight.</p>
+    <div class="divider"></div>
+
+    <div class="blocks">
+      <div class="block b1">
+        <div class="when">First hour · Orient &amp; align</div>
+        <h3>Get your bearings</h3>
+        <ul>
+          <li>Open the <b>MCAPS Onboarding Hub</b> — your authoritative source for schedules &amp; materials</li>
+          <li>Set the <b>MCAPS Onboarding Agent</b> in Teams as your default navigator</li>
+          <li><b>Manager 1:1</b> — align on role expectations, team norms, success metrics</li>
+        </ul>
+      </div>
+
+      <div class="block b2">
+        <div class="when">Midday · Get operational</div>
+        <h3>Setup &amp; access</h3>
+        <ul>
+          <li>IT: laptop, <b>MFA</b>, VPN, core apps (Outlook, Teams, OneDrive, SharePoint)</li>
+          <li>HR basics: benefits, payroll, leave, code of conduct</li>
+          <li>Check <b>SuccessFactors</b> + Outlook for Week 1 live sessions</li>
+          <li>Get added to team distribution lists, Teams channels, SharePoint</li>
+          <li>Confirm your <b>buddy / mentor</b> and set a recurring cadence</li>
+        </ul>
+      </div>
+
+      <div class="block b3">
+        <div class="when">Early afternoon · Access, tools, people</div>
+        <h3>Clear dependencies</h3>
+        <ul>
+          <li>Submit access: MCAPS Subscription, Managed Environment, External Subscription</li>
+          <li>Identity readiness via <b>Entra ID / IDWeb / MyAccess</b></li>
+          <li>Skim orientation tools: <b>RAIN</b>, <b>MCEM Portal</b>, <b>MSX</b></li>
+          <li>Map pod stakeholders: manager, peers, CSA, GBB, TSP</li>
+          <li>Confirm visibility into your initial account portfolio</li>
+        </ul>
+      </div>
+
+      <div class="block b4">
+        <div class="when">Late afternoon · Rhythm &amp; blockers</div>
+        <h3>Set up for the week</h3>
+        <ul>
+          <li>Block <b>protected learning time</b> (Tue–Thu)</li>
+          <li>Agree on a <b>Week 1 certification</b> target</li>
+          <li>Line up job shadowing &amp; Study Circles</li>
+          <li>Capture open blockers &amp; missing permissions in your tracker</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <span class="tag">Heads-up</span>
+      <strong>Profile propagation takes 24–72h.</strong> If your training courses or learning paths aren't visible in SuccessFactors yet, don't panic — give it a day or two before flagging it.
+    </div>
+  </section>
+
+  <!-- PEOPLE -->
+  <section id="people">
+    <div class="sec-head"><h2>Your people</h2></div>
+    <p class="sec-sub">The pod stakeholders to identify and understand early.</p>
+    <div class="divider"></div>
+    <div class="people">
+      <div class="person"><div class="role">Manager</div><div class="desc">Role expectations, norms, and success metrics. Your tiebreaker on Day 1 priorities.</div></div>
+      <div class="person"><div class="role">Buddy / Mentor</div><div class="desc">Day-to-day questions and ramp support. Set a recurring cadence.</div></div>
+      <div class="person"><div class="role">Peers (SEs)</div><div class="desc">Your immediate team — short intro meetings in the first few days.</div></div>
+      <div class="person"><div class="role">CSA</div><div class="desc">Cloud Solution Architect — partners on technical customer delivery.</div></div>
+      <div class="person"><div class="role">GBB</div><div class="desc">Global Black Belt — deep specialist support on the sales motion.</div></div>
+      <div class="person"><div class="role">TSP</div><div class="desc">Technical Specialist — part of the AE / SSP / CSA / TSP motion.</div></div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section id="tools">
+    <div class="sec-head"><h2>Day 1 tooling map</h2></div>
+    <p class="sec-sub">What you'll need, and where to go for it.</p>
+    <div class="divider"></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Need</th><th>Systems &amp; resources</th></tr></thead>
+        <tbody>
+          <tr><td><b>Program source of truth</b></td><td>MCAPS Onboarding Hub, Onboarding Agent</td></tr>
+          <tr><td><b>Manager &amp; team alignment</b></td><td>Manager 1:1, Teams channels, distribution lists, SharePoint</td></tr>
+          <tr><td><b>Profile &amp; access readiness</b></td><td>Entra ID, IDWeb, MyAccess</td></tr>
+          <tr><td><b>Environment readiness</b></td><td>MCAPS Subscription, Managed Environment, External Subscription</td></tr>
+          <tr><td><b>Role &amp; incentives</b></td><td>RAIN, Incentive Compensation Guide, MSX Earnings</td></tr>
+          <tr><td><b>Deal methodology</b></td><td>MCEM Portal, customer-planning &amp; orchestration guidance</td></tr>
+          <tr><td><b>Execution &amp; insight</b></td><td>MSX, MSXi, Power BI, Mint, Azure Portal</td></tr>
+          <tr><td><b>Learning &amp; ramp</b></td><td>Seismic, Role Library, Cloud Academy, Microsoft Learn</td></tr>
+          <tr><td><b>Support &amp; escalation</b></td><td>TechWeb, GetHelp</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ARC -->
+  <section id="arc">
+    <div class="sec-head"><h2>The 30-day arc</h2></div>
+    <p class="sec-sub">How today fits into your first month — a four-layer ramp.</p>
+    <div class="divider"></div>
+    <div class="timeline">
+      <div class="tl-item t1">
+        <div class="ph">Day 1</div>
+        <h3>Welcome &amp; access readiness</h3>
+        <p>Orientation, IT/HR setup, team access, stakeholder map, and weekly rhythm — everything above.</p>
+      </div>
+      <div class="tl-item t2">
+        <div class="ph">Days 2–5</div>
+        <h3>Org context &amp; tooling</h3>
+        <p>Microsoft culture &amp; growth mindset, org structure and team OKRs, intro meetings. Finish access (GitHub Sales), study the SE charter and AE/SSP/CSA/TSP sales motion, and walk through MSX opportunity/forecast/close guides.</p>
+      </div>
+      <div class="tl-item t3">
+        <div class="ph">Weeks 2–3</div>
+        <h3>Technical foundations</h3>
+        <p>Core cloud stack — Azure, M365, Entra ID, Purview, Defender, Power Platform, Copilot Studio — via Seismic, Cloud Academy, Microsoft Learn, and the Role Library. Run hands-on labs in Azure Portal and sandbox resources.</p>
+      </div>
+      <div class="tl-item t4">
+        <div class="ph">Week 4</div>
+        <h3>Customer-execution readiness</h3>
+        <p>Get hands-on with MSX, MSXi, Power BI. Shadow 3–5 customer meetings (discovery, demo, workshop), review 2–3 closed deals, and ground yourself in CAF, Well-Architected, and licensing references.</p>
+      </div>
+      <div class="tl-item t5">
+        <div class="ph">Day 30</div>
+        <h3>Manager check-in</h3>
+        <p>Review your strengths, skill gaps, and agree on Month 2 focus areas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAVEATS -->
+  <section id="caveats">
+    <div class="sec-head"><h2>Caveats</h2></div>
+    <div class="divider"></div>
+    <div class="callout">
+      <span class="tag">Good to know</span>
+      <strong>Exact Day 1 completion criteria vary by team.</strong> HR orientation sequencing and buddy assignment can differ — your manager and buddy are the tiebreakers. Some platform features may be partially implemented, and a few setup systems (like GitHub Sales) belong slightly later in Week 1 rather than being Day 1 blockers.
+    </div>
+    <div style="margin-top:14px">
+      <span class="pill"><b>#</b>se-onboarding</span>
+      <span class="pill"><b>#</b>day-1</span>
+      <span class="pill"><b>#</b>access-setup</span>
+      <span class="pill"><b>#</b>ramp-plan</span>
+      <span class="pill"><b>#</b>first-30-days</span>
+    </div>
+  </section>
+
+  <footer>
+    Source: wiki/analyses/day-1-onboarding-guide.md &amp; wiki/analyses/first-30-days-ramp-plan.md · Generated: 2026-06-05 · SE Brain HTML Explainer
+  </footer>
+
+</div>
+</body>
+</html>
