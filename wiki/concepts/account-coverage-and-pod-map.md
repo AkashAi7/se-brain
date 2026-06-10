@@ -1,55 +1,51 @@
 ---
-title: "Account Coverage And Pod Map"
+title: "Account Coverage and Pod Map"
 type: concept
-created: "2026-05-25"
-updated: "2026-05-25"
-sources: [raw/accounts/se-account-coverage-sample.md]
-tags: [accounts, coverage, pod-map, team-roles]
-backlinks: [wiki/index.md, wiki/overview.md, wiki/sources/se-account-coverage-sample.md, wiki/concepts/se-onboarding-journey.md, wiki/entities/onboarding-stakeholders.md]
+created: "2026-06-10"
+updated: "2026-06-10"
+sources: [raw/accounts/se-account-coverage-sample.md, mock-data/accounts.json]
+tags: [accounts, coverage, pod-map, team, segmentation]
+backlinks: [wiki/sources/se-account-coverage-sample.md, wiki/sources/accounts-data.md, wiki/entities/tata-steel.md, wiki/entities/mahindra.md, wiki/entities/tata-sons.md, wiki/entities/tata-agratas.md]
 ---
 
-# Account Coverage And Pod Map
+# Account Coverage and Pod Map
 
 ## Definition
 
-An account coverage and pod map is the role-based view that helps a new SE understand which people or teams appear to own a customer, motion, or specialty area across the account portfolio (from [SE Account Coverage Snapshot Sample](../sources/se-account-coverage-sample.md)).
+How accounts are assigned to SEs and pod roles, and how the SE's portfolio is structured. Two views exist: an **onboarding-era coverage sample** (a transcribed pod map across the FY26 Cloud & AI motion) and the **live steady-state portfolio** (four Tata/Mahindra accounts owned by Ashish Arora).
 
 ## Key Points
 
-- The sample source suggests recurring specialty lanes: SSP, SSM, Infrastructure, AI Data, AI Apps, Developer, and SEM.
-- A new SE likely needs this view after the Day 1 access stage to understand who to work with and where each account sits.
-- Even a partial snapshot is enough to identify what the onboarding wiki should eventually normalize into role and entity pages.
+- **FY26 Cloud & AI motion roles** (from the [coverage sample](../sources/se-account-coverage-sample.md)): SSP, SSM, Infrastructure, AI Data, AI Apps, Developer, and SEM — a multi-specialty pod covering each account.
+- **Live portfolio** (from [accounts data](../sources/accounts-data.md)): Tata Steel, Mahindra, Tata Sons, Tata Agratas — all India Enterprise, all SE-owned by [Ashish Arora](../entities/ashish-arora.md).
+- **Recurring account team:** AEs Sneha Kapoor & Arjun Reddy, CSAMs Pooja Sharma & Rahul Mehta, GBB Karthik Raman (AI specialist).
+- **Segmentation:** all live accounts are Enterprise/Strategic, with multi-cloud (predominantly GCP) competitive footprints.
 
-## Role Lanes Visible In The Sample
+## Live Portfolio Map
 
-| Role Lane | Purpose In Onboarding |
-|-----------|------------------------|
-| SSP | Top-level account or solution ownership context |
-| SSM | Sales or segment partner context |
-| Infrastructure | Specialist lane for infra-oriented motions |
-| AI Data | Specialist lane for data and AI-related work |
-| AI Apps | Specialist lane for application-oriented AI work |
-| Developer | Developer-focused ownership and execution support |
-| SEM | Leadership or management context that appears across rows |
+| Account | Segment | AE | CSAM | GBB |
+|---------|---------|----|------|-----|
+| [Tata Steel](../entities/tata-steel.md) | Enterprise (Tata Group) | Sneha Kapoor | Pooja Sharma | Karthik Raman |
+| [Mahindra](../entities/mahindra.md) | Enterprise | Arjun Reddy | Rahul Mehta | — |
+| [Tata Sons](../entities/tata-sons.md) | Strategic Enterprise | Sneha Kapoor | Pooja Sharma | Karthik Raman |
+| [Tata Agratas](../entities/tata-agratas.md) | Enterprise (Tata Group) | Arjun Reddy | Rahul Mehta | Karthik Raman |
 
-## How To Use This Concept
+## How Sources Relate to This Concept
 
-- Help a new SE identify the people around a customer account.
-- Connect stage-based onboarding to real customer-facing ownership.
-- Build future entity pages for repeated names and recurring teams.
+| Source | Perspective | Key Contribution |
+|--------|------------|-----------------|
+| [Coverage Sample](../sources/se-account-coverage-sample.md) | Onboarding-era pod map | The FY26 specialty-role taxonomy and sample accounts |
+| [Accounts Data](../sources/accounts-data.md) | Live portfolio | The four current accounts, teams, and context |
 
-## Contradictions And Caveats
+## Contradictions and Open Questions
 
-- The current source is a screenshot-derived sample, not a system export.
-- Some names or fields were not fully legible in the sample.
-- The exact semantics of each column should be validated with the owning team.
+- **⚠ Reconciliation gap (flagged):** the onboarding [coverage sample](../sources/se-account-coverage-sample.md) lists non-Tata accounts (Apollo Hospitals, Bharat Petroleum, CitiusTech, etc.) while the live [accounts data](../sources/accounts-data.md) is entirely Tata/Mahindra. The sample is a screenshot-derived starter map (provisional); the live data reflects the current territory. They describe different account sets and should not be merged without verification.
 
 ## Related Concepts
 
-- [SE Onboarding Journey](se-onboarding-journey.md) - where this context fits in the broader onboarding flow
+- [Active Pipeline](active-pipeline.md) — opportunities within these accounts.
+- [Customer Engagement Patterns](customer-engagement-patterns.md) — how the accounts are worked.
 
-## Related Pages
+## Related Entities
 
-- [SE Onboarding Overview](../overview.md)
-- [Onboarding Stakeholders](../entities/onboarding-stakeholders.md)
-- [Source Summary: Account Coverage Sample](../sources/se-account-coverage-sample.md)
+- [Tata Steel](../entities/tata-steel.md), [Mahindra](../entities/mahindra.md), [Tata Sons](../entities/tata-sons.md), [Tata Agratas](../entities/tata-agratas.md), [Ashish Arora](../entities/ashish-arora.md).

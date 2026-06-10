@@ -1,45 +1,51 @@
 ---
 title: "Summary: SE Onboarding Staged Ramp Playbook"
 type: source-summary
-created: "2026-05-26"
-updated: "2026-05-26"
+created: "2026-06-10"
+updated: "2026-06-10"
 sources: [raw/se-onboarding-staged-ramp-playbook.md]
 tags: [se-onboarding, ramp-plan, staged-ramp, learning]
-backlinks: [wiki/overview.md, wiki/concepts/se-onboarding-journey.md, wiki/concepts/onboarding-tooling-and-resources.md, wiki/entities/onboarding-stakeholders.md, wiki/analyses/day-1-onboarding-guide.md, wiki/analyses/first-30-days-ramp-plan.md]
+backlinks: [wiki/concepts/staged-ramp-plan.md, wiki/concepts/se-onboarding-journey.md]
 ---
 
 # SE Onboarding Staged Ramp Playbook
 
-> Source: user-provided staged onboarding playbook | Retrieved: 2026-05-26 | Type: reference
+> Source: user-provided | On SharePoint: [raw/se-onboarding-staged-ramp-playbook.md](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw/se-onboarding-staged-ramp-playbook.md) | Retrieved: 2026-05-26 | Type: reference
 
 ## Key Takeaways
 
-- This source turns the onboarding model from a mostly Day 1 artifact into a staged 90-day ramp.
-- It provides canonical URLs for many tools that were previously stored only as labels.
-- It adds concrete Day 1 expectations, Week 2-4 learning and execution milestones, Month 2 contribution tasks, Month 3 ownership goals, and 30-60-90 check-ins.
+- A timeline-oriented playbook spanning **Day 1 → Month 3**, with explicit checkpoints and a 30-60-90 cadence.
+- Day 1 covers welcome and access; Day 2-3 org and culture; Day 4-5 critical onboarding tasks (MCAPS Azure subscription, Managed Environment, external tenant, GitHub Sales onboarding, SE charter deep-dive).
+- Week 2-3 builds technical foundations across the Microsoft Cloud stack; Week 4 introduces customer and sales execution tools.
+- Month 2 is active contribution (co-delivery, customer engagement); Month 3 is independent ownership of 1-2 opportunities.
+- Certification targets: AZ-900, MS-900, AI-900 by end of Month 2; an advanced cert (AZ-305, AI-102, or SC-100) in Month 3.
 
 ## Detailed Summary
 
-The playbook starts with Day 1 welcome and access tasks, then sequences org and culture orientation into setup actions that unblock the managed environment, subscriptions, and GitHub Sales onboarding. It then shifts into technical foundations, execution systems, shadowing, and customer-facing practice, followed by Month 2 co-delivery and Month 3 independent ownership.
+This is the **timeline backbone** of onboarding. The early days emphasize access, culture, and the critical platform-access tasks. Week 2-3 covers Azure/M365 fundamentals, Entra ID, Purview, Defender, Power Platform, and Copilot Studio, plus enablement platforms (Seismic, Cloud Academy, Microsoft Learn, Role Library) and hands-on labs.
 
-The source is also operationally stronger than the existing tooling spreadsheet because it includes canonical URLs for onboarding, execution, learning, support, certification, and public reference resources.
+Week 4 shifts to execution tooling — MSX (CRM), MSXI (Insights), Customer360 — and activities like shadowing 3-5 customer meetings and reviewing 2-3 closed deals. Month 2 moves to co-delivery (co-present demos with a senior SE, own a workshop section, contribute to RFPs) and then independent customer engagement (lead a discovery call, build a tailored demo, document an architecture). Month 3 targets end-to-end ownership of 1-2 opportunities with mentor backup, an internal tech talk, reusable Seismic assets, and an advanced certification.
+
+The 30-60-90 check-ins: Day 30 manager feedback, Day 60 skills-gap assessment and learning-plan refresh, Day 90 performance baseline and quarterly goals. The detailed tool catalog is intentionally kept in [SE Tools Full Reference](se-tools-full-reference.md).
 
 ## Notable Claims
 
 | Claim | Confidence | Corroborated By | Contradicted By |
 |-------|-----------|-----------------|-----------------|
-| Day 1 should include manager alignment, IT readiness, HR basics, team access, and buddy assignment. | high | [SE Onboarding Journey](../concepts/se-onboarding-journey.md), [Analysis: Day 1 Onboarding Guide](../analyses/day-1-onboarding-guide.md) | none |
-| Week 2 onward can be described with concrete learning, execution, and certification milestones. | high | [Analysis: First 30 Days Ramp Plan](../analyses/first-30-days-ramp-plan.md) | none |
-| Canonical links are available for most onboarding and execution systems. | high | [Onboarding Tooling And Resources](../concepts/onboarding-tooling-and-resources.md) | none |
+| Cert targets AZ-900/MS-900/AI-900 by end of Month 2 | High | — | — |
+| Month 3 = own 1-2 opportunities with mentor backup | High | [Skills & Growth Data](skills-and-growth-data.md) (role transition phases) | — |
+| Six-stage ramp model | High | [Flow Reference](se-onboarding-flow-reference.md), [Day 1 Guide](se-day-1-complete-starter-guide.md) | — |
+
+## Entities Mentioned
+
+- MSX, MSXI, Customer360, Seismic, Microsoft Learn — execution and learning tools.
 
 ## Concepts Touched
 
-- [SE Onboarding Journey](../concepts/se-onboarding-journey.md) - expanded staged ramp model
-- [Onboarding Tooling And Resources](../concepts/onboarding-tooling-and-resources.md) - canonical tool and learning links
-- [Onboarding Stakeholders](../entities/onboarding-stakeholders.md) - broader stakeholder and operating-role set
+- [Staged Ramp Plan](../concepts/staged-ramp-plan.md) — the timeline this source defines.
+- [SE Onboarding Journey](../concepts/se-onboarding-journey.md) — the stage framework.
+- [SE Skills and Growth Model](../concepts/se-skills-and-growth.md) — certification milestones.
 
 ## Questions Raised
 
-- Which tasks are globally required versus segment-specific?
-- Which certifications are expected versus recommended?
-- Which parts of the staged plan are normative policy versus manager-guided best practice?
+- How does the staged ramp adapt for an SE switching solution areas (e.g. Infrastructure → AI) rather than a fresh hire?

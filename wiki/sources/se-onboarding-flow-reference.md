@@ -1,49 +1,46 @@
 ---
 title: "Summary: SE Onboarding Flow & Azure DevOps Wiki Integration"
 type: source-summary
-created: "2026-05-25"
-updated: "2026-05-25"
+created: "2026-06-10"
+updated: "2026-06-10"
 sources: [raw/se-onboarding-flow-reference.md]
 tags: [se-onboarding, onboarding-flow, wiki, azure-devops]
-backlinks: [wiki/index.md, wiki/overview.md, wiki/concepts/se-onboarding-journey.md, wiki/entities/onboarding-stakeholders.md]
+backlinks: [wiki/concepts/se-onboarding-journey.md]
 ---
 
 # SE Onboarding Flow & Azure DevOps Wiki Integration
 
-> Source: [SE Onboarding Flow & Azure DevOps Wiki Integration](https://akashai7.github.io/se-onboarding-wiki/) | Retrieved: 2026-05-25 | Type: reference
+> Source: [akashai7.github.io/se-onboarding-wiki](https://akashai7.github.io/se-onboarding-wiki/) | On SharePoint: [raw/se-onboarding-flow-reference.md](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw/se-onboarding-flow-reference.md) | Retrieved: 2026-05-25 | Type: reference
 
 ## Key Takeaways
 
-- The onboarding framework is organized as a six-stage journey.
-- Day 1 is centered on profile, access, pod discovery, and customer readiness.
-- The wiki is presented as a live onboarding artifact, not just static documentation.
-- The visible Day 1 flow references concrete operational systems and wiki pages.
+- The onboarding journey is organized into **six stages**: Day 1, Week 1, Week 2, Week 3-4, Month 2, and Ongoing.
+- The Day 1 experience focuses on profile hydration, access setup, pod discovery, and unlocking the customer portfolio.
+- The platform treats the wiki as both an onboarding **input** (guidance) and an **output** generated during onboarding.
+- Concrete Azure DevOps wiki artifacts are shown (e.g. `Onboarding/Day1/Welcome.md`).
 
 ## Detailed Summary
 
-The reference site presents SE onboarding as a staged experience with the wiki integrated into the operating model. The strongest visible detail is on Day 1, where the platform hydrates the user profile, checks access prerequisites, reveals pod context, and only then unlocks the customer portfolio. This indicates that onboarding content should be sequenced around readiness gates instead of a flat checklist.
+First login auto-generates a personalized dashboard with an access checklist, the SE's pod, and assigned customers. The Day 1 onboarding steps are: (1) login and profile hydration, (2) access setup checklist, (3) meet your pod, (4) customer portfolio unlocked after access grants are confirmed. Systems mentioned include Entra ID, IDWeb, MyAccess, and Org Explorer.
 
-The page also shows the expected wiki shape for onboarding content. Day 1 appears to rely on `Welcome.md`, `Access-Setup-Checklist.md`, and `IDWeb-Requests.md`, which suggests onboarding knowledge should mix user-facing guidance with operational request documentation.
+Only the Day 1 narrative was directly readable from the fetched page; later stages (Week 1 through Ongoing) were visible as navigation labels with low detail. The implication is that the knowledge base should be organized around **stage-based pages and operational sub-pages** rather than one long document — Day 1 seeds the journey model, and later stages are expanded from internal sources.
 
 ## Notable Claims
 
 | Claim | Confidence | Corroborated By | Contradicted By |
 |-------|-----------|-----------------|-----------------|
-| The onboarding journey has six stages. | high | [SE Onboarding Journey](../concepts/se-onboarding-journey.md) | none |
-| Day 1 depends on Entra ID, IDWeb, MyAccess, and Org Explorer. | high | [SE Onboarding Journey](../concepts/se-onboarding-journey.md) | none |
-| Wiki pages are generated or used at each onboarding stage. | medium | [SE Onboarding Journey](../concepts/se-onboarding-journey.md) | none |
+| Onboarding spans six stages | High | [Day 1 Starter Guide](se-day-1-complete-starter-guide.md), [Staged Ramp Playbook](se-onboarding-staged-ramp-playbook.md) | — |
+| First login auto-generates a personalized dashboard | Medium (single source) | [Platform Documentation](se-onboarding-platform-documentation.md) | — |
 
 ## Entities Mentioned
 
-- [Onboarding Stakeholders](../entities/onboarding-stakeholders.md) - Stakeholder roles include manager, peers, CSA, GBB, and TSP.
+- Entra ID, IDWeb, MyAccess, Org Explorer — access and org systems.
 
 ## Concepts Touched
 
-- [SE Onboarding Journey](../concepts/se-onboarding-journey.md) - stage-based onboarding model
-- [Account Coverage And Pod Map](../concepts/account-coverage-and-pod-map.md) - downstream context that becomes useful after access is established
+- [SE Onboarding Journey](../concepts/se-onboarding-journey.md) — the six-stage framework.
+- [Onboarding Platform Capabilities](../concepts/onboarding-platform-capabilities.md) — dashboard generation.
 
 ## Questions Raised
 
-- What are the exact Week 1 to Ongoing deliverables for a new SE?
-- Which systems remain the source of truth for access status and ownership?
-- Which onboarding pages should be auto-generated versus manually curated?
+- What detailed content belongs to Week 1 through Ongoing stages? (Only Day 1 was fully visible.)

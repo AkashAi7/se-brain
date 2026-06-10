@@ -1,11 +1,28 @@
 ---
 name: se-wiki-generator
-description: 'Incrementally build and maintain an LLM-generated wiki from raw source documents. Use when asked to "build the wiki", "generate wiki", "ingest sources", "update wiki", "compile wiki", "create wiki pages", "synthesize sources", "link concepts", "lint wiki", or "health-check wiki". Reads from raw/ sources and produces a structured, interlinked collection of markdown files in wiki/ — summaries, entity pages, concept pages, comparisons, an overview, and a synthesis. Maintains cross-references, backlinks, index, and changelog automatically.'
+description: 'Incrementally build and maintain an LLM-generated wiki from raw source documents. Use when asked to "build the wiki", "generate wiki", "ingest sources", "update wiki", "compile wiki", "create wiki pages", "synthesize sources", "link concepts", "lint wiki", or "health-check wiki". Reads raw sources from the SharePoint raw dump (via wiki_read/wiki_list) plus the optional local KB-Local/ folder, and produces a structured, interlinked collection of markdown files in the LOCAL wiki/ — summaries, entity pages, concept pages, comparisons, an overview, and a synthesis. Source references point to the SharePoint wiki site. Maintains cross-references, backlinks, index, and changelog automatically.'
 ---
 
 # Wiki Generator
 
-Incrementally compile and maintain a structured, interlinked wiki from the raw source documents in `raw/`. This skill implements the **Wiki layer** of the LLM Wiki pattern — an LLM-owned directory of markdown files that the user reads and the LLM writes.
+Incrementally compile and maintain a structured, interlinked wiki from the raw source documents. This skill implements the **Wiki layer** of the LLM Wiki pattern — an LLM-owned directory of markdown files that the user reads and the LLM writes.
+
+## Knowledge Architecture (read this first)
+
+The raw dump no longer lives on your local disk. It lives on SharePoint, with an optional private local layer. The wiki you build is the **local** synthesized layer on top of it.
+
+| Layer | Where it lives | Role | How to access |
+|-------|----------------|------|---------------|
+| **Raw dump — shared** | SharePoint at `microsoftapc.sharepoint.com/teams/se-brain-wiki` under `raw/` | Authoritative source documents | `wiki_read(path)`, `wiki_list(folder)`, `wiki_search(query)` MCP tools |
+| **Raw dump — private** | Local `KB-Local/` folder (gitignored) | The user's personal source notes | `grep_search` (`includeIgnoredFiles: true`, `includePattern: "KB-Local/**"`) to discover, `read_file` to read |
+| **Wiki (this skill's output)** | **Local `wiki/` folder** | Synthesized, interlinked knowledge | `read_file` / `create_file` / `edit` — you own this directory entirely |
+
+**Direction of work:** read raw from SharePoint (`wiki_read`) **+ KB-Local** → write the compiled wiki **locally** in `wiki/`.
+
+- **NEVER** use `wiki_read`/`wiki_write` against the `wiki/` path — the wiki is a local artifact, not a SharePoint mirror. Read and write it with the local file tools.
+- **NEVER** read a stale local `raw/` mirror if one exists — the authoritative raw dump is on SharePoint. If `wiki_read` is unavailable, tell the user the SharePoint connection is required; do not silently fall back to a local `raw/` copy. `KB-Local/` is the only sanctioned local *source* read.
+- **Source references in wiki pages point to SharePoint.** Convert any raw path to a clickable SharePoint URL:
+  `https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/<path>` (spaces → `%20`). KB-Local-derived material is labeled "From local notes (KB-Local)" and has no SharePoint URL.
 
 ## When to Use This Skill
 
@@ -18,13 +35,14 @@ Incrementally compile and maintain a structured, interlinked wiki from the raw s
 
 ## Prerequisites
 
-- A `raw/` directory with at least one source file (produced by the **se-open-research** skill or added manually)
-- Each source in `raw/` should have YAML frontmatter with `title`, `url`, `date_retrieved`, `source_type`, and `tags`
-- `raw/sources.md` manifest (recommended but not required — the skill can scan `raw/*.md` directly)
+- The `wiki_read` / `wiki_list` / `wiki_search` MCP tools (provided by the `se-graph-wiki` server) connected to the SharePoint raw dump
+- At least one source file in the SharePoint `raw/` folder (or in local `KB-Local/`)
+- Each shared source on SharePoint should have YAML frontmatter with `title`, `url`, `date_retrieved`, `source_type`, and `tags`
+- `raw/sources.md` manifest on SharePoint (recommended but not required — the skill can list `raw/` via `wiki_list("raw")` directly)
 
 ## Directory Structure
 
-The skill creates and maintains the following structure:
+The skill creates and maintains the following structure **locally** (the SharePoint side only holds the `raw/` sources):
 
 ```
 wiki/
@@ -66,6 +84,8 @@ backlinks: [wiki/concepts/related-concept.md]
 ---
 ```
 
+> **`sources:` paths are SharePoint raw paths.** Entries like `raw/source-slug.md` identify documents in the SharePoint raw dump. When you render them as clickable links in page bodies, expand them to the SharePoint URL: `https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw/source-slug.md`. A source that came from `KB-Local/` instead gets a `kb-local/<file>.md` entry and is attributed inline as "From local notes (KB-Local)" — it has no SharePoint URL. `backlinks:` paths stay as local `wiki/` relative paths.
+
 ### Source Summary Page (`wiki/sources/`)
 
 One page per raw source. Contains:
@@ -83,7 +103,7 @@ backlinks: []
 
 # <Source Title>
 
-> Source: [Original Title](original-url) | Retrieved: YYYY-MM-DD | Type: article
+> Source: [Original Title](original-url) | On SharePoint: [raw/<source-slug>.md](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw/<source-slug>.md) | Retrieved: YYYY-MM-DD | Type: article
 
 ## Key Takeaways
 
@@ -175,13 +195,17 @@ A single page that synthesizes the entire wiki into a coherent narrative. Update
 
 ### Operation 1: Ingest
 
-Triggered when the user adds new source(s) to `raw/` and asks the LLM to process them. This is the most common operation.
+Triggered when new source(s) land in the SharePoint `raw/` dump (or in local `KB-Local/`) and the user asks the LLM to process them. This is the most common operation.
 
 **Workflow:**
 
-1. **Identify new sources.** Read `raw/sources.md` (or scan `raw/*.md`). Compare against `wiki/index.md` to find sources not yet ingested.
+1. **Identify new sources.**
+   - Shared: `wiki_read("raw/sources.md")` for the manifest, or `wiki_list("raw")` to enumerate. Compare against the local `wiki/index.md` to find sources not yet ingested.
+   - Private: discover any relevant `KB-Local/` notes with `grep_search` (`includeIgnoredFiles: true`, `includePattern: "KB-Local/**"`). `file_search` cannot see `KB-Local/` because it is gitignored.
 
-2. **Read each new source.** Parse the frontmatter and full content of the raw source file.
+2. **Read each new source.**
+   - Shared sources: `wiki_read("raw/<file>.md")` — parse the frontmatter and full content directly from the tool result. Do NOT write the result to a temp file and re-parse it.
+   - Private sources: `read_file` on the `KB-Local/` path. Never read local files outside `KB-Local/` as sources.
 
 3. **Create source summary page.** Write `wiki/sources/<slug>.md` with the source summary format above. Extract key takeaways, notable claims, entities, and concepts.
 
@@ -211,13 +235,13 @@ Triggered when the user adds new source(s) to `raw/` and asks the LLM to process
 
 ### Operation 2: Full Build
 
-For bootstrapping — when there's no wiki yet but `raw/` has multiple sources. Runs Ingest on every source, then does a final cross-referencing pass.
+For bootstrapping — when there's no local wiki yet but the SharePoint `raw/` dump (and/or `KB-Local/`) has multiple sources. Runs Ingest on every source, then does a final cross-referencing pass.
 
 **Workflow:**
 
-1. Create `wiki/` directory structure (all subdirectories).
+1. Create the local `wiki/` directory structure (all subdirectories).
 2. Initialize `wiki/index.md`, `wiki/log.md`, `wiki/overview.md` as stubs.
-3. Ingest each source from `raw/` one by one (follow Ingest workflow above).
+3. Enumerate every source via `wiki_list("raw")` (shared) and the `KB-Local/` scan (private), then ingest each one by one (follow Ingest workflow above).
 4. After all sources are ingested, do a **cross-reference pass**:
    - Scan all concept and entity pages for potential links that were missed.
    - Identify concepts that appear across 3+ sources — these deserve dedicated pages if they don't have them.
@@ -232,11 +256,14 @@ When the user asks a question and the answer is worth preserving.
 
 **Workflow:**
 
-1. Read `wiki/index.md` to find relevant pages.
-2. Read the relevant wiki pages (not raw sources — the wiki should have the synthesized knowledge).
-3. Synthesize an answer with citations to wiki pages and ultimately to raw sources.
-4. If the user wants to keep the answer: save it as `wiki/analyses/<slug>.md`.
-5. Update `wiki/index.md` and `wiki/log.md`.
+1. Read the local `wiki/index.md` to find relevant pages.
+2. Read the relevant local wiki pages — the wiki should already hold the synthesized knowledge and overview/context.
+3. Only if a wiki page lacks a specific detail, fetch the *specific* raw document it references from the dump — `wiki_read("raw/<that-file>.md")` (or `read_file` on the `KB-Local/` note). Don't blanket-scan the raw dump.
+4. Synthesize an answer with citations to local wiki pages and ultimately to the SharePoint raw URLs.
+5. If the user wants to keep the answer: save it as `wiki/analyses/<slug>.md` (local).
+6. Update `wiki/index.md` and `wiki/log.md` (local).
+
+For full query behavior, defer to the **se-query-wiki** skill — this operation is just the "file it back" tail of that flow.
 
 ### Operation 4: Lint
 
@@ -360,7 +387,8 @@ The wiki is designed to grow incrementally. Key principle: **never regenerate fr
 
 | Issue | Solution |
 |-------|---------|
-| No `raw/` directory or empty | Run the **se-open-research** skill first to populate sources. |
+| `wiki_list("raw")` empty and no `KB-Local/` notes | No sources to ingest. Run the **se-open-research** / **se-work-research** skill to populate the SharePoint raw dump first. |
+| `wiki_read`/`wiki_list` unavailable or auth error | Tell the user the SharePoint connection is required (e.g. "run `az login` to refresh credentials"). Do NOT fall back to a stale local `raw/` mirror. |
 | Source has no frontmatter | Parse what you can from the filename and content. Note the missing metadata in the source summary. |
 | Wiki pages are getting too long | Split into sub-pages (e.g., `concepts/machine-learning/supervised.md`) and link from the parent. |
 | Backlinks are stale | Run the **lint** operation to detect and fix stale backlinks. |

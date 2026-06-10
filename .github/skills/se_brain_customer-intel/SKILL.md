@@ -16,14 +16,15 @@ Generate sharp, actionable pre-meeting intelligence that makes the SE walk in kn
 
 ## Data Sources
 
-**Grounding (two-tier):** All *shared* datastore reads MUST use the `wiki_read()` MCP tool against `microsoftapc.sharepoint.com/teams/se-brain-wiki`. NEVER read the stale local mirrors (`mock-data/`, `wiki/`, `wiki-steady-state/`, `raw/`, `raw-steady-state/`, `broadcasts/`). If `wiki_read` is unavailable, tell the user the SharePoint connection is required — do not fall back to those mirrors.
+**Grounding:** The synthesized wiki is **local** — `read_file` the relevant `wiki/` pages (e.g. compete, account strategy) for overview/context first. Live deal/account data lives on **SharePoint** and is read via the `wiki_read()` MCP tool against `microsoftapc.sharepoint.com/teams/se-brain-wiki`. NEVER `read_file` a stale local mirror of *shared* SharePoint content (`mock-data/`, `raw/`, `broadcasts/`). If `wiki_read` is unavailable, tell the user the SharePoint connection is required — do not fall back to those mirrors.
 
-**Always also check the private layer.** After grounding in SharePoint, scan the user's `KB-Local/` folder for personal notes relevant to this account or meeting. **`KB-Local/` is gitignored, so `file_search` cannot see it** — discover notes with `grep_search` (set `includeIgnoredFiles: true`, `includePattern: "KB-Local/**"`) and read them with `read_file`. Fold them in only if they add value, label them "From your local notes (KB-Local)", and let SharePoint win any conflict on shared facts. Never read local files outside `KB-Local/`.
+**Always also check the private layer.** After grounding, scan the user's `KB-Local/` folder for personal notes relevant to this account or meeting. **`KB-Local/` is gitignored, so `file_search` cannot see it** — discover notes with `grep_search` (set `includeIgnoredFiles: true`, `includePattern: "KB-Local/**"`) and read them with `read_file`. Fold them in only if they add value, label them "From your local notes (KB-Local)", and let SharePoint win any conflict on shared facts. Never read local files outside `wiki/` and `KB-Local/`.
 
-- `wiki_read("mock-data/opportunities.json")` — active deals, stages, blockers, contacts, deal notes
-- `wiki_read("mock-data/accounts.json")` — account profile, industry, competitive footprint, recent signals, strategic priorities
+- `read_file("wiki/concepts/compete-landscape.md")` (and other relevant local wiki pages) — synthesized account/compete context
+- `wiki_read("mock-data/opportunities.json")` — active deals, stages, blockers, contacts, deal notes (SharePoint)
+- `wiki_read("mock-data/accounts.json")` — account profile, industry, competitive footprint, recent signals, strategic priorities (SharePoint)
 
-The brief is built from exactly two layers: **SharePoint** (shared truth) and **`KB-Local/`** (your private notes). Do not call any other live data source.
+The brief is built from three layers: the **local wiki** (synthesized context), **SharePoint** (live data + raw sources), and **`KB-Local/`** (your private notes). Do not call any other live data source.
 
 ## Execution Steps
 
@@ -125,7 +126,7 @@ Every brief MUST end with a **Sources** section so the SE can trace every claim.
 **Sources** (SE Brain wiki):
 - [Account Data](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/mock-data/accounts.json)
 - [Pipeline Data](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/mock-data/opportunities.json)
-- [Compete Landscape](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/wiki-steady-state/concepts/compete-landscape.md)
+- Compete Landscape (local wiki: `wiki/concepts/compete-landscape.md`)
 
 _Plus your local notes (KB-Local) where labeled above._
 ```
@@ -144,19 +145,19 @@ This brief is for the SE, not the AE. Everything must be framed through what the
 
 Do NOT include AE-domain items like pricing negotiation, contract urgency, or executive relationship building as primary recommendations.
 
-## Compete Enrichment via Seismic Intel
+## Compete Enrichment (live battlecards)
 
 When the opportunity has an active competitor (check `competitor` field in `wiki_read("mock-data/opportunities.json")`):
-- Invoke `se-seismic-intel` to find live battlecard content for that competitor.
+- Use `se-work-research` (WorkIQ / M365) to find live Seismic-distributed battlecard content for that competitor.
 - Include the top objection handling points and trap questions in the brief's "Talking Points" and "Competitive Counter" sections.
 - Reference specific battlecard assets by name so the SE can pull them up before the meeting.
 
 This enrichment transforms the brief from static data into a live-content-backed preparation tool.
 
-## Win Pattern Enrichment via Win Patterns
+## Win Pattern Enrichment (similar wins)
 
 When preparing for a complex deal meeting (Solution stage or later, or high deal value):
-- Invoke `se-win-patterns` to find similar wins, reference customers, and proven plays for this deal's scenario (industry + competitor + solution area).
+- Use `se-work-research` (WorkIQ / M365) to find similar wins, reference customers, and proven plays for this deal's scenario (industry + competitor + solution area).
 - Add a "Similar Wins" section to the brief showing 1-3 relevant reference stories the SE can cite.
 - Include "Plays That Worked" from similar deals — specific angles or proof points that closed comparable opportunities.
 

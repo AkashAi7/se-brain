@@ -1,46 +1,46 @@
 ---
 title: "Summary: SE Tools Full Reference"
 type: source-summary
-created: "2026-05-29"
-updated: "2026-05-29"
+created: "2026-06-10"
+updated: "2026-06-10"
 sources: [raw/se-tools-full-reference.md]
 tags: [se-onboarding, tooling, links, expertise, week-1]
-backlinks: [wiki/overview.md, wiki/concepts/onboarding-tooling-and-resources.md]
+backlinks: [wiki/concepts/onboarding-tooling-and-resources.md, wiki/entities/microsoft-sales-tools.md]
 ---
 
 # SE Tools Full Reference
 
-> Source: user-provided detailed tool reference | Retrieved: 2026-05-29 | Type: reference
+> Source: user-provided | On SharePoint: [raw/se-tools-full-reference.md](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw/se-tools-full-reference.md) | Retrieved: 2026-05-29 | Type: reference
 
 ## Key Takeaways
 
-- The detailed reference resolves the starter tooling list into concrete systems, direct URLs, and task-specific expertise materials.
-- The tools naturally group into role orientation, deal methodology, execution, reporting, incentives, learning, and coaching.
-- The source also gives a practical Week 1 sequence: RAIN, MCEM Portal, MSX, then Onboarding Agent.
+- The authoritative cross-category catalog of SE tools, direct URLs, and expertise materials.
+- Tools span **four practical layers**: role understanding (RAIN), deal methodology (MCEM Portal), execution systems (MSX, MSXi), and ongoing skilling (Microsoft Learn, MCAPS Academy).
+- Several tools overlap but answer different questions: **MSXi** for business/pipeline reporting, **MSX Earnings** for compensation truth, **RAIN** for role and incentive navigation.
+- Recommended **Week 1 start sequence**: RAIN → MCEM Portal → MSX → Onboarding Agent.
 
 ## Detailed Summary
 
-This source acts more like an onboarding field guide than a spreadsheet extract. It names the core deal and methodology systems, especially MSX, MCEM Portal, and MSXi; it separates the incentive stack through MSX Earnings, RAIN, and the Incentive Compensation Guide; and it adds learning and coaching surfaces such as Seismic, Microsoft Learn, MCAPS Academy, Onboarding Agent, and Agent J.ai. That makes it suitable not only for a reference table but also for sequencing Week 1 priorities and clarifying which systems answer which questions.
+The source is a consolidated tool directory with primary purposes and main URLs, plus deep per-tool link sets. Core execution tools include MSX (sales execution), MCEM Portal (deal methodology), MSXi (pipeline reporting), MSX Earnings (incentive tracking), and RAIN (role/quota/incentive navigation). Post-win and enablement tools include FastTrack (deployment support), Seismic (sales enablement content), the Azure Pricing Calculator, Power BI, OneAsk, and the MTC Portal. Learning and coaching surfaces include Microsoft Learn, MCAPS Academy, Agent J.ai (AI coaching/pitch practice), and the Onboarding Agent.
 
-One useful distinction in the source is the separation between MSXi and MSX Earnings. MSXi is framed as the business-performance and pipeline-management dashboard, while MSX Earnings is explicitly called the source of truth for incentive compensation. That distinction matters because a new SE can otherwise treat them as interchangeable.
-
-The source also adds expertise materials around the two systems most likely to be opaque on first use: MSX and MCEM Portal. MSX now has direct task guides for creating, forecasting, closing, and milestone management, while MCEM Portal now includes enterprise playbooks, orchestration guidance, services-sales guidance, and customer-planning resources.
+A key distinction the source stresses: **MSX Earnings is the source of truth for quota attainment, earnings, and payout; MSXi is the business performance and pipeline reporting surface.** The practical interpretation is that Week 1 should emphasize orientation systems first, then execution systems, then deeper learning and specialist portals.
 
 ## Notable Claims
 
 | Claim | Confidence | Corroborated By | Contradicted By |
 |-------|-----------|-----------------|-----------------|
-| The SE toolset spans execution, methodology, incentives, reporting, learning, coaching, and support. | high | [Onboarding Tooling And Resources](../concepts/onboarding-tooling-and-resources.md) | none |
-| MSXi and MSX Earnings serve different purposes and should not be treated as the same system. | high | [Onboarding Tooling And Resources](../concepts/onboarding-tooling-and-resources.md) | none |
-| RAIN should be one of the first systems a new SE uses in Week 1. | high | [Analysis: First 30 Days Ramp Plan](../analyses/first-30-days-ramp-plan.md) | none |
-| MSX has directly linked task guides for opportunity creation, forecasting, closing, and milestones. | high | [Onboarding Tooling And Resources](../concepts/onboarding-tooling-and-resources.md) | none |
+| MSX Earnings = compensation truth; MSXi = pipeline reporting | High | [MCEM Deal Execution](mcem-deal-execution-framework.md) | — |
+| Week 1 sequence: RAIN → MCEM → MSX → Onboarding Agent | High | [Day 1 Starter Guide](se-day-1-complete-starter-guide.md) | — |
+
+## Entities Mentioned
+
+- [Microsoft Sales & Execution Tools](../entities/microsoft-sales-tools.md) — MSX, MCEM Portal, MSXi, RAIN, FastTrack, Seismic, MTC.
 
 ## Concepts Touched
 
-- [Onboarding Tooling And Resources](../concepts/onboarding-tooling-and-resources.md) - tool and link taxonomy for new SEs
+- [Onboarding Tooling and Resources](../concepts/onboarding-tooling-and-resources.md) — the consolidated tool model.
+- [MCEM Deal Execution](../concepts/mcem-deal-execution.md) — tools mapped to deal stages.
 
 ## Questions Raised
 
-- Which tools are truly Day 1 mandatory versus Week 2 readiness material?
-- Which of these resources vary by segment, specialist role, or field organization?
-- Should the wiki split this page into separate execution and incentives quick-start guides so new hires are not overloaded?
+- Which of these tools require explicit access requests vs are available by default on Day 1?
