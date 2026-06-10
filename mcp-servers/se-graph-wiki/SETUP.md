@@ -67,6 +67,22 @@ This gives `DefaultAzureCredential` access to Graph API using your identity.
 
 These are typically available to Microsoft employees by default through your Microsoft 365 license.
 
+## Step 3.5: Install Dependencies and Build
+
+The MCP server runs from compiled JavaScript in `dist/`. If you see an error like
+`Cannot find module '.../dist/index.js'`, the project hasn't been built yet.
+
+From the server folder, install dependencies and compile the TypeScript:
+
+```powershell
+cd mcp-servers/se-graph-wiki
+npm install
+npm run build
+```
+
+This produces `dist/index.js`. You only need to rebuild (`npm run build`) after
+changing files in `src/`. For continuous rebuilds during development, use `npm run dev`.
+
 ## Step 4: Configure the MCP Server
 
 Edit `.vscode/mcp.json` and update the environment variables:
@@ -89,8 +105,8 @@ Edit `.vscode/mcp.json` and update the environment variables:
 
 ```powershell
 # Set env vars for manual testing
-$env:GRAPH_SITE_HOSTNAME = "microsoft.sharepoint.com"
-$env:GRAPH_SITE_PATH = "/sites/SE-Brain-Wiki"
+$env:GRAPH_SITE_HOSTNAME = "microsoftapc.sharepoint.com"
+$env:GRAPH_SITE_PATH = "/teams/se-brain-wiki"
 $env:GRAPH_LIBRARY_NAME = "Documents"
 
 # Run the server (it uses stdio, so you'll see startup logs on stderr)
