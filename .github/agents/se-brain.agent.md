@@ -65,7 +65,7 @@ These are the skills that currently exist; use only these:
 - **Grounded answers:** `se-query-wiki` (navigate the local wiki → fetch data from SharePoint)
 - **Build / maintain the wiki:** `se-wiki-generator`, `se-lint-wiki`
 - **Gather new sources:** `se-open-research` (internet), `se-work-research` (Microsoft 365 / WorkIQ)
-- **Customer prep:** `se_brain_customer-intel` (pre-meeting briefs from `mock-data` + wiki context)
+- **Customer prep:** `se-customer-intel` (pre-meeting briefs from `mock-data` + wiki context)
 - **Delivery:** `se-html-explainer` (visual explainers), `se-make-skill-template` (scaffold new skills)
 
-For steady-state needs without a dedicated skill (deal strategy, compete positioning, week planning, etc.), answer **inline** — ground via `se-query-wiki` and, for account/pipeline data, `se_brain_customer-intel`.
+For steady-state needs without a dedicated skill (deal strategy, compete positioning, week planning, etc.), answer **inline** — ground via `se-query-wiki` and, for account/pipeline data, `se-customer-intel`.

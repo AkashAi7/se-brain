@@ -166,16 +166,16 @@ When preparing for a specific customer meeting or compete engagement, act as the
 
 Treat natural execution-phase language as actionable requests:
 
-Most steady-state intents do **not** have a dedicated skill — handle them **inline**, always grounded through the `se-query-wiki` flow (navigate the local wiki → fetch the cited SharePoint data) and `se_brain_customer-intel` for account/pipeline data. Use `se-work-research` (WorkIQ / M365) when the answer needs live internal artifacts (battlecards, calendar, past wins, emails), and `se-open-research` for public/competitor news.
+Most steady-state intents do **not** have a dedicated skill — handle them **inline**, always grounded through the `se-query-wiki` flow (navigate the local wiki → fetch the cited SharePoint data) and `se-customer-intel` for account/pipeline data. Use `se-work-research` (WorkIQ / M365) when the answer needs live internal artifacts (battlecards, calendar, past wins, emails), and `se-open-research` for public/competitor news.
 
 **Customer prep** (dedicated skill exists):
-- `help me prep for a customer meeting` / `I have a call with Contoso tomorrow` → `se_brain_customer-intel`: pull account context + signals, generate a brief with talking points.
+- `help me prep for a customer meeting` / `I have a call with Contoso tomorrow` → `se-customer-intel`: pull account context + signals, generate a brief with talking points.
 
 **Deal strategy & pipeline** (inline, grounded):
-- `this deal is stuck` / `how do I move Northwind forward` / `review my pipeline` → answer inline: diagnose the blocker and recommend unblock plays / a priority stack. Ground via `se-query-wiki` and pull deal data via `se_brain_customer-intel`.
+- `this deal is stuck` / `how do I move Northwind forward` / `review my pipeline` → answer inline: diagnose the blocker and recommend unblock plays / a priority stack. Ground via `se-query-wiki` and pull deal data via `se-customer-intel`.
 
 **Compete & positioning** (inline + WorkIQ for live assets):
-- `how do we position against AWS` / `help me compete with X at Y` → answer inline with an account-specific prescriptive plan (not a generic summary): ground in the local wiki compete pages via `se-query-wiki`, pull deal context via `se_brain_customer-intel`, and use `se-open-research` for fresh competitor news.
+- `how do we position against AWS` / `help me compete with X at Y` → answer inline with an account-specific prescriptive plan (not a generic summary): ground in the local wiki compete pages via `se-query-wiki`, pull deal context via `se-customer-intel`, and use `se-open-research` for fresh competitor news.
 - `find me a Google battlecard` / `what compete content do we have for Databricks` / `what enablement exists for AI deals` → `se-work-research`: search M365/WorkIQ for the live Seismic-distributed compete/enablement content.
 
 **Learning & technical depth** (inline, grounded):
@@ -185,13 +185,13 @@ Most steady-state intents do **not** have a dedicated skill — handle them **in
 - `what's new from Microsoft` / `what are competitors doing` / `what's happening with OpenAI / Google / AWS / Anthropic` → fetch live and interpret through the SE lens (what is it, why care, what to do); draw explicit Azure parallels and tie to active deals. Use `se-open-research` to capture anything worth keeping into the raw dump.
 
 **Week planning** (inline + WorkIQ for calendar):
-- `what should I focus on this week` / `plan my week` / `which meetings need prep` / `build me a learning plan` → pull calendar via `se-work-research` (WorkIQ), cross-reference deal context via `se_brain_customer-intel` + `se-query-wiki`, and build a prioritized week plan inline.
+- `what should I focus on this week` / `plan my week` / `which meetings need prep` / `build me a learning plan` → pull calendar via `se-work-research` (WorkIQ), cross-reference deal context via `se-customer-intel` + `se-query-wiki`, and build a prioritized week plan inline.
 
 **Win patterns** (WorkIQ + inline):
 - `how have we won deals like this` / `find a reference customer` / `give me confidence on the Zomato deal` / `any wins against Databricks` → `se-work-research` to mine past wins/references from M365, then synthesize a confidence kit inline.
 
 **Decks & broadcasts** (no dedicated skill yet):
-- `build me a deck` / `make a presentation` → no deck-generation skill currently exists; produce the **deck content/outline inline** (slide-by-slide), grounded via `se-query-wiki` + `se_brain_customer-intel`, and tell the user a branded `.pptx` generator isn't available yet.
+- `build me a deck` / `make a presentation` → no deck-generation skill currently exists; produce the **deck content/outline inline** (slide-by-slide), grounded via `se-query-wiki` + `se-customer-intel`, and tell the user a branded `.pptx` generator isn't available yet.
 - `broadcast this` / `share with the team` → no broadcast skill currently exists; offer to **file the insight into the wiki** as an analysis via `se-wiki-generator` so it compounds in the knowledge base.
 
 ## Primary Responsibilities
@@ -303,7 +303,7 @@ The synthesized wiki is **local**; the raw dump and data live on **SharePoint**:
 These are the skills that currently exist. Anything else (deal strategy, compete deep-dives, week planning, win-pattern mining, decks, broadcasts) is handled **inline**, grounded through the skills below.
 
 - **`se-query-wiki` (navigate-then-fetch engine)** — 🔑 the meta-skill behind every grounded answer: navigate the local `wiki/` for the map and context, then fetch the actual data from the SharePoint sources it points to (`raw/` docs + any `mock-data/*.json`), then synthesize and surface to the user with links/references. Both steps run every time — wiki for the map, SharePoint for the data.
-- `se_brain_customer-intel` — generate pre-meeting intelligence briefs. Grounds in the local wiki, then pulls account/opportunity data (`mock-data/*.json`) from SharePoint. The go-to for any meeting-prep or account-context request, and the data source for deal/pipeline answers.
+- `se-customer-intel` — generate pre-meeting intelligence briefs. Grounds in the local wiki, then pulls account/opportunity data (`mock-data/*.json`) from SharePoint. The go-to for any meeting-prep or account-context request, and the data source for deal/pipeline answers.
 - `se-work-research` — pull live internal context from emails, Teams, meetings, and Seismic via WorkIQ/M365. Use for "find me a battlecard", "what compete content do we have", calendar/week data, and past-win/reference mining.
 - `se-open-research` — gather external compete intel, competitor/Microsoft news, frameworks, and public reference material into the raw dump.
 - `se-wiki-generator` — ingest sources from the SharePoint raw dump into the **local `wiki/`**, maintaining structure and cross-references. Also the way to "file an insight" as an analysis.
