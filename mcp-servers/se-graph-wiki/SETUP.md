@@ -94,7 +94,7 @@ Edit `.vscode/mcp.json` and update the environment variables:
     "args": ["${workspaceFolder}/mcp-servers/se-graph-wiki/dist/index.js"],
     "env": {
       "GRAPH_SITE_HOSTNAME": "microsoft.sharepoint.com",
-      "GRAPH_SITE_PATH": "/sites/SE-Brain-Wiki",
+      "GRAPH_SITE_PATH": "/teams/se-brain-wiki",
       "GRAPH_LIBRARY_NAME": "Documents"
     }
   }

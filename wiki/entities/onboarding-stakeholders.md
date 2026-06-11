@@ -1,71 +1,53 @@
 ---
 title: "Onboarding Stakeholders"
 type: entity
-created: "2026-05-25"
-updated: "2026-05-29"
-sources: [raw/se-onboarding-flow-reference.md, raw/accounts/se-account-coverage-sample.md, raw/se-onboarding-staged-ramp-playbook.md, raw/se-day-1-complete-starter-guide.md]
-tags: [stakeholders, roles, se-onboarding, sales-motion]
-backlinks: [wiki/index.md, wiki/overview.md, wiki/sources/se-onboarding-flow-reference.md, wiki/sources/se-account-coverage-sample.md, wiki/sources/se-onboarding-staged-ramp-playbook.md, wiki/sources/se-day-1-complete-starter-guide.md, wiki/concepts/se-onboarding-journey.md, wiki/concepts/account-coverage-and-pod-map.md, wiki/analyses/day-1-onboarding-guide.md, wiki/analyses/first-30-days-ramp-plan.md]
+created: "2026-06-10"
+updated: "2026-06-10"
+sources: [raw/se-day-1-complete-starter-guide.md, raw/se-onboarding-flow-reference.md, raw/accounts/se-account-coverage-sample.md, mock-data/accounts.json]
+tags: [stakeholders, roles, pod, account-team, onboarding]
+backlinks: [wiki/concepts/se-onboarding-journey.md, wiki/concepts/account-coverage-and-pod-map.md, wiki/analyses/day-1-onboarding-guide.md]
 ---
 
 # Onboarding Stakeholders
 
 ## Description
 
-This page groups the people and role categories a new SE must understand during onboarding.
+The people a new SE works with during onboarding and on the account pod. They fall into two groups: **onboarding support roles** (who get you ramped) and **account team roles** (who you sell with).
 
-## Stakeholder Sets in Current Sources
+## Onboarding Support Roles
 
-### Pod and org stakeholders
+| Role | What they own | When |
+|------|---------------|------|
+| **SE Manager** | Role expectations, territory, quota model, ramp plan, Day 30 check-in | Day 1 onward |
+| **Onboarding Buddy** | Day-to-day unblocking, tribal knowledge, fast answers | Week 1 onward |
+| **HR / IT / Security** | Identity, device, payroll, compliance training, access | Day 1 |
 
-- Manager
-- Skip-level manager
-- Peers
-- CSA
-- GBB
-- TSP
-- Buddy or mentor
+## Account Team / Pod Roles
 
-These are explicitly visible in the onboarding flow reference as people resolved through Org Explorer during Day 1.
+| Role | What they own |
+|------|---------------|
+| **Account Executive (AE)** | Overall account relationship, deal ownership, commercial priorities |
+| **CSAM** (Customer Success Account Manager) | Consumption, adoption, customer success health |
+| **GBB** (Global Black Belt) | Deep specialist technical expertise on strategic/competitive deals |
+| **Solution Engineer (SE)** | Technical win — demos, POCs, architecture, technical objection handling |
 
-The ramp playbook also makes the manager, team, and mentor layer explicit through Day 1 and Day 2-3 activities.
+## The Pod in This Territory
 
-The Day 1 starter guide further sharpens that support model by naming the manager, onboarding buddy, and MCAPS Onboarding Community as distinct support layers with different jobs: expectation setting, peer guidance, and broader cohort support.
+For [Ashish Arora](ashish-arora.md)'s India Enterprise territory (Tata Group + Mahindra), the pods are detailed in the [Account Coverage and Pod Map](../concepts/account-coverage-and-pod-map.md):
 
-### Sales motion stakeholders
+- **Tata Steel / Tata Agratas pod** — AE Arjun Reddy, CSAM Rahul Mehta, GBB Karthik Raman.
+- **Tata Sons pod** — AE Sneha Kapoor, CSAM Pooja Sharma, GBB Karthik Raman.
+- **Mahindra pod** — AE Arjun Reddy, CSAM Rahul Mehta (no GBB).
 
-- AE
-- SSP
-- CSA
-- TSP
+## Significance
 
-These roles are called out in the playbook as part of understanding where the SE fits in the sales motion.
+- Day 1 priority is meeting the SE Manager and buddy; the AE/CSAM/GBB intros unlock account context.
+- The SE owns the **[technical win](../concepts/technical-win.md)**; the AE owns the commercial close — clear handoffs matter at MCEM stages.
 
-### Account coverage stakeholders
+## Contradictions and Caveats
 
-- SSP
-- SSM
-- Infrastructure owner
-- AI Data owner
-- AI Apps owner
-- Developer owner
-- SEM
+- The onboarding-era [coverage sample](../sources/se-account-coverage-sample.md) lists different example accounts (Apollo Hospitals, Bharat Petroleum, CitiusTech, etc.) than the live [accounts data](../sources/accounts-data.md) (Tata/Mahindra). Treat the coverage sample as training material; the live pod map reflects the real territory.
 
-These roles are visible in the sample account coverage screenshot.
+## Related Pages
 
-## Role in the Onboarding Journey
-
-- Pod and org stakeholders help the new SE understand reporting lines, collaboration paths, and immediate support network.
-- Account coverage stakeholders help the new SE understand ownership boundaries and who to contact for specific customer motions.
-
-## Relationships to Other Pages
-
-- [SE Onboarding Journey](../concepts/se-onboarding-journey.md) - Defines when these stakeholders matter in the onboarding flow.
-- [Account Coverage and Pod Map](../concepts/account-coverage-and-pod-map.md) - Explains how stakeholder roles show up in account ownership.
-
-## Open Questions
-
-- What do the abbreviations SSP, SSM, and SEM mean in the local operating model?
-- Which stakeholders are universal to all SEs and which are segment-specific?
-- Is there an authoritative team roster that should replace the sample screenshot?
-- How should buddy and mentor assignment be tracked in the onboarding experience?
+- [SE Onboarding Journey](../concepts/se-onboarding-journey.md), [Account Coverage and Pod Map](../concepts/account-coverage-and-pod-map.md), [Ashish Arora](ashish-arora.md), [Day 1 Onboarding Guide](../analyses/day-1-onboarding-guide.md).

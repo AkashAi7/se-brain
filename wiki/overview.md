@@ -1,79 +1,43 @@
 ---
-title: "SE Onboarding Overview"
+title: "Overview"
 type: overview
-created: "2026-05-25"
-updated: "2026-05-29"
-sources: [raw/se-onboarding-flow-reference.md, raw/accounts/se-account-coverage-sample.md, raw/se-onboarding-platform-documentation.md, raw/se-tools-full-reference.md, raw/se-onboarding-staged-ramp-playbook.md, raw/se-day-1-complete-starter-guide.md]
-tags: [se-onboarding, onboarding, solution-engineering]
-backlinks: [wiki/index.md, wiki/concepts/se-onboarding-journey.md, wiki/concepts/account-coverage-and-pod-map.md, wiki/entities/onboarding-stakeholders.md, wiki/concepts/onboarding-platform-capabilities.md, wiki/concepts/onboarding-tooling-and-resources.md, wiki/sources/se-tools-full-reference.md]
+created: "2026-06-10"
+updated: "2026-06-10"
+sources: []
+tags: [overview, synthesis, onboarding, steady-state, pipeline]
+backlinks: []
 ---
 
-# SE Onboarding Overview
+# Overview
 
-This wiki seed frames SE onboarding as a staged journey where the engineer interacts with an agent, and the agent uses skills plus grounded knowledge bases to provide operational account, pod, tooling, and ramp context.
+This wiki is the synthesized knowledge base for a **Microsoft Solution Engineer (SE)** operating across the full lifecycle — from Day 1 onboarding through steady-state deal execution. It is built from SharePoint raw sources (onboarding guides, steady-state playbooks, broadcasts, and mock CRM-style data) plus private local notes (KB-Local).
 
-## What We Know So Far
+## Who This Is About
 
-- The onboarding flow is intentionally staged from Day 1 through Ongoing, with Day 1 explicitly focused on profile hydration, access setup, pod discovery, and customer portfolio unlocks.
-- The onboarding platform is designed to generate or surface wiki pages at each stage, which aligns well with this repository's raw-to-wiki model.
-- A sample account coverage screenshot shows that onboarding should also help a new SE understand account ownership across SSP, SSM, Infrastructure, Data, Apps, Developer, and SEM roles.
-- The platform documentation adds a broader capability model: personalized dashboards, live account intelligence, learning guidance, and workflow-driven recommendations.
-- The detailed tools reference gives a concrete starter taxonomy of execution systems, onboarding dependencies, learning surfaces, and support links.
-- The detailed tools reference clarifies the intended setup model: engineers interact with agents, and agents use skills plus knowledge bases to answer and improve onboarding guidance over time.
-- The ramp playbook adds concrete tasks and canonical URLs from Day 1 through Month 3, including 30-60-90 checkpoints.
-- The new Day 1 starter guide makes the MCAPS Onboarding Hub the explicit authoritative source and positions the Onboarding Agent as the guided entry point into that knowledge base.
-- The new Day 1 starter guide also adds a practical weekly rhythm for Week 1 through Week 6, including live sessions, guided practice, and readiness checks.
+[Ashish Arora](entities/ashish-arora.md) — an AI/ML Solution Engineer (~18-month tenure, ex-Infrastructure, AI-102 in progress) covering the **India Enterprise** territory: the **Tata Group** ([Tata Steel](entities/tata-steel.md), [Tata Sons](entities/tata-sons.md), [Tata Agratas](entities/tata-agratas.md)) and **[Mahindra](entities/mahindra.md)**.
 
-## Interaction Model
+## Two Halves of the Job
 
-- The engineer-facing layer should stay simple: ask the onboarding agent for guidance in chat.
-- The authoritative content layer should begin with the MCAPS Onboarding Hub, with the agent helping the SE navigate that source of truth.
-- The agent layer should orchestrate which skill to use for query, research, ingest, lint, or explainer generation.
-- The knowledge-base layer should remain grounded in immutable raw sources, synthesized wiki pages, and optional HTML explainers.
-- This means the setup should be understood as `Engineer -> Agent -> Skills + KBs`, not as the engineer navigating raw and wiki layers directly.
+### 1. Onboarding & Ramp
+How a new SE gets productive: the [onboarding journey](concepts/se-onboarding-journey.md), a [staged 30-day ramp](concepts/staged-ramp-plan.md), the [tooling and resources](concepts/onboarding-tooling-and-resources.md), [platform capabilities](concepts/onboarding-platform-capabilities.md), and the [stakeholders](entities/onboarding-stakeholders.md) involved. Practical guides: [Day 1](analyses/day-1-onboarding-guide.md), [First 30 Days](analyses/first-30-days-ramp-plan.md), [Seamless Playbook](analyses/seamless-onboarding-playbook.md).
 
-## High-Value Onboarding Questions This Wiki Should Answer
+### 2. Steady-State Execution
+How an SE wins deals: [MCEM deal execution](concepts/mcem-deal-execution.md), the [technical win](concepts/technical-win.md), [workshop and POC delivery](concepts/workshop-and-poc-delivery.md), [customer engagement patterns](concepts/customer-engagement-patterns.md), and the [active pipeline](concepts/active-pipeline.md). Compete framing: [Azure vs AWS](comparisons/azure-vs-aws.md). Snapshot: [Pipeline Health](analyses/pipeline-health-snapshot.md).
 
-- What should a new SE complete on Day 1, Week 1, and later stages?
-- Which systems gate onboarding progress?
-- Who are the key stakeholder roles around an SE?
-- Which accounts belong to the SE's portfolio and who owns each solution area?
-- Which tools should a new SE use for onboarding versus day-to-day execution?
-- Which platform capabilities are already live and which are planned?
-- Where are the gaps in the onboarding source material?
+## The Big Picture
 
-## Reusable Guides Now Available
+- **Hero products:** [Azure AI Foundry](entities/azure-ai-foundry.md) (cloud + Foundry Local edge + Web IQ) and Voice Live APIs.
+- **Pipeline:** 7 live deals worth **$12.65M** across Tata Group and Mahindra (see [Active Pipeline](concepts/active-pipeline.md)).
+- **Validated proof point:** Voice Live APIs delivered a **22% conversion lift** over Google Dialogflow at Mahindra Finance ([Voice Live Pattern](sources/voice-live-conversion-pattern.md)).
+- **Growth:** skills and certifications tracked in [SE Skills and Growth](concepts/se-skills-and-growth.md).
 
-- A concrete Day 1 onboarding guide has been filed as [Analysis: Day 1 Onboarding Guide](analyses/day-1-onboarding-guide.md).
-- A starter first-30-days ramp plan has been filed as [Analysis: First 30 Days Ramp Plan](analyses/first-30-days-ramp-plan.md).
-- A day-wise onboarding playbook with sample agent prompts is available as [Analysis: Seamless Onboarding Playbook](analyses/seamless-onboarding-playbook.md).
+## Open Questions and Gaps (flagged, not resolved)
 
-These are intentionally framed as reusable onboarding outputs that can be refined as stronger internal sources are added.
+- **Compete gap:** content is AWS-centric, but the real incumbent is **Google Cloud** (Mahindra loan pipeline, Dialogflow) — the highest-value missing asset.
+- **Edge delivery:** no standard cloud-POC pattern for airgapped Foundry Local technical wins (Tata Steel, Tata Agratas).
+- **Web IQ economics:** production cost/governance/OneLake grounding questions are unanswered. *From local notes (KB-Local).*
+- **Data inconsistencies:** the opportunities source contains a stale legacy deal block; skills/HOK data reference placeholder accounts. See [Pipeline Health](analyses/pipeline-health-snapshot.md) and the [index](index.md) notes.
 
-## Current Gaps
+## Navigate
 
-- A canonical internal handbook is still missing, so some staged tasks may remain team-specific.
-- The account coverage sample is partial and should be replaced or supplemented with a clean export.
-- Pod definitions and role charters need explicit source documents.
-- The platform document extraction is text-only and should eventually be replaced with a cleaner authored version.
-
-## Recommended Next Ingests
-
-- A structured onboarding handbook or platform documentation export
-- A clean roster of account ownership and team mappings
-- Canonical links for any remaining label-only internal systems not captured in the new playbook
-- Internal M365 or WorkIQ-based material about pods, managers, and operating rhythm
-- Learning plans or milestone checklists for later onboarding stages
-
-## Related Pages
-
-- [SE Onboarding Journey](concepts/se-onboarding-journey.md)
-- [Account Coverage And Pod Map](concepts/account-coverage-and-pod-map.md)
-- [Onboarding Stakeholders](entities/onboarding-stakeholders.md)
-- [Onboarding Platform Capabilities](concepts/onboarding-platform-capabilities.md)
-- [Onboarding Tooling And Resources](concepts/onboarding-tooling-and-resources.md)
-- [Source Summary: Onboarding Flow](sources/se-onboarding-flow-reference.md)
-- [Source Summary: Account Coverage Sample](sources/se-account-coverage-sample.md)
-- [Source Summary: SE Tools Full Reference](sources/se-tools-full-reference.md)
-- [Source Summary: Staged Ramp Playbook](sources/se-onboarding-staged-ramp-playbook.md)
-- [Source Summary: Day 1 Complete Starter Guide](sources/se-day-1-complete-starter-guide.md)
+Start at the [Index](index.md) for the full catalog, or jump to the [Active Pipeline](concepts/active-pipeline.md) or [Day 1 Guide](analyses/day-1-onboarding-guide.md).

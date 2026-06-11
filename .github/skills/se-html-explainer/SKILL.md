@@ -75,8 +75,8 @@ Determine what to convert:
 
 | Source Type | How to Find It |
 |------------|----------------|
-| Wiki page | Read from `wiki/<category>/<slug>.md` |
-| Raw source | Read from `raw/<slug>.md` |
+| Wiki page | `read_file` the local `wiki/<category>/<slug>.md` |
+| Raw source | `wiki_read("raw/<slug>.md")` from the SharePoint dump (or `read_file` a `KB-Local/` note) |
 | LLM response | Use the text from the current conversation |
 | Markdown file | Read from the specified file path |
 | Multiple files | Process each one, optionally create an index |
