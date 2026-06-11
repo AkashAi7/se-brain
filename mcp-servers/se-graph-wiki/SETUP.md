@@ -83,6 +83,14 @@ npm run build
 This produces `dist/index.js`. You only need to rebuild (`npm run build`) after
 changing files in `src/`. For continuous rebuilds during development, use `npm run dev`.
 
+
+Once you do this, save the path of the compiled dist
+```powershell
+echo "$(pwd)/dist/index.js"
+```
+
+This path needs to be added while setting the MCP server in a copilot dekstop application.
+
 ## Step 4: Configure the MCP Server
 
 Edit `.vscode/mcp.json` and update the environment variables:

@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "workiq": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@microsoft/workiq@latest",
+        "mcp"
+      ]
+    },
+    "se-graph-wiki": {
+      "command": "node",
+      "args": [
+        "mcp-servers/se-graph-wiki/dist/index.js"
+      ],
+      "env": {
+        "GRAPH_SITE_HOSTNAME": "microsoftapc.sharepoint.com",
+        "GRAPH_SITE_PATH": "/teams/se-brain-wiki",
+        "GRAPH_LIBRARY_NAME": "Documents"
+      }
+    }
+  }
+}
