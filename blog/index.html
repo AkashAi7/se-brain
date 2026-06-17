@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — SE Brain</title>
+  <meta name="description" content="Field notes on building a grounded, agent-native brain for Solutions Engineers — LLM-managed wikis, source-cited knowledge, and the SE journey." />
+  <meta name="theme-color" content="#ffffff" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SE Brain — Blog" />
+  <meta property="og:description" content="Notes on LLM-managed wikis, source-cited knowledge, and the SE journey." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='9' fill='%23f4703a'/%3E%3Ccircle cx='24' cy='42' r='5.5' fill='%233f6ef0'/%3E%3Ccircle cx='76' cy='58' r='5.5' fill='%238b5cf6'/%3E%3Ccircle cx='44' cy='78' r='5.5' fill='%23ec4d6b'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body class="blog-page">
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html" aria-label="SE Brain home">
+        <span class="brand-mark" aria-hidden="true">
+          <span class="dot dot-core"></span>
+          <span class="dot dot-a"></span>
+          <span class="dot dot-b"></span>
+          <span class="dot dot-c"></span>
+        </span>
+        <span class="brand-name">SE&nbsp;Brain</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="../index.html#idea">The idea</a>
+        <a href="../index.html#flow">The flow</a>
+        <a href="../index.html#skills">Skills</a>
+        <a href="../index.html#structure">Structure</a>
+        <a href="index.html" aria-current="page">Blog</a>
+      </nav>
+
+      <div class="header-cta">
+        <a class="btn btn-ghost" href="../index.html#idea">Read the concept</a>
+        <a class="btn btn-solid" href="https://github.com/abpatramsft/se-brain" target="_blank" rel="noopener">Get started <span aria-hidden="true">→</span></a>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="../index.html#idea">The idea</a>
+      <a href="../index.html#flow">The flow</a>
+      <a href="../index.html#skills">Skills</a>
+      <a href="../index.html#structure">Structure</a>
+      <a href="index.html">Blog</a>
+      <a class="btn btn-solid" href="https://github.com/abpatramsft/se-brain" target="_blank" rel="noopener">Get started →</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="section blog-head">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="kicker">Blog</span>
+          <h1 class="section-title">Notes from the brain</h1>
+          <p class="section-lede">
+            Field notes on building a grounded, agent-native knowledge layer for
+            Solutions Engineers — LLM-managed wikis, source-cited answers, and the
+            ideas behind SE Brain.
+          </p>
+          <p class="blog-count" data-blog-count>Loading…</p>
+        </div>
+
+        <div class="blog-grid" data-blog="index" data-base=".">
+          <p class="blog-empty">Loading posts…</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="../index.html" aria-label="SE Brain home">
+          <span class="brand-mark" aria-hidden="true">
+            <span class="dot dot-core"></span>
+            <span class="dot dot-a"></span>
+            <span class="dot dot-b"></span>
+            <span class="dot dot-c"></span>
+          </span>
+          <span class="brand-name">SE&nbsp;Brain</span>
+        </a>
+        <p>A grounded, agent-native brain for Solutions Engineers. A shared SharePoint knowledge base, compiled into a local wiki, is the source of truth; your private KB-Local layer makes it personal.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer">
+        <div>
+          <span class="footer-head">Concept</span>
+          <a href="../index.html#idea">The idea</a>
+          <a href="../index.html#flow">The flow</a>
+          <a href="../index.html#structure">Structure</a>
+        </div>
+        <div>
+          <span class="footer-head">Toolkit</span>
+          <a href="../index.html#skills">Skills</a>
+          <a href="../index.html#workflow">Workflow</a>
+          <a href="index.html">Blog</a>
+        </div>
+        <div>
+          <span class="footer-head">Source</span>
+          <a href="https://github.com/abpatramsft/se-brain" target="_blank" rel="noopener">GitHub repo</a>
+        </div>
+      </nav>
+    </div>
+    <div class="container footer-bottom">
+      <span>© <span id="year">2026</span> SE Brain</span>
+      <span>A grounded, agent-native brain for Solutions Engineers</span>
+    </div>
+  </footer>
+
+  <script src="../assets/app.js" defer></script>
+  <script src="../assets/blog.js" defer></script>
+</body>
+</html>

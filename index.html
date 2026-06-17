@@ -3,723 +3,839 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SE Brain — A Brain for Solutions Engineers</title>
+<title>SE Brain — A brain for every Solutions Engineer</title>
+<meta name="description" content="SE Brain unifies a shared SharePoint knowledge base and your private notes into one local, source-cited wiki — a grounded, agent-native brain for Solutions Engineers across the whole journey.">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SE Brain — A brain for every Solutions Engineer">
+<meta property="og:description" content="A shared SharePoint foundation plus your private KB-Local layer, compiled into one local wiki the agent navigates for grounded, cited answers.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='9' fill='%23f4703a'/%3E%3Ccircle cx='24' cy='42' r='5.5' fill='%233f6ef0'/%3E%3Ccircle cx='76' cy='58' r='5.5' fill='%238b5cf6'/%3E%3Ccircle cx='44' cy='78' r='5.5' fill='%23ec4d6b'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+  /* ===== Tokens ===== */
   :root {
-    --bg:        #ffffff;
-    --bg-soft:   #f7f7f8;
-    --bg-softer: #f1f1f3;
-    --ink:       #15161b;
-    --ink-2:     #3a3c45;
-    --muted:     #71747f;
-    --line:      #e7e7eb;
-    --line-2:    #dddde3;
-    --accent:    #4f46e5;
-    --accent-soft: #eef0fe;
-    --grounding: #0e9f6e;   /* static brain / grounding */
-    --grounding-soft: #e6f6ef;
-    --adaptive:  #7c6aef;   /* adaptive / personalization */
-    --adaptive-soft: #f0edfd;
-    --amber:     #b7791f;
-    --rose:      #d04a5e;
-    --radius:    14px;
-    --radius-lg: 20px;
-    --maxw:      1080px;
+    --bg: #ffffff;
+    --bg-soft: #fafafa;
+    --bg-tint: #f6f6f8;
+    --ink: #0b0b0c;
+    --ink-2: #2e2e33;
+    --muted: #74747c;
+    --muted-2: #9a9aa2;
+    --line: #ececef;
+    --line-2: #e1e1e6;
+    --orange: #f4703a;
+    --amber: #f59e42;
+    --blue: #3f6ef0;
+    --purple: #8b5cf6;
+    --pink: #ec4d6b;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --maxw: 1180px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
+  /* ===== Reset ===== */
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-sans);
     background: var(--bg);
     color: var(--ink);
-    line-height: 1.65;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
   }
+  img, svg, canvas { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; padding: 0; }
+  ::selection { background: rgba(244, 112, 58, .16); }
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--bg-tint);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0.08em 0.4em;
+    color: var(--ink-2);
+  }
+  .container { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: 24px; }
 
-  ::selection { background: var(--accent-soft); }
+  /* ===== Buttons ===== */
+  .btn {
+    --bh: 44px;
+    display: inline-flex; align-items: center; gap: 0.5em;
+    height: var(--bh); padding: 0 20px; border-radius: 999px;
+    font-size: 0.95rem; font-weight: 500; letter-spacing: -0.01em;
+    cursor: pointer; white-space: nowrap; border: 1px solid transparent;
+    transition: transform 0.25s var(--ease), background 0.25s var(--ease),
+      border-color 0.25s var(--ease), color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+  }
+  .btn-lg { --bh: 52px; padding: 0 26px; font-size: 1rem; }
+  .btn-solid { background: var(--ink); color: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.18), 0 8px 24px -12px rgba(0,0,0,0.5); }
+  .btn-solid:hover { transform: translateY(-2px); box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 16px 30px -14px rgba(0,0,0,0.55); }
+  .btn-ghost { background: rgba(255,255,255,0.6); color: var(--ink); border-color: var(--line-2); backdrop-filter: blur(8px); }
+  .btn-ghost:hover { border-color: var(--ink); transform: translateY(-2px); }
 
-  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+  /* ===== Header ===== */
+  .site-header {
+    position: fixed; inset: 0 0 auto 0; z-index: 100; border-bottom: 1px solid transparent;
+    transition: background 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  }
+  .site-header.scrolled {
+    background: rgba(255,255,255,0.78); backdrop-filter: saturate(180%) blur(14px);
+    border-bottom-color: var(--line); box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+  }
+  .header-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 20px; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -0.02em; }
+  .brand-name { font-size: 1.05rem; }
+  .brand-mark { position: relative; width: 26px; height: 26px; flex: none; }
+  .brand-mark .dot { position: absolute; border-radius: 50%; }
+  .dot-core { width: 8px; height: 8px; left: 9px; top: 9px; background: var(--orange); box-shadow: 0 0 0 3px rgba(244,112,58,0.18); }
+  .dot-a { width: 6px; height: 6px; left: 0; top: 6px; background: var(--blue); }
+  .dot-b { width: 6px; height: 6px; right: 0; top: 12px; background: var(--purple); }
+  .dot-c { width: 6px; height: 6px; left: 9px; bottom: 0; background: var(--pink); }
+  .nav { display: flex; gap: 28px; font-size: 0.92rem; color: var(--muted); }
+  .nav a { transition: color 0.2s var(--ease); position: relative; }
+  .nav a:hover { color: var(--ink); }
+  .nav a::after { content: ""; position: absolute; left: 0; bottom: -6px; height: 1px; width: 0; background: var(--ink); transition: width 0.25s var(--ease); }
+  .nav a:hover::after { width: 100%; }
+  .header-cta { display: flex; align-items: center; gap: 10px; }
+  .menu-toggle {
+    display: none; flex-direction: column; gap: 5px; width: 42px; height: 42px; align-items: center; justify-content: center;
+    background: none; border: 1px solid var(--line-2); border-radius: 10px; cursor: pointer;
+  }
+  .menu-toggle span { width: 18px; height: 1.6px; background: var(--ink); transition: transform 0.3s var(--ease), opacity 0.3s; }
+  .menu-toggle[aria-expanded="true"] span:first-child { transform: translateY(3.3px) rotate(45deg); }
+  .menu-toggle[aria-expanded="true"] span:last-child { transform: translateY(-3.3px) rotate(-45deg); }
+  .mobile-nav {
+    display: none; flex-direction: column; gap: 4px; padding: 8px 24px 22px;
+    background: rgba(255,255,255,0.96); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line);
+  }
+  .mobile-nav a { padding: 12px 4px; font-size: 1.05rem; border-bottom: 1px solid var(--line); color: var(--ink-2); }
+  .mobile-nav .btn { margin-top: 12px; justify-content: center; }
+  .mobile-nav.open { display: flex; }
 
-  /* ─── Nav ─── */
-  nav {
-    position: sticky; top: 0; z-index: 50;
-    background: rgba(255,255,255,.82);
-    backdrop-filter: saturate(180%) blur(12px);
-    border-bottom: 1px solid var(--line);
+  /* ===== Hero ===== */
+  .hero { position: relative; min-height: 100svh; display: flex; align-items: center; padding: 120px 0 80px; overflow: hidden; isolation: isolate; }
+  .hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; }
+  .hero-veil {
+    position: absolute; inset: 0; z-index: -1;
+    background: radial-gradient(54% 46% at 50% 40%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.45) 46%, rgba(255,255,255,0) 78%),
+      linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 20%, rgba(255,255,255,0) 80%, #fff 100%);
   }
-  nav .wrap {
-    display: flex; align-items: center; justify-content: space-between;
-    height: 64px;
-  }
-  nav .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -.01em; }
-  nav .brand .mark {
-    width: 26px; height: 26px; border-radius: 8px;
-    background: var(--ink); color: #fff;
-    display: grid; place-items: center; font-size: 14px;
-  }
-  nav .links { display: flex; gap: 28px; }
-  nav .links a {
-    color: var(--muted); text-decoration: none; font-size: .9rem; font-weight: 500;
-    transition: color .15s;
-  }
-  nav .links a:hover { color: var(--ink); }
-  @media (max-width: 720px){ nav .links { display: none; } }
-
-  /* ─── Hero ─── */
-  .hero { padding: 96px 0 72px; text-align: center; }
-  .kicker {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: .78rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
-    color: var(--accent); background: var(--accent-soft);
-    padding: 6px 14px; border-radius: 999px; margin-bottom: 28px;
-  }
-  .hero h1 {
-    font-size: clamp(2.6rem, 6vw, 4.2rem);
-    font-weight: 800; letter-spacing: -.035em; line-height: 1.04;
-    color: var(--ink);
-  }
-  .hero h1 .accent { color: var(--accent); }
-  .hero .sub {
-    margin: 26px auto 0; max-width: 660px;
-    font-size: 1.18rem; color: var(--ink-2); line-height: 1.6;
-  }
-  .hero .meta {
-    margin-top: 38px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
-  }
-  .chip {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: .86rem; font-weight: 500; color: var(--ink-2);
-    border: 1px solid var(--line-2); border-radius: 999px;
-    padding: 8px 16px; background: var(--bg);
-  }
-  .chip .dot { width: 7px; height: 7px; border-radius: 50%; }
-
-  /* ─── Section scaffolding ─── */
-  section { padding: 80px 0; border-top: 1px solid var(--line); }
-  section.soft { background: var(--bg-soft); }
+  .hero-inner { text-align: center; display: flex; flex-direction: column; align-items: center; }
   .eyebrow {
-    font-size: .8rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 14px;
+    display: inline-flex; align-items: center; gap: 9px; font-family: var(--font-mono); font-size: 0.76rem;
+    letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink-2); background: rgba(255,255,255,0.7);
+    border: 1px solid var(--line-2); border-radius: 999px; padding: 7px 14px; backdrop-filter: blur(8px);
+    transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
   }
-  h2 {
-    font-size: clamp(1.7rem, 3.4vw, 2.3rem);
-    font-weight: 700; letter-spacing: -.025em; line-height: 1.15; color: var(--ink);
-  }
-  .section-lead {
-    margin-top: 16px; max-width: 680px; font-size: 1.06rem; color: var(--muted);
-  }
-  .section-head { margin-bottom: 48px; }
+  .eyebrow:hover { border-color: var(--ink); transform: translateY(-1px); }
+  .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 0 rgba(244,112,58,0.5); animation: pulse 2.4s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(244,112,58,0.45); } 70% { box-shadow: 0 0 0 8px rgba(244,112,58,0); } 100% { box-shadow: 0 0 0 0 rgba(244,112,58,0); } }
+  .hero-title { margin-top: 26px; font-size: clamp(2.6rem, 6.4vw, 5rem); line-height: 1.02; letter-spacing: -0.035em; font-weight: 700; }
+  .hero-title .period { color: var(--orange); }
+  .hero-sub { margin-top: 24px; max-width: 640px; font-size: clamp(1.02rem, 1.6vw, 1.22rem); color: var(--muted); letter-spacing: -0.01em; }
+  .hero-sub strong { color: var(--ink-2); font-weight: 600; }
+  .hero-actions { display: flex; gap: 12px; margin-top: 34px; flex-wrap: wrap; justify-content: center; }
+  .hero-rotator { margin-top: 54px; display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted-2); }
+  .rotator { position: relative; height: 1.3em; overflow: hidden; min-width: 128px; text-align: left; }
+  .rotator-word { display: inline-block; color: var(--ink); font-weight: 600; animation: rotIn 0.5s var(--ease); }
+  @keyframes rotIn { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .scroll-cue { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted-2); }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(var(--muted-2), transparent); }
 
-  /* ─── Brain metaphor ─── */
-  .brain-flow {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: 0; align-items: stretch; margin-bottom: 28px;
-  }
-  .brain-card {
-    border: 1px solid var(--line-2); border-radius: var(--radius-lg);
-    padding: 32px; background: var(--bg); position: relative;
-  }
-  .brain-card .tag {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: .74rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
-    padding: 5px 12px; border-radius: 999px; margin-bottom: 18px;
-  }
-  .brain-card.grounding { border-top: 3px solid var(--grounding); }
-  .brain-card.grounding .tag { color: var(--grounding); background: var(--grounding-soft); }
-  .brain-card.adaptive { border-top: 3px solid var(--adaptive); }
-  .brain-card.adaptive .tag { color: var(--adaptive); background: var(--adaptive-soft); }
-  .brain-card h3 { font-size: 1.3rem; font-weight: 700; letter-spacing: -.02em; margin-bottom: 10px; }
-  .brain-card p { color: var(--muted); font-size: .96rem; }
-  .brain-card ul { list-style: none; margin-top: 18px; display: grid; gap: 10px; }
-  .brain-card li { display: flex; gap: 10px; font-size: .92rem; color: var(--ink-2); }
-  .brain-card li::before { content: ''; flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; margin-top: 9px; }
-  .brain-card.grounding li::before { background: var(--grounding); }
-  .brain-card.adaptive li::before { background: var(--adaptive); }
-  .brain-bridge {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    padding: 0 22px; gap: 8px; color: var(--muted);
-  }
-  .brain-bridge .plus {
-    width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line-2);
-    display: grid; place-items: center; font-size: 1.3rem; color: var(--ink); background: var(--bg);
-  }
-  .brain-bridge .lbl { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 600; }
-  .brain-result {
-    border: 1px solid var(--line-2); border-radius: var(--radius-lg);
-    background: var(--ink); color: #fff; padding: 28px 32px;
-    display: flex; align-items: center; gap: 20px;
-  }
-  .brain-result .ic {
-    width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0;
-    background: rgba(255,255,255,.08); display: grid; place-items: center; font-size: 1.5rem;
-  }
-  .brain-result h3 { font-size: 1.18rem; font-weight: 700; letter-spacing: -.02em; margin-bottom: 4px; }
-  .brain-result p { color: rgba(255,255,255,.66); font-size: .95rem; }
-  @media (max-width: 800px){
-    .brain-flow { grid-template-columns: 1fr; }
-    .brain-bridge { flex-direction: row; padding: 18px 0; }
-    .brain-bridge .plus { transform: rotate(0); }
-  }
+  /* ===== Section scaffold ===== */
+  .section { padding: clamp(72px, 11vw, 130px) 0; }
+  .section-head { max-width: 760px; margin-bottom: 56px; }
+  .kicker { display: inline-block; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--orange); margin-bottom: 16px; }
+  .section-title { font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.06; letter-spacing: -0.03em; font-weight: 700; }
+  .section-title .muted-title { color: var(--muted-2); display: block; }
+  .section-lede { margin-top: 20px; font-size: clamp(1.02rem, 1.5vw, 1.18rem); color: var(--muted); max-width: 640px; }
+  .section-lede strong { color: var(--ink-2); font-weight: 600; }
 
-  /* ─── Interaction (who does what) ─── */
-  .interaction {
-    display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 0;
-    align-items: center;
-  }
-  .actor {
-    border: 1px solid var(--line-2); border-radius: var(--radius-lg);
-    padding: 28px 24px; text-align: center; background: var(--bg);
-  }
-  .actor .ic { font-size: 1.7rem; margin-bottom: 12px; }
-  .actor h4 { font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em; margin-bottom: 6px; }
-  .actor p { font-size: .86rem; color: var(--muted); }
-  .actor.mid { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
-  .flow-link {
-    display: flex; flex-direction: column; align-items: center; gap: 6px;
-    padding: 0 16px; color: var(--muted); font-size: .72rem; text-align: center;
-  }
-  .flow-link .ar { font-size: 1.2rem; color: var(--accent); }
-  @media (max-width: 820px){
-    .interaction { grid-template-columns: 1fr; gap: 14px; }
-    .flow-link { flex-direction: row; gap: 10px; padding: 6px 0; }
-    .flow-link .ar { transform: rotate(90deg); }
-  }
+  /* ===== Idea cards ===== */
+  .just-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .just-card { border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; background: linear-gradient(180deg, #fff, var(--bg-soft)); transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease); }
+  .just-card:hover { transform: translateY(-4px); border-color: var(--line-2); box-shadow: 0 24px 48px -28px rgba(0,0,0,0.22); }
+  .just-icon { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; border: 1px solid var(--line-2); color: var(--orange); margin-bottom: 20px; }
+  .just-icon svg { width: 22px; height: 22px; }
+  .just-card h3 { font-size: 1.2rem; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .just-card p { color: var(--muted); font-size: 0.98rem; }
+  .just-tag { display: inline-block; margin-top: 16px; font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-2); }
 
-  /* ─── Skills grid ─── */
-  .skills { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
-  .skill {
-    border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 26px; background: var(--bg);
-    transition: border-color .18s, transform .18s, box-shadow .18s;
-  }
-  .skill:hover { border-color: var(--line-2); transform: translateY(-2px); box-shadow: 0 10px 30px -16px rgba(20,21,27,.25); }
-  .skill .top { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-  .skill .ic {
-    width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
-    display: grid; place-items: center; font-size: 1.15rem;
-  }
-  .skill h3 { font-family: 'JetBrains Mono', monospace; font-size: .92rem; font-weight: 500; color: var(--ink); }
-  .skill p { font-size: .9rem; color: var(--muted); margin-bottom: 16px; }
-  .skill .tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .skill .tags span {
-    font-size: .74rem; color: var(--ink-2); background: var(--bg-soft);
-    border: 1px solid var(--line); padding: 3px 10px; border-radius: 999px;
-  }
-  .i-blue   { background: #e8f1fe; color: #2563eb; }
-  .i-green  { background: var(--grounding-soft); color: var(--grounding); }
-  .i-amber  { background: #fbf3e3; color: var(--amber); }
-  .i-violet { background: var(--adaptive-soft); color: var(--adaptive); }
-  .i-pink   { background: #fbeaf4; color: #be3d8f; }
-  .i-cyan   { background: #e4f7f8; color: #0e8a99; }
-  .i-rose   { background: #fdecee; color: var(--rose); }
+  /* ===== Pipeline flow viz ===== */
+  .pipeline { background: var(--bg-soft); border-block: 1px solid var(--line); }
+  .flowviz { max-width: 1020px; margin: 6px auto 0; }
+  .flowviz svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .vlabel { font-family: var(--font-sans); font-weight: 600; font-size: 15px; fill: var(--ink); }
+  .vsub { font-family: var(--font-mono); font-size: 11px; fill: var(--muted-2); letter-spacing: 0.02em; }
+  .vport { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; fill: var(--muted-2); }
+  .conn { fill: none; stroke: var(--line-2); stroke-width: 1.4; }
+  .brain-label { font-family: var(--font-sans); font-weight: 700; font-size: 17px; letter-spacing: -0.02em; fill: var(--ink); }
+  .brain-sub { font-family: var(--font-mono); font-size: 11px; fill: var(--orange); letter-spacing: 0.04em; }
+  .bnode { stroke: #fff; stroke-width: 1.5; }
+  .bedge { stroke: #ead7cb; stroke-width: 1.3; fill: none; }
+  .n-blue { fill: var(--blue); } .n-orange { fill: var(--orange); } .n-purple { fill: var(--purple); } .n-pink { fill: var(--pink); } .n-amber { fill: var(--amber); }
+  .glow { animation: glowPulse 3.4s ease-in-out infinite; }
+  @keyframes glowPulse { 0%, 100% { stroke-opacity: 0.1; } 50% { stroke-opacity: 0.32; } }
+  .legend { display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; margin-top: 24px; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 8px; }
+  .legend i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .flowstack { display: none; max-width: 440px; margin: 6px auto 0; }
+  .fs-h { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted-2); margin: 0 0 10px; }
+  .fs-card { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: #fff; display: flex; gap: 11px; align-items: flex-start; margin-bottom: 10px; }
+  .fs-card .d { width: 9px; height: 9px; border-radius: 50%; margin-top: 6px; flex: none; }
+  .fs-card b { font-size: 0.92rem; letter-spacing: -0.01em; }
+  .fs-card small { color: var(--muted); font-size: 0.78rem; display: block; }
+  .fs-arrow { display: flex; justify-content: center; color: var(--muted-2); margin: 6px 0; }
+  .fs-brain { border: 1px solid var(--line-2); border-radius: 14px; padding: 18px; text-align: center; background: linear-gradient(180deg, #fff, var(--bg-tint)); margin: 4px 0; }
+  .fs-brain b { font-family: var(--font-sans); font-weight: 700; font-size: 1rem; display: block; letter-spacing: -0.02em; }
+  .fs-brain small { font-family: var(--font-mono); font-size: 0.7rem; color: var(--orange); }
 
-  /* ─── Workflow ─── */
-  .workflow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; counter-reset: step; }
-  .wstep {
-    border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 22px 18px; background: var(--bg); position: relative;
-  }
-  .wstep .num {
-    width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center;
-    font-weight: 700; font-size: .85rem; margin-bottom: 14px;
-    background: var(--accent-soft); color: var(--accent);
-  }
-  .wstep h4 { font-size: .98rem; font-weight: 600; margin-bottom: 6px; letter-spacing: -.01em; }
-  .wstep p { font-size: .82rem; color: var(--muted); line-height: 1.5; }
-  .wstep .phase {
-    position: absolute; top: -9px; left: 18px; font-size: .66rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: .04em; padding: 2px 9px; border-radius: 999px;
-  }
-  .wstep.p-setup .phase { background: var(--grounding-soft); color: var(--grounding); }
-  .wstep.p-run .phase { background: var(--accent-soft); color: var(--accent); }
-  @media (max-width: 900px){ .workflow { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 560px){ .workflow { grid-template-columns: 1fr; } }
+  /* ===== Feature cards (skills) ===== */
+  .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .feature-card { position: relative; border: 1px solid var(--line); border-radius: var(--radius); padding: 34px 32px 30px; background: #fff; overflow: hidden; transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease); }
+  .feature-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: linear-gradient(90deg, var(--orange), var(--pink), var(--purple), var(--blue)); transform: scaleX(0); transform-origin: left; transition: transform 0.45s var(--ease); }
+  .feature-card:hover { transform: translateY(-4px); border-color: var(--line-2); box-shadow: 0 30px 60px -34px rgba(0,0,0,0.24); }
+  .feature-card:hover::before { transform: scaleX(1); }
+  .feature-wide { grid-column: 1 / -1; }
+  .feature-num { font-family: var(--font-mono); font-size: 0.82rem; color: var(--muted-2); letter-spacing: 0.04em; }
+  .feature-card h3 { margin-top: 14px; font-size: 1.16rem; letter-spacing: -0.02em; font-family: var(--font-mono); font-weight: 600; }
+  .feature-card p { margin-top: 12px; color: var(--muted); font-size: 0.98rem; max-width: 60ch; }
+  .feature-tags { display: inline-block; margin-top: 20px; font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-2); }
 
-  /* ─── Loop ─── */
-  .loop-card {
-    margin-top: 28px; border: 1px solid var(--line-2); border-radius: var(--radius-lg);
-    padding: 36px; background: var(--bg);
-  }
-  .loop-card .lc-title {
-    text-align: center; font-size: .78rem; font-weight: 600; letter-spacing: .05em;
-    text-transform: uppercase; color: var(--muted); margin-bottom: 28px;
-  }
-  .loop { display: flex; align-items: stretch; justify-content: center; flex-wrap: wrap; gap: 0; }
-  .lnode { width: 150px; text-align: center; display: flex; flex-direction: column; align-items: center; }
-  .lnode .ic {
-    width: 48px; height: 48px; border-radius: 12px; display: grid; place-items: center;
-    font-size: 1.1rem; margin-bottom: 12px; border: 1px solid var(--line-2); background: var(--bg-soft);
-  }
-  .lnode .ll { font-size: .85rem; font-weight: 600; margin-bottom: 3px; }
-  .lnode .ld { font-size: .76rem; color: var(--muted); line-height: 1.4; }
-  .larrow { display: grid; place-items: center; color: var(--line-2); font-size: 1.2rem; padding: 0 4px; height: 48px; }
-  .loop-back {
-    margin-top: 26px; display: flex; align-items: center; gap: 14px; justify-content: center;
-  }
-  .loop-back .ln { flex: 1; max-width: 220px; height: 1px; background: repeating-linear-gradient(90deg, var(--adaptive) 0 6px, transparent 6px 12px); }
-  .loop-back .lbl {
-    font-size: .78rem; font-weight: 600; color: var(--adaptive);
-    background: var(--adaptive-soft); padding: 6px 16px; border-radius: 999px; white-space: nowrap;
-  }
-  @media (max-width: 820px){
-    .loop { flex-direction: column; align-items: center; gap: 4px; }
-    .larrow { transform: rotate(90deg); }
-    .loop-back { flex-direction: column; }
-    .loop-back .ln { width: 1px; height: 24px; max-width: none; background: repeating-linear-gradient(180deg, var(--adaptive) 0 6px, transparent 6px 12px); }
-  }
+  /* ===== How / steps ===== */
+  .how { background: var(--bg-soft); border-block: 1px solid var(--line); }
+  .steps { display: grid; gap: 0; }
+  .step { display: grid; grid-template-columns: 120px 1fr; gap: 30px; padding: 34px 0; border-top: 1px solid var(--line); }
+  .step:last-child { border-bottom: 1px solid var(--line); }
+  .step-num { font-family: var(--font-mono); font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; letter-spacing: -0.04em; color: var(--ink); line-height: 1; }
+  .step-body h3 { font-size: 1.3rem; letter-spacing: -0.02em; }
+  .step-body p { margin-top: 10px; color: var(--muted); max-width: 64ch; }
+  .step-tag { display: inline-block; margin-bottom: 10px; font-family: var(--font-mono); font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--orange); border: 1px solid rgba(244,112,58,0.35); background: rgba(244,112,58,0.08); border-radius: 999px; padding: 3px 10px; }
 
-  /* ─── Tree ─── */
-  .tree {
-    border: 1px solid var(--line-2); border-radius: var(--radius);
-    padding: 26px 28px; background: var(--ink); color: #cdd0db;
-    font-family: 'JetBrains Mono', monospace; font-size: .84rem; line-height: 1.85;
-    overflow-x: auto; white-space: pre;
-  }
+  /* ===== Integrations / structure ===== */
+  .integ-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
+  .integ-col { border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; background: linear-gradient(180deg, #fff, var(--bg-soft)); }
+  .integ-head { display: block; font-family: var(--font-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted-2); padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid var(--line); }
+  .integ-col ul { display: flex; flex-direction: column; gap: 12px; }
+  .integ-col li { display: flex; align-items: flex-start; gap: 10px; font-weight: 500; letter-spacing: -0.01em; font-size: 0.95rem; }
+  .integ-col li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex: none; margin-top: 8px; }
+  .integ-col:nth-child(2) li::before { background: var(--purple); }
+  .integ-col:nth-child(3) li::before { background: var(--orange); }
+  .integ-col li small { color: var(--muted); font-weight: 400; font-size: 0.8rem; display: block; }
+
+  /* ===== okf-flow viz ===== */
+  .okf-flow { margin: 6px 0 0; padding: 0; border: 0; }
+  .okf-flow-panel { border: 1px solid var(--line); border-radius: 18px; background: radial-gradient(120% 80% at 50% 0%, #fcfcff 0%, #ffffff 60%); box-shadow: 0 1px 0 #fff inset, 0 18px 50px -28px rgba(40,42,60,0.18); padding: 10px; }
+  .okf-flow-panel svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .okf-flow .zlabel { font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em; fill: var(--muted-2); }
+  .okf-flow .nlabel { font-family: var(--font-sans); font-weight: 600; font-size: 14px; fill: var(--ink); }
+  .okf-flow .nsub { font-family: var(--font-mono); font-size: 10.5px; fill: var(--muted-2); letter-spacing: .02em; }
+  .okf-flow .pflow { fill: none; stroke: var(--line-2); stroke-width: 1.4; }
+  .okf-flow .bedge { stroke: #d9d2f3; stroke-width: 1.3; fill: none; }
+  .okf-flow .bnode { stroke: #fff; stroke-width: 1.5; }
+  .okf-flow .srcbox { fill: #fbfaff; stroke: #ddd8f5; stroke-width: 1.4; stroke-dasharray: 5 5; }
+  .okf-flow .corelabel { font-family: var(--font-sans); font-weight: 600; font-size: 14px; fill: var(--ink); }
+  .okf-flow .coresub { font-family: var(--font-mono); font-size: 10px; fill: var(--muted); letter-spacing: .02em; }
+  .okf-flow .bundlecap { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .04em; fill: var(--orange); }
+  .okf-flow .glowpulse { animation: okfSoftPulse 3.4s ease-in-out infinite; }
+  .okf-flow .spin { transform-box: fill-box; transform-origin: center; animation: okfSpin 14s linear infinite; }
+  @keyframes okfSoftPulse { 0%, 100% { opacity: .45; } 50% { opacity: .9; } }
+  @keyframes okfSpin { to { transform: rotate(360deg); } }
+
+  /* ===== File tree ===== */
+  .tree { margin-top: 40px; border: 1px solid #1c1c1f; border-radius: 14px; padding: 26px 28px; background: #0e0e10; color: #cdd0db; font-family: var(--font-mono); font-size: .84rem; line-height: 1.85; overflow-x: auto; white-space: pre; }
   .tree .dir { color: #82aaff; font-weight: 500; }
   .tree .file { color: #aeb3c2; }
   .tree .c { color: #5b6072; }
 
-  /* ─── Brain org (wiki at the center) ─── */
-  .org {
-    display: grid; grid-template-columns: 1fr auto 1.25fr auto 1fr;
-    align-items: stretch; gap: 0; margin-bottom: 26px;
-  }
-  .org-src {
-    border: 1px solid var(--line-2); border-radius: var(--radius-lg);
-    padding: 26px 24px; background: var(--bg); display: flex; flex-direction: column;
-  }
-  .org-src.static { border-top: 3px solid var(--grounding); }
-  .org-src.private { border-top: 3px solid var(--adaptive); }
-  .org-src .tag {
-    display: inline-flex; align-items: center; gap: 7px; align-self: flex-start;
-    font-size: .72rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
-    padding: 5px 11px; border-radius: 999px; margin-bottom: 14px;
-  }
-  .org-src.static .tag { color: var(--grounding); background: var(--grounding-soft); }
-  .org-src.private .tag { color: var(--adaptive); background: var(--adaptive-soft); }
-  .org-src h3 { font-size: 1.08rem; font-weight: 700; letter-spacing: -.02em; margin-bottom: 8px; }
-  .org-src p { font-size: .88rem; color: var(--muted); margin-bottom: 16px; }
-  .org-src ul { list-style: none; display: grid; gap: 7px; margin-top: auto; }
-  .org-src li { font-family: 'JetBrains Mono', monospace; font-size: .76rem; color: var(--ink-2); }
-  .org-feed {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    padding: 0 16px; gap: 8px;
-  }
-  .org-feed .ar { font-size: 1.5rem; color: var(--accent); }
-  .org-feed .lbl { font-size: .66rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; color: var(--muted); text-align: center; }
-  .org-brain {
-    border-radius: var(--radius-lg); background: var(--ink); color: #fff;
-    padding: 32px 28px; display: flex; flex-direction: column; align-items: center; text-align: center;
-    box-shadow: 0 18px 50px -22px rgba(20,21,27,.6);
-  }
-  .org-brain .ic { width: 52px; height: 52px; border-radius: 14px; background: rgba(255,255,255,.08); display: grid; place-items: center; font-size: 1.6rem; margin-bottom: 14px; }
-  .org-brain .tag { font-size: .68rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #fff; background: rgba(255,255,255,.12); padding: 5px 12px; border-radius: 999px; margin-bottom: 12px; }
-  .org-brain h3 { font-size: 1.5rem; font-weight: 700; letter-spacing: -.025em; margin-bottom: 8px; }
-  .org-brain p { font-size: .9rem; color: rgba(255,255,255,.68); margin-bottom: 18px; }
-  .org-brain .parts { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; }
-  .org-brain .parts span { font-family: 'JetBrains Mono', monospace; font-size: .74rem; color: #cdd0db; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); padding: 4px 10px; border-radius: 999px; }
-  @media (max-width: 860px){
-    .org { grid-template-columns: 1fr; }
-    .org-feed { flex-direction: row; padding: 16px 0; }
-    .org-feed .ar { transform: rotate(90deg); }
-  }
-
-  /* ─── Tables ─── */
-  .table-wrap { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
-  thead th {
-    text-align: left; padding: 14px 18px; background: var(--bg-soft);
-    font-weight: 600; color: var(--ink); font-size: .82rem; letter-spacing: .01em;
-    border-bottom: 1px solid var(--line);
-  }
-  tbody td { padding: 14px 18px; border-bottom: 1px solid var(--line); color: var(--ink-2); }
-  tbody tr:last-child td { border-bottom: none; }
-  tbody tr:hover td { background: var(--bg-soft); }
-  td strong { color: var(--ink); font-weight: 600; }
-
-  code {
-    font-family: 'JetBrains Mono', monospace; font-size: .82em;
-    background: var(--bg-softer); color: var(--accent);
-    padding: 2px 7px; border-radius: 6px;
-  }
-  .sev-e { color: var(--rose); font-weight: 600; }
-  .sev-w { color: var(--amber); font-weight: 600; }
-  .sev-i { color: var(--muted); font-weight: 600; }
-
-  /* ─── Principles ─── */
-  .principles { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .principle {
-    border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 22px 24px; background: var(--bg); display: flex; gap: 16px;
-  }
-  .principle .n {
-    flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px;
-    display: grid; place-items: center; font-weight: 700; font-size: .82rem;
-    background: var(--ink); color: #fff;
-  }
-  .principle p { font-size: .9rem; color: var(--muted); margin: 0; }
+  /* ===== Guardrails / principles ===== */
+  .principles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .principle { border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 28px; background: #fff; display: flex; gap: 18px; transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease); }
+  .principle:hover { transform: translateY(-3px); border-color: var(--line-2); box-shadow: 0 24px 48px -30px rgba(0,0,0,0.2); }
+  .principle .n { flex: none; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font-family: var(--font-mono); font-weight: 600; font-size: 0.85rem; background: var(--ink); color: #fff; }
+  .principle h4 { font-size: 1.02rem; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .principle p { font-size: 0.92rem; color: var(--muted); margin: 0; }
   .principle strong { color: var(--ink); font-weight: 600; }
-  @media (max-width: 720px){ .principles { grid-template-columns: 1fr; } }
+  .principle em { color: var(--ink-2); font-style: italic; }
 
-  /* ─── Example session ─── */
-  .session { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-  .turn { padding: 22px 26px; border-bottom: 1px solid var(--line); }
-  .turn:last-child { border-bottom: none; }
-  .turn .who { font-size: .76rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 8px; }
-  .turn .who.user { color: #2563eb; }
-  .turn .who.agent { color: var(--accent); }
-  .turn .who .skill-name { font-family: 'JetBrains Mono', monospace; font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--muted); }
-  .turn .msg { font-size: .95rem; color: var(--ink); }
-  .turn .msg.agent-msg { color: var(--ink-2); }
+  /* ===== CTA ===== */
+  .cta { padding-bottom: clamp(80px, 12vw, 150px); }
+  .cta-card { position: relative; border-radius: 28px; border: 1px solid #1c1c1f; background: radial-gradient(120% 140% at 50% 0%, #1a1a1d 0%, #0b0b0c 60%); color: #fff; padding: clamp(50px, 8vw, 90px) 32px; text-align: center; overflow: hidden; isolation: isolate; }
+  .cta-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.9; }
+  .cta-content { position: relative; display: flex; flex-direction: column; align-items: center; }
+  .cta-card h2 { font-size: clamp(2rem, 5vw, 3.4rem); letter-spacing: -0.035em; line-height: 1.04; }
+  .cta-card p { margin-top: 18px; max-width: 540px; color: rgba(255,255,255,0.66); font-size: 1.1rem; }
+  .cta-actions { display: flex; gap: 12px; margin-top: 34px; flex-wrap: wrap; justify-content: center; }
+  .cta-card .btn-ghost { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.22); color: #fff; }
+  .cta-card .btn-ghost:hover { border-color: #fff; }
+  .cta-card .btn-solid { background: #fff; color: var(--ink); }
 
-  /* ─── Footer ─── */
-  footer { padding: 56px 0; border-top: 1px solid var(--line); }
-  footer .wrap { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-  footer .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
-  footer .brand .mark { width: 24px; height: 24px; border-radius: 7px; background: var(--ink); color: #fff; display: grid; place-items: center; font-size: 13px; }
-  footer p { font-size: .82rem; color: var(--muted); max-width: 460px; }
+  /* ===== Footer ===== */
+  .site-footer { border-top: 1px solid var(--line); padding: 64px 0 40px; background: var(--bg-soft); }
+  .footer-inner { display: grid; grid-template-columns: 1.4fr 2fr; gap: 40px; }
+  .footer-brand p { margin-top: 16px; color: var(--muted); max-width: 360px; font-size: 0.95rem; }
+  .footer-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .footer-nav > div { display: flex; flex-direction: column; gap: 12px; }
+  .footer-head { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted-2); margin-bottom: 4px; }
+  .footer-nav a { color: var(--muted); font-size: 0.94rem; transition: color 0.2s var(--ease); }
+  .footer-nav a:hover { color: var(--ink); }
+  .footer-bottom { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted-2); }
+
+  /* ===== Reveal ===== */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+  .reveal.in { opacity: 1; transform: none; }
+  .just-card.reveal:nth-child(2) { transition-delay: 0.06s; }
+  .just-card.reveal:nth-child(3) { transition-delay: 0.12s; }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 980px) {
+    .nav, .header-cta { display: none; }
+    .menu-toggle { display: flex; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    .just-grid, .integ-grid, .principles { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 64px 1fr; gap: 18px; }
+    .footer-nav { grid-template-columns: 1fr 1fr; }
+    .hero { padding-top: 104px; }
+    .hero-veil { background: radial-gradient(72% 50% at 50% 38%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0.2) 82%), linear-gradient(to bottom, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 30%, rgba(255,255,255,0) 70%, #fff 100%); }
+  }
+  @media (max-width: 720px) {
+    .flowviz { display: none; }
+    .flowstack { display: block; }
+  }
+  @media (max-width: 460px) {
+    .container { padding-inline: 18px; }
+    .footer-bottom { flex-direction: column; gap: 8px; }
+  }
+
+  /* ===== Reduced motion ===== */
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; scroll-behavior: auto !important; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
 </style>
 </head>
 <body>
 
-<!-- ─── Nav ─── -->
-<nav>
-  <div class="wrap">
-    <div class="brand"><span class="mark">◐</span> SE Brain</div>
-    <div class="links">
-      <a href="#idea">The Idea</a>
-      <a href="#roles">Roles</a>
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a class="brand" href="#top" aria-label="SE Brain home">
+      <span class="brand-mark" aria-hidden="true">
+        <span class="dot dot-core"></span>
+        <span class="dot dot-a"></span>
+        <span class="dot dot-b"></span>
+        <span class="dot dot-c"></span>
+      </span>
+      <span class="brand-name">SE&nbsp;Brain</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#idea">The idea</a>
+      <a href="#flow">The flow</a>
       <a href="#skills">Skills</a>
       <a href="#workflow">Workflow</a>
       <a href="#structure">Structure</a>
+      <a href="blog/index.html">Blog</a>
+    </nav>
+    <div class="header-cta">
+      <a class="btn btn-ghost" href="#idea">Read the concept</a>
+      <a class="btn btn-solid" href="https://github.com/abpatramsft/se-brain" target="_blank" rel="noopener">Get started <span aria-hidden="true">→</span></a>
     </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
   </div>
-</nav>
-
-<!-- ─── Hero ─── -->
-<header class="hero">
-  <div class="wrap">
-    <span class="kicker">◐ Agent-native SE companion</span>
-    <h1>A brain for every<br><span class="accent">Solutions Engineer</span>.</h1>
-    <p class="sub">
-      SE Brain works like a biological brain. A shared <strong>SharePoint raw dump</strong>, compiled into a
-      <strong>local wiki</strong>, forms the universal foundation every answer is grounded in — and your private <strong>KB-Local</strong>
-      layer adds personal context on top, so the brain adapts to your accounts and notes.
-      One companion across the entire SE journey, and the brain keeps getting better.
-    </p>
-    <div class="meta">
-      <span class="chip"><span class="dot" style="background:var(--grounding)"></span> SharePoint foundation</span>
-      <span class="chip"><span class="dot" style="background:var(--adaptive)"></span> Private KB-Local layer</span>
-      <span class="chip"><span class="dot" style="background:var(--accent)"></span> Spans the whole journey</span>
-    </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#idea">The idea</a>
+    <a href="#flow">The flow</a>
+    <a href="#skills">Skills</a>
+    <a href="#workflow">Workflow</a>
+    <a href="#structure">Structure</a>
+    <a href="blog/index.html">Blog</a>
+    <a class="btn btn-solid" href="https://github.com/abpatramsft/se-brain" target="_blank" rel="noopener">Get started →</a>
   </div>
 </header>
 
-<!-- ─── The Core Idea: brain metaphor ─── -->
-<section id="idea" class="soft">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">The core idea</div>
-      <h2>A shared foundation on SharePoint.<br>A private layer that's all yours.</h2>
-      <p class="section-lead">
-        A human brain has a stable base of knowledge it's built on, then refines that base through
-        lived experience. SE Brain mirrors that with a <strong>two-tier knowledge model</strong>: a
-        universal <strong>SharePoint raw dump</strong> of source documents is the authoritative base every SE shares — compiled
-        into a <strong>local wiki</strong> the SE actually talks to — and your local-only
-        <code>KB-Local/</code> folder layers your own deal notes and context on top — never overwriting the
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <canvas id="viz" class="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-veil" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <span class="eyebrow"><span class="pulse" aria-hidden="true"></span> Agent-native SE companion</span>
+    <h1 class="hero-title">A brain for every<br>Solutions&nbsp;Engineer<span class="period">.</span></h1>
+    <p class="hero-sub">
+      SE Brain unifies a shared <strong>SharePoint knowledge base</strong> and your private
+      <strong>KB-Local</strong> notes into one local, source-cited <strong>wiki</strong> — a grounded
+      brain your agent navigates across the entire SE journey. And it keeps getting smarter.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-solid btn-lg" href="#cta">Give your SEs a brain <span aria-hidden="true">→</span></a>
+      <a class="btn btn-ghost btn-lg" href="#flow">See how it works</a>
+    </div>
+    <div class="hero-rotator" aria-hidden="true">
+      <span class="rotator-label">One brain for your</span>
+      <span class="rotator" id="rotator"><span class="rotator-word">onboarding</span></span>
+    </div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true">
+    <span>Scroll</span>
+    <span class="scroll-line"></span>
+  </div>
+</section>
+
+<!-- ============ THE CORE IDEA ============ -->
+<section class="section intro" id="idea">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker">The core idea</span>
+      <h2 class="section-title">A shared foundation on SharePoint.<span class="muted-title">A private layer that's all yours.</span></h2>
+      <p class="section-lede">
+        A brain keeps a stable base of knowledge, then refines it through lived experience. SE Brain
+        mirrors that with a two-tier model: a universal <strong>SharePoint raw dump</strong> every SE shares, compiled
+        into a local wiki — plus your own <code>KB-Local</code> notes layered on top, never overwriting
         shared truth, just sharpening answers for you.
       </p>
     </div>
-
-    <div class="brain-flow">
-      <div class="brain-card grounding">
-        <span class="tag">● Tier 1 · Universal</span>
-        <h3>SharePoint raw-dump foundation</h3>
-        <p>The shared source documents (the raw dump) live on SharePoint at <code>se-brain-wiki</code> and are reached through the <code>se-graph-wiki</code> MCP tools. The local wiki is compiled from them, and they're the authoritative data behind every answer.</p>
-        <ul>
-          <li>One source of truth for every SE — the shared raw source documents and data</li>
-          <li>Read &amp; written via <code>wiki_read</code> / <code>wiki_write</code> over Microsoft Graph</li>
-          <li>The local wiki navigates; SharePoint supplies the data — never a stale local raw mirror</li>
-        </ul>
-      </div>
-
-      <div class="brain-bridge">
-        <span class="plus">+</span>
-        <span class="lbl">augments</span>
-      </div>
-
-      <div class="brain-card adaptive">
-        <span class="tag">● Tier 2 · Private</span>
-        <h3>Your KB-Local layer</h3>
-        <p>A gitignored <code>KB-Local/</code> folder holds your personal notes and private deal context. The agent optionally folds it in after SharePoint — only when it genuinely adds value.</p>
-        <ul>
-          <li>Private deal notes, prep, and context that stay on your machine</li>
-          <li>Local content is clearly labeled <em>"From your local notes (KB-Local)"</em></li>
-          <li>Additive only — on a conflict, SharePoint wins and the discrepancy is flagged</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="brain-result">
-      <div class="ic">◐</div>
-      <div>
-        <h3>The result: a brain that knows your SE</h3>
-        <p>The SharePoint foundation keeps answers trustworthy and consistent for everyone; your private KB-Local layer keeps them personal and relevant. Shared truth plus your own context, on every answer.</p>
-      </div>
+    <div class="just-grid">
+      <article class="just-card reveal">
+        <div class="just-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/><path d="M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/></svg></div>
+        <h3>Shared SharePoint foundation</h3>
+        <p>The authoritative raw dump every SE shares, reached through the <code>se-graph-wiki</code> MCP tools. One source of truth behind every answer.</p>
+        <span class="just-tag">Tier 1 · Universal</span>
+      </article>
+      <article class="just-card reveal">
+        <div class="just-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h9l5 5v11H5z"/><path d="M14 4v5h5"/><path d="M9 13h6M9 16h4"/></svg></div>
+        <h3>Private KB-Local layer</h3>
+        <p>A gitignored folder of your personal notes and deal context, folded in only when it adds value — and clearly labeled when it does.</p>
+        <span class="just-tag">Tier 2 · Private</span>
+      </article>
+      <article class="just-card reveal">
+        <div class="just-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="M7 7l3 3M17 7l-3 3M7 17l3-3M17 17l-3-3"/></svg></div>
+        <h3>One local wiki</h3>
+        <p>Synthesized, cross-linked, source-cited knowledge — the single brain the SE actually talks to, and the one thing that compounds.</p>
+        <span class="just-tag">The result · Local</span>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ─── Who does what ─── -->
-<section id="roles">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Who does what</div>
-      <h2>SEs talk to an agent. The agent runs the brain.</h2>
-      <p class="section-lead">
-        SEs never have to think about files, SharePoint, or wiki pages. They ask in plain language;
-        the agent chooses the right skills and reads or updates the knowledge base behind the scenes —
-        navigating the local wiki, fetching the data from the shared SharePoint raw dump, then optionally
-        layering in private KB-Local notes.
-        The onboarding agent is live today, with more journey-phase agents sharing the same brain.
+<!-- ============ THE FLOW ============ -->
+<section class="section pipeline" id="flow">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker">The flow</span>
+      <h2 class="section-title">Sources in. A grounded brain out.</h2>
+      <p class="section-lede">
+        SE Brain sits between your scattered knowledge sources and the agent that needs them —
+        compiling shared SharePoint documents, your private KB-Local notes, and fresh research into
+        one navigable local wiki the agent answers from.
       </p>
     </div>
 
-    <div class="interaction">
-      <div class="actor">
-        <div class="ic">👤</div>
-        <h4>Solutions Engineer</h4>
-        <p>Asks questions, shares docs, requests guidance at any phase</p>
+    <!-- desktop: animated knowledge-unification flow -->
+    <div class="flowviz reveal">
+      <svg viewBox="0 0 1020 440" xmlns="http://www.w3.org/2000/svg" role="img"
+           aria-label="SharePoint documents, private KB-Local notes and fresh research flow into SE Brain's local wiki and out to grounded answers, customer briefs and HTML explainers.">
+        <defs>
+          <radialGradient id="brainGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#f4703a" stop-opacity=".20"/>
+            <stop offset="55%" stop-color="#f59e42" stop-opacity=".06"/>
+            <stop offset="100%" stop-color="#f4703a" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <text class="vport" x="40" y="64">SOURCES</text>
+        <text class="vport" x="980" y="64" text-anchor="end">ANSWERS</text>
+
+        <path class="conn flow-in"  data-c="#3f6ef0" d="M232 120 C 330 120, 372 196, 452 206"/>
+        <path class="conn flow-in"  data-c="#f4703a" d="M232 220 C 332 220, 372 214, 452 214"/>
+        <path class="conn flow-in"  data-c="#8b5cf6" d="M232 320 C 330 320, 372 230, 452 224"/>
+        <path class="conn flow-out" data-c="#ec4d6b" d="M568 206 C 650 200, 700 120, 788 120"/>
+        <path class="conn flow-out" data-c="#8b5cf6" d="M568 214 C 660 214, 700 220, 788 220"/>
+        <path class="conn flow-out" data-c="#f59e42" d="M568 224 C 650 232, 700 320, 788 320"/>
+
+        <g>
+          <circle class="n-blue" cx="232" cy="120" r="6"/>
+          <text class="vlabel" x="214" y="115" text-anchor="end">SharePoint dump</text>
+          <text class="vsub"   x="214" y="133" text-anchor="end">shared raw documents</text>
+
+          <circle class="n-orange" cx="232" cy="220" r="6"/>
+          <text class="vlabel" x="214" y="215" text-anchor="end">Research &amp; WorkIQ</text>
+          <text class="vsub"   x="214" y="233" text-anchor="end">web · Outlook · Teams</text>
+
+          <circle class="n-purple" cx="232" cy="320" r="6"/>
+          <text class="vlabel" x="214" y="315" text-anchor="end">KB-Local</text>
+          <text class="vsub"   x="214" y="333" text-anchor="end">your private notes</text>
+        </g>
+
+        <g>
+          <circle class="n-pink" cx="788" cy="120" r="6"/>
+          <text class="vlabel" x="806" y="115">Grounded answers</text>
+          <text class="vsub"   x="806" y="133">every claim cited</text>
+
+          <circle class="n-purple" cx="788" cy="220" r="6"/>
+          <text class="vlabel" x="806" y="215">Customer briefs</text>
+          <text class="vsub"   x="806" y="233">pre-meeting intel</text>
+
+          <circle class="n-amber" cx="788" cy="320" r="6"/>
+          <text class="vlabel" x="806" y="315">HTML explainers</text>
+          <text class="vsub"   x="806" y="333">polished &amp; shareable</text>
+        </g>
+
+        <g id="flowParticles"></g>
+
+        <circle cx="510" cy="208" r="104" fill="url(#brainGlow)"/>
+        <g id="brainGroup">
+          <path class="bedge" d="M510 208 L478 184 M510 208 L542 184 M510 208 L468 214 M510 208 L552 214
+                                 M510 208 L490 238 M510 208 L530 238 M478 184 L490 168 M542 184 L530 168
+                                 M468 214 L460 240 M552 214 L560 240 M490 168 L530 168"/>
+          <circle class="bnode n-blue"   cx="490" cy="168" r="5"/>
+          <circle class="bnode n-orange" cx="530" cy="168" r="5"/>
+          <circle class="bnode" cx="478" cy="184" r="4.5" fill="#c9b8f0"/>
+          <circle class="bnode" cx="542" cy="184" r="4.5" fill="#c9b8f0"/>
+          <circle class="bnode n-purple" cx="468" cy="214" r="4.5"/>
+          <circle class="bnode n-pink"   cx="552" cy="214" r="4.5"/>
+          <circle class="bnode" cx="460" cy="240" r="4" fill="#f3c39b"/>
+          <circle class="bnode" cx="560" cy="240" r="4" fill="#f3c39b"/>
+          <circle class="bnode" cx="490" cy="238" r="4.5" fill="#c9b8f0"/>
+          <circle class="bnode" cx="530" cy="238" r="4.5" fill="#c9b8f0"/>
+          <circle class="bnode n-orange" cx="510" cy="208" r="8"/>
+        </g>
+        <text class="brain-label" x="510" y="300" text-anchor="middle">SE Brain</text>
+        <text class="brain-sub"   x="510" y="320" text-anchor="middle">the local wiki · synthesized &amp; cited</text>
+      </svg>
+    </div>
+
+    <!-- mobile: vertical flow fallback -->
+    <div class="flowstack">
+      <div class="fs-group">
+        <p class="fs-h">Sources</p>
+        <div class="fs-card"><span class="d" style="background:var(--blue)"></span><span><b>SharePoint dump</b><small>shared raw documents</small></span></div>
+        <div class="fs-card"><span class="d" style="background:var(--orange)"></span><span><b>Research &amp; WorkIQ</b><small>web · Outlook · Teams</small></span></div>
+        <div class="fs-card"><span class="d" style="background:var(--purple)"></span><span><b>KB-Local</b><small>your private notes</small></span></div>
       </div>
-      <div class="flow-link">
-        <span>onboarding · enablement · accounts · stakeholders</span>
-        <span class="ar">⟶</span>
-        <span>grounded, phase-aware answers</span>
+      <div class="fs-arrow"><svg width="20" height="34" viewBox="0 0 20 34" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 1v30m0 0-7-7m7 7 7-7"/></svg></div>
+      <div class="fs-brain"><b>SE Brain</b><small>the local wiki · synthesized &amp; cited</small></div>
+      <div class="fs-arrow"><svg width="20" height="34" viewBox="0 0 20 34" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 1v30m0 0-7-7m7 7 7-7"/></svg></div>
+      <div class="fs-group">
+        <p class="fs-h">Answers</p>
+        <div class="fs-card"><span class="d" style="background:var(--pink)"></span><span><b>Grounded answers</b><small>every claim cited</small></span></div>
+        <div class="fs-card"><span class="d" style="background:var(--purple)"></span><span><b>Customer briefs</b><small>pre-meeting intel</small></span></div>
+        <div class="fs-card"><span class="d" style="background:var(--amber)"></span><span><b>HTML explainers</b><small>polished &amp; shareable</small></span></div>
       </div>
-      <div class="actor mid">
-        <div class="ic">🤖</div>
-        <h4>Agent</h4>
-        <p>Interprets intent, routes to the right skills, synthesizes the reply</p>
-      </div>
-      <div class="flow-link">
-        <span>wiki_read · wiki_write · augment · generate</span>
-        <span class="ar">⟶</span>
-        <span>reads &amp; updates the KB</span>
-      </div>
-      <div class="actor">
-        <div class="ic">📚</div>
-        <h4>Skills &amp; KB</h4>
-        <p>Local <code>wiki/</code>, the SharePoint raw dump, private <code>KB-Local/</code>, and HTML explainers</p>
-      </div>
+    </div>
+
+    <div class="legend reveal">
+      <span><i style="background:var(--blue)"></i>SharePoint</span>
+      <span><i style="background:var(--orange)"></i>Research</span>
+      <span><i style="background:var(--purple)"></i>KB-Local</span>
+      <span><i style="background:var(--pink)"></i>Answers</span>
     </div>
   </div>
 </section>
 
-<!-- ─── Skills ─── -->
-<section id="skills" class="soft">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">The toolkit</div>
-      <h2>The skills the agent composes</h2>
-      <p class="section-lead">
+<!-- ============ SKILLS ============ -->
+<section class="section features" id="skills">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker">The toolkit</span>
+      <h2 class="section-title">The skills the agent composes</h2>
+      <p class="section-lede">
         Each skill is a single <code>SKILL.md</code> with trigger phrases and a step-by-step workflow.
         Together they research, build, query, and maintain the brain — navigating the local wiki and
-        fetching data from the SharePoint raw dump, with KB-Local as the optional private layer.
+        fetching data from the SharePoint dump, with KB-Local as the optional private layer.
       </p>
     </div>
 
-    <div class="skills">
-      <div class="skill">
-        <div class="top"><span class="ic i-cyan">📋</span><h3>se-customer-intel</h3></div>
-        <p>Generates sharp pre-meeting intelligence briefs — talking points, landmines, demo plan. Grounds in the local wiki, then pulls account &amp; pipeline data (<code>mock-data/*.json</code>) from SharePoint, enriched with your private KB-Local notes.</p>
-        <div class="tags"><span>prep me for a meeting</span><span>customer brief</span><span>account context</span></div>
-      </div>
+    <div class="feature-grid">
+      <article class="feature-card reveal">
+        <span class="feature-num">01</span>
+        <h3>se-query-wiki</h3>
+        <p>Navigates the local wiki for the map and context, fetches the cited data from the SharePoint dump, and synthesizes a source-cited answer. Substantial answers get filed as <code>analyses/</code> pages so insight compounds.</p>
+        <span class="feature-tags">what does the wiki say · compare X and Y · analyze</span>
+      </article>
 
-      <div class="skill">
-        <div class="top"><span class="ic i-blue">🔍</span><h3>se-open-research</h3></div>
-        <p>Scours the internet for articles, papers, and data, converts each to clean markdown with frontmatter, and saves them to the SharePoint raw dump (<code>raw/</code>).</p>
-        <div class="tags"><span>research X</span><span>gather sources</span><span>find papers</span></div>
-      </div>
+      <article class="feature-card reveal">
+        <span class="feature-num">02</span>
+        <h3>se-wiki-generator</h3>
+        <p>Reads the SharePoint dump plus KB-Local and compiles the local <code>wiki/</code> — summaries, concepts, entities, comparisons, overview, index, and changelog. Updates incrementally as sources arrive.</p>
+        <span class="feature-tags">build the wiki · ingest sources · update wiki</span>
+      </article>
 
-      <div class="skill">
-        <div class="top"><span class="ic i-green">🏗️</span><h3>se-wiki-generator</h3></div>
-        <p>Reads the SharePoint raw dump (plus KB-Local) and compiles the <strong>local</strong> <code>wiki/</code> — summaries, concepts, entities, comparisons, overview, index, and changelog. Updates incrementally.</p>
-        <div class="tags"><span>build the wiki</span><span>ingest sources</span><span>update wiki</span></div>
-      </div>
+      <article class="feature-card reveal">
+        <span class="feature-num">03</span>
+        <h3>se-customer-intel</h3>
+        <p>Generates sharp pre-meeting briefs — talking points, landmines, demo plan — grounded in the wiki, then enriched with account &amp; pipeline data and your private KB-Local notes.</p>
+        <span class="feature-tags">prep me for a meeting · customer brief · account context</span>
+      </article>
 
-      <div class="skill">
-        <div class="top"><span class="ic i-violet">💬</span><h3>se-query-wiki</h3></div>
-        <p>Navigates the local wiki for the map and context, then fetches the cited data from the SharePoint raw dump and synthesizes a cited answer. Substantial answers get filed as <code>wiki/analyses/</code> pages so insight compounds.</p>
-        <div class="tags"><span>what does the wiki say</span><span>compare X and Y</span><span>analyze</span></div>
-      </div>
+      <article class="feature-card reveal">
+        <span class="feature-num">04</span>
+        <h3>se-open-research</h3>
+        <p>Scours the web for articles, papers, and data, converts each to clean markdown with frontmatter, and saves them to the SharePoint raw dump for ingest.</p>
+        <span class="feature-tags">research X · gather sources · find papers</span>
+      </article>
 
-      <div class="skill">
-        <div class="top"><span class="ic i-amber">🩺</span><h3>se-lint-wiki</h3></div>
+      <article class="feature-card reveal">
+        <span class="feature-num">05</span>
+        <h3>se-work-research</h3>
+        <p>Gathers internal context — Outlook, Teams, meetings, and shared docs via the WorkIQ MCP server — and saves it to the SharePoint dump with a <code>work--</code> prefix.</p>
+        <span class="feature-tags">check work emails · internal context · team discussion</span>
+      </article>
+
+      <article class="feature-card reveal">
+        <span class="feature-num">06</span>
+        <h3>se-lint-wiki</h3>
         <p>Runs 7 health checks — orphans, dead links, stale content, contradictions, gaps, backlinks, index drift. Auto-fixes safe issues; asks before warnings.</p>
-        <div class="tags"><span>lint the wiki</span><span>health-check</span><span>find gaps</span></div>
-      </div>
+        <span class="feature-tags">lint the wiki · health-check · find gaps</span>
+      </article>
 
-      <div class="skill">
-        <div class="top"><span class="ic i-cyan">📧</span><h3>se-work-research</h3></div>
-        <p>Gathers internal context — Outlook, Teams, meetings, and shared docs via the WorkIQ MCP server — and saves it to the SharePoint raw dump with a <code>work--</code> prefix.</p>
-        <div class="tags"><span>check work emails</span><span>internal context</span><span>what did the team discuss</span></div>
-      </div>
+      <article class="feature-card reveal">
+        <span class="feature-num">07</span>
+        <h3>se-html-explainer</h3>
+        <p>Turns dense markdown — wiki pages, raw sources, or answers — into polished, self-contained HTML explainers with real visual hierarchy. Saves to <code>html-files/</code>.</p>
+        <span class="feature-tags">visualize this · make an explainer · convert to HTML</span>
+      </article>
 
-      <div class="skill">
-        <div class="top"><span class="ic i-rose">🎨</span><h3>se-html-explainer</h3></div>
-        <p>Turns dense markdown — wiki pages, raw sources, or answers — into polished, self-contained HTML explainers with visual hierarchy. Saves to <code>html-files/</code>.</p>
-        <div class="tags"><span>visualize this</span><span>make an explainer</span><span>convert to HTML</span></div>
-      </div>
-
-      <div class="skill">
-        <div class="top"><span class="ic i-pink">🧩</span><h3>se-make-skill-template</h3></div>
-        <p>A meta-skill for creating new skills. Scaffolds the folder, generates <code>SKILL.md</code> with proper frontmatter, and supports bundled scripts and assets.</p>
-        <div class="tags"><span>create a skill</span><span>scaffold a skill</span><span>new skill</span></div>
-      </div>
+      <article class="feature-card reveal feature-wide">
+        <span class="feature-num">08</span>
+        <h3>se-make-skill-template</h3>
+        <p>A meta-skill for creating new skills. Scaffolds the folder, generates <code>SKILL.md</code> with proper frontmatter, and supports bundled scripts and assets — so the brain grows new capabilities on demand.</p>
+        <span class="feature-tags">create a skill · scaffold a skill · new skill</span>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ─── Workflow ─── -->
-<section id="workflow">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">End to end</div>
-      <h2>A session, start to finish</h2>
-      <p class="section-lead">An SE asks; the agent routes; skills run against the knowledge base; a grounded answer comes back — and the brain is left a little smarter.</p>
+<!-- ============ WORKFLOW ============ -->
+<section class="section how" id="workflow">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker">End to end</span>
+      <h2 class="section-title">A session, start to finish</h2>
+      <p class="section-lede">An SE asks; the agent routes; skills run against the knowledge base; a grounded answer comes back — and the brain is left a little smarter every time.</p>
     </div>
 
-    <div class="workflow">
-      <div class="wstep p-setup">
-        <span class="phase">Ask</span>
-        <div class="num">1</div>
-        <h4>SE ask</h4>
-        <p>Onboarding, enablement, tools, stakeholders, or account help — in plain language.</p>
-      </div>
-      <div class="wstep p-setup">
-        <span class="phase">Route</span>
-        <div class="num">2</div>
-        <h4>Agent route</h4>
-        <p>The agent decides which skills and KB paths the request needs.</p>
-      </div>
-      <div class="wstep p-run">
-        <span class="phase">Run</span>
-        <div class="num">3</div>
-        <h4>Skills run</h4>
-        <p>Query, ingest, lint, or generate — local wiki first, then the SharePoint raw dump, then optional <code>KB-Local/</code>.</p>
-      </div>
-      <div class="wstep p-run">
-        <span class="phase">Compound</span>
-        <div class="num">4</div>
-        <h4>KB update</h4>
-        <p>Useful results are filed back into the knowledge base for reuse.</p>
-      </div>
-      <div class="wstep p-run">
-        <span class="phase">Reply</span>
-        <div class="num">5</div>
-        <h4>Agent reply</h4>
-        <p>A grounded answer, checklist, plan, or explainer returns to the SE.</p>
-      </div>
-    </div>
-
-    <div class="loop-card">
-      <div class="lc-title">The compounding loop · how the brain grows</div>
-      <div class="loop">
-        <div class="lnode">
-          <div class="ic">👤</div>
-          <div class="ll">SE asks</div>
-          <div class="ld">A question against the wiki</div>
+    <ol class="steps">
+      <li class="step reveal">
+        <span class="step-num">01</span>
+        <div class="step-body">
+          <h3>SE asks</h3>
+          <p>Onboarding, enablement, tooling, stakeholders, or account help — in plain language. No files, no paths, no wiki mechanics to learn.</p>
+          <span class="step-tag">plain-language intent</span>
         </div>
-        <div class="larrow">→</div>
-        <div class="lnode">
-          <div class="ic">💬</div>
-          <div class="ll">Cited answer</div>
-          <div class="ld">Synthesized from pages</div>
+      </li>
+      <li class="step reveal">
+        <span class="step-num">02</span>
+        <div class="step-body">
+          <h3>Agent routes</h3>
+          <p>The agent interprets the request and decides which skills and knowledge-base paths it needs to answer well.</p>
+          <span class="step-tag">intent → skills</span>
         </div>
-        <div class="larrow">→</div>
-        <div class="lnode">
-          <div class="ic">⚖️</div>
-          <div class="ll">Substantial?</div>
-          <div class="ld">If multi-source → file it</div>
+      </li>
+      <li class="step reveal">
+        <span class="step-num">03</span>
+        <div class="step-body">
+          <h3>Skills run</h3>
+          <p>Query, ingest, lint, or generate — local wiki first for the map, then the SharePoint dump for the data, then optional <code>KB-Local</code> for your private context.</p>
+          <span class="step-tag">wiki → SharePoint → KB-Local</span>
         </div>
-        <div class="larrow">→</div>
-        <div class="lnode">
-          <div class="ic">📥</div>
-          <div class="ll">File to wiki</div>
-          <div class="ld">Saved as an analysis</div>
+      </li>
+      <li class="step reveal">
+        <span class="step-num">04</span>
+        <div class="step-body">
+          <h3>Knowledge compounds</h3>
+          <p>Substantial results are filed back as analyses; backlinks and the index are updated — so every future answer starts richer.</p>
+          <span class="step-tag">the compounding loop ↺</span>
         </div>
-        <div class="larrow">→</div>
-        <div class="lnode">
-          <div class="ic">🩺</div>
-          <div class="ll">Lint &amp; link</div>
-          <div class="ld">Backlinks &amp; index updated</div>
+      </li>
+      <li class="step reveal">
+        <span class="step-num">05</span>
+        <div class="step-body">
+          <h3>Agent replies</h3>
+          <p>A grounded, source-cited answer — checklist, plan, brief, or HTML explainer — returns to the SE.</p>
+          <span class="step-tag">grounded &amp; cited</span>
         </div>
-      </div>
-      <div class="loop-back">
-        <div class="ln"></div>
-        <div class="lbl">↺ Knowledge feeds back — every future answer starts richer</div>
-        <div class="ln"></div>
-      </div>
-    </div>
+      </li>
+    </ol>
   </div>
 </section>
 
-<!-- ─── Structure ─── -->
-<section id="structure" class="soft">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">How it fits together</div>
-      <h2>The wiki <em>is</em> the SE Brain</h2>
-      <p class="section-lead">The SE Brain is the wiki in the middle — a synthesized, source-cited knowledge base built from two inputs: the <strong>static SharePoint</strong> foundation every SE shares, and your <strong>private KB-Local</strong> notes. Both feed the wiki, and the wiki is the one thing the SE actually talks to.</p>
+<!-- ============ STRUCTURE ============ -->
+<section class="section integrations" id="structure">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker">How it fits together</span>
+      <h2 class="section-title">The wiki <em>is</em> the SE Brain</h2>
+      <p class="section-lede">
+        Knowledge sources feed an agent that runs the SE Brain skills and compiles everything into one
+        local, source-cited wiki — the single brain the SE actually talks to. Shared SharePoint truth in,
+        your private KB-Local context layered on, a navigable wiki out.
+      </p>
     </div>
 
-    <div class="org">
-      <div class="org-src static">
-        <span class="tag">● Static · shared</span>
-        <h3>SharePoint foundation</h3>
-        <p>The authoritative raw dump and shared data, identical for every SE. Read via <code>wiki_read</code>.</p>
+    <figure class="okf-flow reveal">
+      <div class="okf-flow-panel">
+        <svg viewBox="0 150 1120 286" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="SharePoint and KB-Local knowledge sources feed GitHub Copilot, acting as the agent orchestrator, which runs the SE Brain skills to produce the local wiki.">
+          <defs>
+            <radialGradient id="okfBg" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#7a4dff" stop-opacity=".18"/>
+              <stop offset="60%" stop-color="#7a4dff" stop-opacity=".05"/>
+              <stop offset="100%" stop-color="#7a4dff" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="okfCg" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#5546e6" stop-opacity=".16"/>
+              <stop offset="100%" stop-color="#5546e6" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="okfOg" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#e8620e" stop-opacity=".14"/>
+              <stop offset="100%" stop-color="#e8620e" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="okfSql" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#4f8bf0"/><stop offset="1" stop-color="#2f6bed"/>
+            </linearGradient>
+          </defs>
+
+          <text class="zlabel" x="206" y="172" text-anchor="middle">KNOWLEDGE SOURCES</text>
+          <text class="zlabel" x="590" y="172" text-anchor="middle">AGENT ORCHESTRATOR · SE BRAIN SKILLS</text>
+          <text class="zlabel" x="930" y="172" text-anchor="middle">OUTPUT</text>
+
+          <rect class="srcbox" x="56" y="190" width="300" height="214" rx="22"/>
+          <text class="zlabel" x="80" y="218" fill="#2f6bed" letter-spacing=".1em">SHAREPOINT · KB-LOCAL</text>
+
+          <path class="conn pflow" data-c="var(--azure)" data-n="3" d="M356 270 C 404 270, 408 296, 432 300"/>
+          <path class="conn pflow" data-c="var(--cyan)" data-n="3" d="M356 340 C 404 340, 408 308, 432 304"/>
+          <path class="conn pflow" data-c="#aab0bb" data-n="2" d="M356 392 C 406 392, 408 312, 432 308"/>
+
+          <path class="conn pflow" data-c="var(--brand)" data-n="5" data-r="3.6" data-spd="0.0019" d="M748 300 C 800 300, 836 300, 882 300"/>
+          <text class="bundlecap" x="816" y="288" text-anchor="middle">builds →</text>
+
+          <g transform="translate(112,270)">
+            <ellipse cx="0" cy="-15" rx="19" ry="6" fill="#bcd8ff"/>
+            <path d="M-19 -15 V13 a19 6 0 0 0 38 0 V-15" fill="url(#okfSql)"/>
+            <ellipse cx="0" cy="-15" rx="19" ry="6" fill="#cfe3ff"/>
+            <text x="0" y="6" text-anchor="middle" font-family="var(--font-sans)" font-weight="700" font-size="10" fill="#fff">SP</text>
+          </g>
+          <text class="nlabel" x="150" y="266">SharePoint dump</text>
+          <text class="nsub" x="150" y="283">shared raw documents</text>
+
+          <g transform="translate(112,340)">
+            <path d="M0 -17 L15 -8 L15 8 L0 17 L-15 8 L-15 -8 Z" fill="#8b5cf6"/>
+            <text x="0" y="-1" text-anchor="middle" font-family="var(--font-mono)" font-size="8" fill="#fff">KB</text>
+            <text x="0" y="9" text-anchor="middle" font-family="var(--font-mono)" font-size="8" fill="#e3d9fb">·local</text>
+          </g>
+          <text class="nlabel" x="150" y="336">KB-Local notes</text>
+          <text class="nsub" x="150" y="353">private · gitignored</text>
+
+          <g transform="translate(96,392)">
+            <circle cx="0" cy="0" r="3" fill="#aab0bb"/><circle cx="12" cy="0" r="3" fill="#aab0bb"/><circle cx="24" cy="0" r="3" fill="#aab0bb"/>
+          </g>
+          <text class="nsub" x="150" y="396" font-size="11.5">Research · WorkIQ · web</text>
+
+          <rect class="srcbox" x="430" y="208" width="320" height="184" rx="24"/>
+
+          <circle class="glowpulse" cx="512" cy="298" r="50" fill="url(#okfCg)"/>
+          <g transform="translate(512,298) scale(0.72)">
+            <path d="M-44 4 a44 40 0 0 1 88 0" fill="none" stroke="#14161c" stroke-width="7" stroke-linecap="round"/>
+            <rect x="-50" y="2" width="12" height="26" rx="6" fill="#14161c"/>
+            <rect x="38" y="2" width="12" height="26" rx="6" fill="#14161c"/>
+            <rect x="-38" y="-26" width="76" height="66" rx="30" fill="#14161c"/>
+            <rect x="-30" y="-12" width="60" height="26" rx="13" fill="#fff"/>
+            <circle cx="-13" cy="1" r="8.5" fill="#14161c"/><circle cx="13" cy="1" r="8.5" fill="#14161c"/>
+            <circle cx="-13" cy="1" r="3.4" fill="#fff"/><circle cx="13" cy="1" r="3.4" fill="#fff"/>
+            <rect x="-12" y="22" width="6" height="9" rx="2" fill="#fff"/>
+            <rect x="6" y="22" width="6" height="9" rx="2" fill="#fff"/>
+            <circle cx="0" cy="-34" r="3.4" fill="#f4703a"/>
+            <line x1="0" y1="-26" x2="0" y2="-31" stroke="#14161c" stroke-width="3"/>
+          </g>
+          <text class="corelabel" x="512" y="362" text-anchor="middle">GitHub Copilot</text>
+          <text class="coresub" x="512" y="378" text-anchor="middle">agent orchestrator</text>
+
+          <g class="spin">
+            <path class="loop" d="M556 290 A 36 22 0 0 1 624 290" fill="none" stroke="#cdb6f5" stroke-width="2"/>
+            <path class="loop" d="M624 310 A 36 22 0 0 1 556 310" fill="none" stroke="#cdb6f5" stroke-width="2"/>
+            <path d="M624 290 l 0 -6 l 6 5 z" fill="#f4703a"/>
+            <path d="M556 310 l 0 6 l -6 -5 z" fill="#f4703a"/>
+          </g>
+
+          <circle class="glowpulse" cx="668" cy="300" r="62" fill="url(#okfBg)"/>
+          <g transform="translate(668,300)">
+            <path class="bedge" d="M0 0 L-20 -28 M0 0 L20 -28 M0 0 L-32 -12 M0 0 L32 -12 M0 0 L-24 18 M0 0 L24 18 M-20 -28 L-8 -40 M20 -28 L8 -40 M-32 -12 L-40 8 M32 -12 L40 8 M-8 -40 L8 -40"/>
+            <circle class="bnode" cx="-8" cy="-40" r="4.5" fill="#f59e42"/>
+            <circle class="bnode" cx="8" cy="-40" r="4.5" fill="#3f6ef0"/>
+            <circle class="bnode" cx="-20" cy="-28" r="4" fill="#b9b3ea"/>
+            <circle class="bnode" cx="20" cy="-28" r="4" fill="#b9b3ea"/>
+            <circle class="bnode" cx="-32" cy="-12" r="4" fill="#8b5cf6"/>
+            <circle class="bnode" cx="32" cy="-12" r="4" fill="#ec4d6b"/>
+            <circle class="bnode" cx="-40" cy="8" r="3.6" fill="#c7c2ee"/>
+            <circle class="bnode" cx="40" cy="8" r="3.6" fill="#c7c2ee"/>
+            <circle class="bnode" cx="-24" cy="18" r="4" fill="#b9b3ea"/>
+            <circle class="bnode" cx="24" cy="18" r="4" fill="#b9b3ea"/>
+            <circle class="bnode" cx="0" cy="0" r="7" fill="#f4703a"/>
+          </g>
+          <text class="corelabel" x="668" y="362" text-anchor="middle">SE Brain skills</text>
+          <text class="coresub" x="668" y="378" text-anchor="middle">query · generate · lint</text>
+
+          <circle class="glowpulse" cx="930" cy="300" r="60" fill="url(#okfOg)"/>
+          <g transform="translate(930,300)">
+            <rect x="-26" y="-30" width="46" height="58" rx="6" fill="#e9e7fb"/>
+            <rect x="-20" y="-26" width="46" height="58" rx="6" fill="#f5f3ff" stroke="#bcb4f0" stroke-width="1.4"/>
+            <line x1="-12" y1="-12" x2="18" y2="-12" stroke="#8f83ee" stroke-width="1.8"/>
+            <line x1="-12" y1="-3" x2="18" y2="-3" stroke="#bcb4f0" stroke-width="1.8"/>
+            <line x1="-12" y1="6" x2="18" y2="6" stroke="#bcb4f0" stroke-width="1.8"/>
+            <line x1="-12" y1="15" x2="6" y2="15" stroke="#bcb4f0" stroke-width="1.8"/>
+            <g transform="translate(14,22)">
+              <circle cx="0" cy="0" r="9" fill="#f4703a"/>
+              <circle cx="-3" cy="-3" r="1.6" fill="#fff"/><circle cx="3" cy="-2" r="1.6" fill="#fff"/><circle cx="0" cy="3" r="1.6" fill="#fff"/>
+              <path d="M-3 -3 L3 -2 L0 3 Z" stroke="#fff" stroke-width=".8" fill="none"/>
+            </g>
+          </g>
+          <text class="corelabel" x="930" y="368" text-anchor="middle">The local wiki</text>
+          <text class="coresub" x="930" y="384" text-anchor="middle">markdown · cited · linked</text>
+
+          <g class="okf-particles"></g>
+        </svg>
+      </div>
+      <figcaption style="text-align:center;margin-top:14px;font-family:var(--font-mono);font-size:0.78rem;color:var(--muted-2)">No new runtime · no SDK · just a local, source-cited wiki your agent maintains</figcaption>
+    </figure>
+
+    <div class="integ-grid reveal">
+      <div class="integ-col">
+        <span class="integ-head">Shared foundation</span>
         <ul>
-          <li>raw/ · raw-steady-state/</li>
-          <li>mock-data/*.json</li>
-          <li>broadcasts/</li>
+          <li>SharePoint raw dump</li>
+          <li><code>se-graph-wiki</code> MCP tools</li>
+          <li>Microsoft Graph API</li>
         </ul>
       </div>
-
-      <div class="org-feed">
-        <span class="ar">⟶</span>
-        <span class="lbl">grounds</span>
-      </div>
-
-      <div class="org-brain">
-        <div class="ic">◐</div>
-        <span class="tag">The SE Brain · local</span>
-        <h3>The Wiki</h3>
-        <p>Synthesized, cross-linked, source-cited knowledge — built locally from both sides. This is what the SE actually talks to.</p>
-        <div class="parts">
-          <span>wiki/</span><span>index.md</span><span>concepts/</span><span>entities/</span><span>comparisons/</span><span>analyses/</span>
-        </div>
-      </div>
-
-      <div class="org-feed">
-        <span class="ar">⟵</span>
-        <span class="lbl">augments</span>
-      </div>
-
-      <div class="org-src private">
-        <span class="tag">● Private · yours</span>
-        <h3>KB-Local layer</h3>
-        <p>Your gitignored personal notes and deal context, folded in only when they add value.</p>
+      <div class="integ-col">
+        <span class="integ-head">Private layer</span>
         <ul>
-          <li>KB-Local/README.md</li>
-          <li>KB-Local/accounts/</li>
-          <li>local-only · never shared</li>
+          <li><code>KB-Local/</code> notes</li>
+          <li>Account &amp; deal context</li>
+          <li>Gitignored · never shared</li>
+        </ul>
+      </div>
+      <div class="integ-col">
+        <span class="integ-head">Extend to anything</span>
+        <ul>
+          <li>WorkIQ · Microsoft 365</li>
+          <li>Open web research</li>
+          <li>Any MCP server</li>
         </ul>
       </div>
     </div>
@@ -743,129 +859,411 @@
   </div>
 </section>
 
-<!-- ─── Data flow ─── -->
-<section>
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Data flow</div>
-      <h2>What each skill reads and writes</h2>
-      <p class="section-lead">The wiki is local (read/written with local file tools); the shared raw dump moves through the SharePoint MCP tools (<code>wiki_read</code> / <code>wiki_write</code>); private notes are read locally from <code>KB-Local/</code> only.</p>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Skill</th><th>Reads from</th><th>Writes to</th><th>Key output</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>se-query-wiki</strong></td><td>local <code>wiki/index.md</code> → pages, then the cited <code>raw/</code> docs (SharePoint) + <code>KB-Local/</code></td><td>local <code>wiki/analyses/</code></td><td>Cited answers, filed analyses</td></tr>
-          <tr><td><strong>se-customer-intel</strong></td><td>local wiki + <code>mock-data/*.json</code> (SharePoint) + <code>KB-Local/</code></td><td>—</td><td>Pre-meeting briefs</td></tr>
-          <tr><td><strong>se-open-research</strong></td><td>Internet (web pages)</td><td><code>wiki_write</code> → <code>raw/*.md</code> (SharePoint)</td><td>Curated markdown sources</td></tr>
-          <tr><td><strong>se-wiki-generator</strong></td><td><code>raw/*.md</code> (SharePoint) + <code>KB-Local/</code></td><td>local <code>wiki/</code></td><td>Summary, concept, entity pages</td></tr>
-          <tr><td><strong>se-lint-wiki</strong></td><td>local <code>wiki/**/*.md</code></td><td>local <code>wiki/</code> fixes, <code>log.md</code></td><td>Lint report + auto-fixes</td></tr>
-          <tr><td><strong>se-work-research</strong></td><td>Microsoft 365 (WorkIQ)</td><td><code>wiki_write</code> → <code>raw/work--*.md</code></td><td>Internal source files</td></tr>
-          <tr><td><strong>se-html-explainer</strong></td><td>wiki pages, sources, responses</td><td><code>html-files/*.html</code></td><td>Visual HTML explainers</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- ─── Principles ─── -->
-<section class="soft">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Guardrails</div>
-      <h2>Six rules that keep the brain trustworthy</h2>
+<!-- ============ GUARDRAILS ============ -->
+<section class="section" id="guardrails">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker">Guardrails</span>
+      <h2 class="section-title">Six rules that keep the brain trustworthy</h2>
+      <p class="section-lede">Grounding rules the agent follows on every answer — so the brain stays accurate, attributable, and honest about what it doesn't know.</p>
     </div>
     <div class="principles">
-      <div class="principle"><span class="n">1</span><p><strong>Navigate the wiki, fetch from SharePoint.</strong> The local wiki gives the map and context; the real data is fetched from the SharePoint raw dump via <code>wiki_read</code> — never a stale local raw mirror.</p></div>
-      <div class="principle"><span class="n">2</span><p><strong>KB-Local augments, never substitutes.</strong> Private notes add personal context only; if SharePoint is down, the agent stops rather than answering from local alone.</p></div>
-      <div class="principle"><span class="n">3</span><p><strong>SharePoint wins conflicts.</strong> When a local note disagrees with shared truth, SharePoint prevails and the discrepancy is flagged to you.</p></div>
-      <div class="principle"><span class="n">4</span><p><strong>Label where it came from.</strong> Local-sourced content is marked <em>"From your local notes (KB-Local)"</em> so you always know what's shared vs. personal.</p></div>
-      <div class="principle"><span class="n">5</span><p><strong>Every claim traces to a source.</strong> No hallucinated facts; answers cite the wiki pages and SharePoint raw sources they used as clickable links.</p></div>
-      <div class="principle"><span class="n">6</span><p><strong>Explorations compound.</strong> Substantial answers are filed back to the local wiki as analyses — the brain grows richer with every session.</p></div>
+      <div class="principle reveal"><span class="n">1</span><p><strong>Navigate the wiki, fetch from SharePoint.</strong> The local wiki gives the map and context; the real data is fetched from the SharePoint raw dump via <code>wiki_read</code> — never a stale local mirror.</p></div>
+      <div class="principle reveal"><span class="n">2</span><p><strong>KB-Local augments, never substitutes.</strong> Private notes add personal context only; if SharePoint is down, the agent stops rather than answering from local alone.</p></div>
+      <div class="principle reveal"><span class="n">3</span><p><strong>SharePoint wins conflicts.</strong> When a local note disagrees with shared truth, SharePoint prevails and the discrepancy is flagged to you.</p></div>
+      <div class="principle reveal"><span class="n">4</span><p><strong>Label where it came from.</strong> Local-sourced content is marked <em>"From your local notes (KB-Local)"</em> so you always know what's shared vs. personal.</p></div>
+      <div class="principle reveal"><span class="n">5</span><p><strong>Every claim traces to a source.</strong> No hallucinated facts; answers cite the wiki pages and SharePoint raw sources they used as clickable links.</p></div>
+      <div class="principle reveal"><span class="n">6</span><p><strong>Explorations compound.</strong> Substantial answers are filed back to the local wiki as analyses — the brain grows richer with every session.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ─── Lint checks ─── -->
-<section>
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Quality engine</div>
-      <h2>The 7 lint checks</h2>
-      <p class="section-lead">The <code>se-lint-wiki</code> skill keeps the brain healthy as it grows.</p>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>#</th><th>Check</th><th>What it finds</th><th>Severity</th><th>Auto-fix?</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>1</td><td>Orphan pages</td><td>Pages with zero inbound links</td><td class="sev-w">warning</td><td>No</td></tr>
-          <tr><td>2</td><td>Dead links</td><td>Links to non-existent files</td><td class="sev-e">error</td><td>Yes (typo fix)</td></tr>
-          <tr><td>3</td><td>Stale content</td><td>Pages older than newer related sources</td><td class="sev-w">warning</td><td>No</td></tr>
-          <tr><td>4</td><td>Contradictions</td><td>Conflicting claims across pages</td><td class="sev-w">warning</td><td>No</td></tr>
-          <tr><td>5</td><td>Coverage gaps</td><td>Concepts mentioned but lacking a page</td><td class="sev-i">info</td><td>No</td></tr>
-          <tr><td>6</td><td>Missing backlinks</td><td>Backlinks frontmatter out of date</td><td class="sev-e">error</td><td>Yes</td></tr>
-          <tr><td>7</td><td>Index consistency</td><td>Index doesn't match files on disk</td><td class="sev-e">error</td><td>Yes</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- ─── Example session ─── -->
-<section class="soft">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">In practice</div>
-      <h2>What a real session looks like</h2>
-    </div>
-    <div class="session">
-      <div class="turn">
-        <div class="who user">Solutions Engineer</div>
-        <div class="msg">"Research the CAP theorem and distributed consensus algorithms"</div>
-      </div>
-      <div class="turn">
-        <div class="who agent">Agent <span class="skill-name">· se-open-research</span></div>
-        <div class="msg agent-msg">Fetches 8 sources → saves to the SharePoint raw dump (<code>raw/</code>) → updates <code>sources.md</code></div>
-      </div>
-      <div class="turn">
-        <div class="who user">Solutions Engineer</div>
-        <div class="msg">"Build the wiki"</div>
-      </div>
-      <div class="turn">
-        <div class="who agent">Agent <span class="skill-name">· se-wiki-generator</span></div>
-        <div class="msg agent-msg">Creates 24 pages: 8 source summaries, 6 concepts, 7 entities, 2 comparisons, 1 overview</div>
-      </div>
-      <div class="turn">
-        <div class="who user">Solutions Engineer</div>
-        <div class="msg">"How does Raft differ from Paxos?"</div>
-      </div>
-      <div class="turn">
-        <div class="who agent">Agent <span class="skill-name">· se-query-wiki</span></div>
-        <div class="msg agent-msg">Reads the local index → finds concept pages → fetches the cited SharePoint raw sources → produces a cited comparison table → offers to file it as <code>wiki/analyses/raft-vs-paxos.md</code></div>
-      </div>
-      <div class="turn">
-        <div class="who user">Solutions Engineer</div>
-        <div class="msg">"Lint the wiki"</div>
-      </div>
-      <div class="turn">
-        <div class="who agent">Agent <span class="skill-name">· se-lint-wiki</span></div>
-        <div class="msg agent-msg">Finds 2 orphan pages and 1 missing backlink; suggests a page for "Byzantine fault tolerance" (mentioned in 4 sources)</div>
+<!-- ============ CTA ============ -->
+<section class="section cta" id="cta">
+  <div class="container">
+    <div class="cta-card reveal">
+      <canvas id="vizMini" class="cta-canvas" aria-hidden="true"></canvas>
+      <div class="cta-content">
+        <h2>Give every SE a brain.</h2>
+        <p>
+          One shared SharePoint foundation, your own private notes, and a local source-cited wiki —
+          a grounded brain that spans the whole SE journey and compounds with every question.
+        </p>
+        <div class="cta-actions">
+          <a class="btn btn-solid btn-lg" href="#idea">Read the concept <span aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost btn-lg" href="#flow">See the flow</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
+</main>
 
-<!-- ─── Footer ─── -->
-<footer>
-  <div class="wrap">
-    <div class="brand"><span class="mark">◐</span> SE Brain</div>
-    <p>A grounded, agent-native brain for Solutions Engineers — across the whole journey. A shared SharePoint raw dump, compiled into a local wiki, is the source of truth; your private KB-Local layer makes it personal. All answers are source-cited and compound with every interaction.</p>
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a class="brand" href="#top" aria-label="SE Brain home">
+        <span class="brand-mark" aria-hidden="true">
+          <span class="dot dot-core"></span>
+          <span class="dot dot-a"></span>
+          <span class="dot dot-b"></span>
+          <span class="dot dot-c"></span>
+        </span>
+        <span class="brand-name">SE&nbsp;Brain</span>
+      </a>
+      <p>A grounded, agent-native brain for Solutions Engineers — across the whole journey. A shared SharePoint raw dump, compiled into a local wiki, is the source of truth; your private KB-Local layer makes it personal. Every answer is source-cited and compounds with each interaction.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <div>
+        <span class="footer-head">Concept</span>
+        <a href="#idea">The idea</a>
+        <a href="#flow">The flow</a>
+        <a href="#structure">Structure</a>
+      </div>
+      <div>
+        <span class="footer-head">Toolkit</span>
+        <a href="#skills">Skills</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#guardrails">Guardrails</a>
+        <a href="blog/index.html">Blog</a>
+      </div>
+      <div>
+        <span class="footer-head">Knowledge</span>
+        <a href="#idea">SharePoint dump</a>
+        <a href="#idea">KB-Local</a>
+        <a href="#flow">The local wiki</a>
+      </div>
+    </nav>
+  </div>
+  <div class="container footer-bottom">
+    <span>© <span id="year">2026</span> SE Brain</span>
+    <span>A grounded, agent-native brain for Solutions Engineers</span>
   </div>
 </footer>
+
+<script>
+/* SE Brain — interactions + orbital visualization. Vanilla JS, no dependencies. */
+(() => {
+  "use strict";
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Year */
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* Sticky header shadow */
+  const header = document.getElementById("siteHeader");
+  if (header) {
+    const onScroll = () => header.classList.toggle("scrolled", window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
+  /* Mobile menu */
+  const toggle = document.getElementById("menuToggle");
+  const mobileNav = document.getElementById("mobileNav");
+  if (toggle && mobileNav) {
+    toggle.addEventListener("click", () => {
+      const open = mobileNav.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(open));
+    });
+    mobileNav.querySelectorAll("a").forEach((a) =>
+      a.addEventListener("click", () => {
+        mobileNav.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+      })
+    );
+  }
+
+  /* Reveal on scroll */
+  const revealEls = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window && !prefersReduced) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    );
+    revealEls.forEach((el) => io.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add("in"));
+  }
+
+  /* Hero word rotator */
+  const rotator = document.getElementById("rotator");
+  if (rotator && !prefersReduced) {
+    const words = ["onboarding", "accounts", "pipeline", "compete", "enablement", "stakeholders"];
+    let i = 0;
+    setInterval(() => {
+      i = (i + 1) % words.length;
+      rotator.innerHTML = `<span class="rotator-word">${words[i]}</span>`;
+    }, 2200);
+  }
+
+  /* Flow particles (the flow pipeline) */
+  (function flowParticles() {
+    const layer = document.getElementById("flowParticles");
+    if (!layer) return;
+    const paths = Array.from(document.querySelectorAll(".flowviz .flow-in, .flowviz .flow-out"));
+    if (!paths.length) return;
+    const NS = "http://www.w3.org/2000/svg";
+    const PER = 3;
+    const dots = [];
+    paths.forEach((p) => {
+      const color = p.getAttribute("data-c") || "#9a9aa2";
+      for (let k = 0; k < PER; k++) {
+        const c = document.createElementNS(NS, "circle");
+        c.setAttribute("r", "3.2");
+        c.setAttribute("fill", color);
+        layer.appendChild(c);
+        dots.push({ c, p, t: k / PER + Math.random() * 0.04, spd: 0.0016 + Math.random() * 0.0006 });
+      }
+    });
+    const place = (d) => {
+      const len = d.p.getTotalLength();
+      if (!len) { d.c.setAttribute("opacity", "0"); return; }
+      const pt = d.p.getPointAtLength(d.t * len);
+      d.c.setAttribute("cx", pt.x.toFixed(2));
+      d.c.setAttribute("cy", pt.y.toFixed(2));
+      const edge = Math.min(1, Math.min(d.t, 1 - d.t) * 6);
+      d.c.setAttribute("opacity", (0.35 + 0.55 * edge).toFixed(2));
+    };
+    if (prefersReduced) { dots.forEach((d) => { d.t = 0.5; place(d); }); return; }
+    const frame = () => {
+      for (const d of dots) { d.t += d.spd; if (d.t > 1) d.t -= 1; place(d); }
+      requestAnimationFrame(frame);
+    };
+    frame();
+  })();
+
+  /* Unify-flow particles (the structure section) */
+  (function okfUnifyFlow() {
+    const fig = document.querySelector(".okf-flow");
+    if (!fig) return;
+    const layer = fig.querySelector(".okf-particles");
+    if (!layer) return;
+    const NS = "http://www.w3.org/2000/svg";
+    const COLORS = { "var(--azure)": "#2f6bed", "var(--cyan)": "#1499c0", "var(--brand)": "#5546e6" };
+    const dots = [];
+    fig.querySelectorAll(".pflow").forEach((p) => {
+      const raw = p.getAttribute("data-c");
+      const color = COLORS[raw] || raw;
+      const n = +(p.getAttribute("data-n") || 3);
+      const r = +(p.getAttribute("data-r") || 3);
+      const spd = +(p.getAttribute("data-spd") || 0.0016);
+      for (let k = 0; k < n; k++) {
+        const c = document.createElementNS(NS, "circle");
+        c.setAttribute("r", r);
+        c.setAttribute("fill", color);
+        layer.appendChild(c);
+        dots.push({ c, p, t: k / n + Math.random() * 0.03, spd: spd + Math.random() * 0.0004 });
+      }
+    });
+    const place = (d) => {
+      const len = d.p.getTotalLength();
+      if (!len) { d.c.setAttribute("opacity", "0"); return; }
+      const pt = d.p.getPointAtLength(d.t * len);
+      d.c.setAttribute("cx", pt.x.toFixed(2));
+      d.c.setAttribute("cy", pt.y.toFixed(2));
+      const edge = Math.min(1, Math.min(d.t, 1 - d.t) * 6);
+      d.c.setAttribute("opacity", (0.3 + 0.6 * edge).toFixed(2));
+    };
+    if (prefersReduced) { dots.forEach((d) => { d.t = 0.5; place(d); }); return; }
+    const frame = () => {
+      for (const d of dots) { d.t += d.spd; if (d.t > 1) d.t -= 1; place(d); }
+      requestAnimationFrame(frame);
+    };
+    frame();
+  })();
+
+  /* Orbital phase-space visualization */
+  function OrbitalField(canvas, opts = {}) {
+    const ctx = canvas.getContext("2d", { alpha: true });
+    const dark = !!opts.dark;
+    let W = 0, H = 0, DPR = 1, cx = 0, cy = 0, scale = 1;
+    let raf = 0, t = 0, running = true;
+    const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+    const ATTR = [
+      { color: [244, 112, 58],  ang: Math.PI * 0.86, dist: 0.62, rings: 13, spin:  0.06, elong: 2.6 },
+      { color: [63, 110, 240],  ang: Math.PI * 0.04, dist: 0.66, rings: 13, spin: -0.05, elong: 2.7 },
+      { color: [139, 92, 246],  ang: -Math.PI * 0.62, dist: 0.66, rings: 10, spin:  0.07, elong: 2.3 },
+      { color: [236, 77, 107],  ang: Math.PI * 0.42, dist: 0.60, rings: 11, spin: -0.06, elong: 2.4 },
+      { color: [88, 92, 200],   ang: -Math.PI * 0.86, dist: 0.40, rings: 7,  spin:  0.05, elong: 2.0 },
+    ];
+    const comets = [];
+    function seedComets() {
+      comets.length = 0;
+      const n = opts.minimal ? 3 : 5;
+      for (let i = 0; i < n; i++) {
+        const a = ATTR[i % ATTR.length];
+        comets.push({ a, p: Math.random(), speed: 0.0006 + Math.random() * 0.0009, ring: 0.5 + Math.random() * 0.4 });
+      }
+    }
+    function resize() {
+      DPR = Math.min(window.devicePixelRatio || 1, 2);
+      const rect = canvas.getBoundingClientRect();
+      W = Math.max(1, rect.width);
+      H = Math.max(1, rect.height);
+      canvas.width = Math.floor(W * DPR);
+      canvas.height = Math.floor(H * DPR);
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      cx = W * 0.5;
+      cy = H * (opts.minimal ? 0.5 : 0.52);
+      scale = Math.min(W, H * 1.5) * 0.5;
+    }
+    function dot(x, y, r, col, a) {
+      if (a <= 0.01) return;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${col[0]},${col[1]},${col[2]},${a})`;
+      ctx.fill();
+    }
+    function drawBasin(att, time) {
+      const fx = cx + Math.cos(att.ang) * att.dist * scale;
+      const fy = cy + Math.sin(att.ang) * att.dist * scale;
+      const phi = Math.atan2(cy - fy, cx - fx);
+      const baseAlpha = dark ? 0.6 : 0.78;
+      for (let r = 1; r <= att.rings; r++) {
+        const k = r / att.rings;
+        const rx = (0.045 + k * 0.34) * scale * att.elong;
+        const ry = (0.045 + k * 0.34) * scale;
+        const ringAlpha = (1 - k) * baseAlpha;
+        const dots = Math.floor(26 + k * 60);
+        const spin = time * att.spin + r * 0.14;
+        for (let i = 0; i < dots; i++) {
+          const th = (i / dots) * Math.PI * 2;
+          let ex = Math.cos(th) * rx;
+          let ey = Math.sin(th) * ry;
+          const ca = Math.cos(phi + spin), sa = Math.sin(phi + spin);
+          const px = fx + ex * ca - ey * sa;
+          const py = fy + ex * sa + ey * ca;
+          const face = 0.5 + 0.5 * Math.cos(th - 0.6);
+          const a = ringAlpha * (0.22 + 0.78 * face);
+          const size = 0.85 + face * 0.95;
+          dot(px, py, size, att.color, a);
+        }
+      }
+      const glow = ctx.createRadialGradient(fx, fy, 0, fx, fy, 26);
+      glow.addColorStop(0, `rgba(${att.color[0]},${att.color[1]},${att.color[2]},0.5)`);
+      glow.addColorStop(1, `rgba(${att.color[0]},${att.color[1]},${att.color[2]},0)`);
+      ctx.fillStyle = glow;
+      ctx.beginPath(); ctx.arc(fx, fy, 26, 0, Math.PI * 2); ctx.fill();
+      dot(fx, fy, 4.2, att.color, 0.95);
+      dot(fx, fy, 1.6, [255, 255, 255], dark ? 0.9 : 0.85);
+      return { fx, fy, phi };
+    }
+    function drawCore(time) {
+      const rings = opts.minimal ? 5 : 7;
+      for (let r = 1; r <= rings; r++) {
+        const k = r / rings;
+        const rx = (0.05 + k * 0.26) * scale * 1.7;
+        const ry = (0.05 + k * 0.26) * scale * 0.92;
+        const dots = Math.floor(40 + k * 70);
+        const a = (1 - k) * (dark ? 0.34 : 0.42);
+        const spin = -time * 0.04 + r * 0.2;
+        for (let i = 0; i < dots; i++) {
+          const th = (i / dots) * Math.PI * 2;
+          let ex = Math.cos(th) * rx;
+          let ey = Math.sin(th) * ry;
+          const ca = Math.cos(spin), sa = Math.sin(spin);
+          const px = cx + ex * ca - ey * sa;
+          const py = cy + ex * sa + ey * ca;
+          const col = dark ? [245, 170, 110] : [245, 158, 66];
+          dot(px, py, 0.9, col, a);
+        }
+      }
+      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, scale * 0.3);
+      g.addColorStop(0, "rgba(245,158,66,0.30)");
+      g.addColorStop(0.4, "rgba(244,112,58,0.10)");
+      g.addColorStop(1, "rgba(244,112,58,0)");
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(cx, cy, scale * 0.32, 0, Math.PI * 2); ctx.fill();
+      dot(cx, cy, 3, [255, 220, 170], 0.95);
+      dot(cx, cy, 1.3, [255, 255, 255], 0.9);
+    }
+    function drawComets(time) {
+      comets.forEach((c) => {
+        c.p += c.speed;
+        if (c.p > 1) c.p -= 1;
+        const fx = cx + Math.cos(c.a.ang) * c.a.dist * scale;
+        const fy = cy + Math.sin(c.a.ang) * c.a.dist * scale;
+        const phi = Math.atan2(cy - fy, cx - fx);
+        const rx = (0.045 + c.ring * 0.34) * scale * c.a.elong;
+        const ry = (0.045 + c.ring * 0.34) * scale;
+        const trail = 16;
+        for (let s = 0; s < trail; s++) {
+          const th = (c.p - s * 0.012) * Math.PI * 2;
+          let ex = Math.cos(th) * rx;
+          let ey = Math.sin(th) * ry;
+          const ca = Math.cos(phi + time * c.a.spin), sa = Math.sin(phi + time * c.a.spin);
+          const px = fx + ex * ca - ey * sa;
+          const py = fy + ex * sa + ey * ca;
+          const a = (1 - s / trail) * 0.5;
+          dot(px, py, (1 - s / trail) * 1.8 + 0.3, c.a.color, a);
+        }
+      });
+    }
+    function frame() {
+      if (!running) return;
+      t += 1;
+      const time = t * 0.01;
+      ctx.clearRect(0, 0, W, H);
+      mouse.x += (mouse.tx - mouse.x) * 0.05;
+      mouse.y += (mouse.ty - mouse.y) * 0.05;
+      ctx.save();
+      ctx.translate(mouse.x, mouse.y);
+      drawCore(time);
+      for (const att of ATTR) drawBasin(att, time);
+      if (!prefersReduced) drawComets(time);
+      ctx.restore();
+      raf = requestAnimationFrame(frame);
+    }
+    function onMouse(e) {
+      const rect = canvas.getBoundingClientRect();
+      const nx = (e.clientX - rect.left) / rect.width - 0.5;
+      const ny = (e.clientY - rect.top) / rect.height - 0.5;
+      mouse.tx = nx * 22;
+      mouse.ty = ny * 16;
+    }
+    const vis = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((en) => {
+          running = en.isIntersecting;
+          if (running && !raf) { raf = requestAnimationFrame(frame); }
+          if (!running) { cancelAnimationFrame(raf); raf = 0; }
+        });
+      },
+      { threshold: 0 }
+    );
+    resize();
+    seedComets();
+    window.addEventListener("resize", debounce(() => { resize(); seedComets(); }, 150));
+    if (!opts.minimal) window.addEventListener("mousemove", onMouse, { passive: true });
+    vis.observe(canvas);
+    if (prefersReduced) {
+      const time = 8;
+      ctx.clearRect(0, 0, W, H);
+      drawCore(time);
+      for (const att of ATTR) drawBasin(att, time);
+    } else {
+      raf = requestAnimationFrame(frame);
+    }
+  }
+  function debounce(fn, ms) {
+    let id;
+    return (...a) => { clearTimeout(id); id = setTimeout(() => fn(...a), ms); };
+  }
+
+  /* Boot visualizations */
+  const heroCanvas = document.getElementById("viz");
+  if (heroCanvas) OrbitalField(heroCanvas, { dark: false });
+  const miniCanvas = document.getElementById("vizMini");
+  if (miniCanvas) OrbitalField(miniCanvas, { dark: true, minimal: true });
+})();
+</script>
 
 </body>
 </html>
