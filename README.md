@@ -125,6 +125,25 @@ python scripts/unify_wiki.py --base wiki --augment wiki_v1 --out wiki_unified
 
 Every run backs up the base, is idempotent, and emits `unify-report.md` (+ `.json`) with the **tier breakdown**, **base-retention**, and **link-integrity** metrics. See **[scripts/README.md](scripts/README.md)** for the full option reference, tier thresholds, recipes, and exit codes.
 
+## Wiki Knowledge Graph
+
+The wiki can be rendered as an **interactive knowledge graph** — every `wiki/**/*.md` page becomes a node (colored by type: concept, entity, source-summary, comparison, analysis, overview, index) and every markdown link or `backlinks`/`sources` reference becomes an edge. This is the fastest way to see clusters, hubs, and orphans at a glance (and to visually confirm a unification landed).
+
+A fully-local Python builder (`wiki-graph/build_graph.py`, standard library only — no deps, no build step) scans the wiki and emits a self-contained `wiki-graph/index.html`:
+
+```bash
+# Build (regenerates wiki-graph/index.html):
+python wiki-graph/build_graph.py
+
+# Then render it — open the generated file in a browser:
+#   Windows:  start wiki-graph/index.html
+#   macOS:    open wiki-graph/index.html
+#   Linux:    xdg-open wiki-graph/index.html
+# or right-click wiki-graph/index.html in VS Code → "Open in Default Browser".
+```
+
+The builder prints the node/edge count (e.g. `70 nodes, 664 edges`). The rendered page has a type legend, node search, hover-to-highlight neighbours, and a fit-view control. Re-run the builder after ingesting sources, filing analyses, or unifying a wiki to refresh the graph.
+
 ## Custom Agents
 
 The repo can also ship custom task-focused agents in `.github/agents/`.
@@ -193,6 +212,10 @@ Everything compounds: new sources strengthen existing pages, answered questions 
 ├── scripts/                    # Local tools
 │   ├── unify_wiki.py           # Non-destructive wiki unification engine
 │   └── README.md               # Full how-to-run + options reference
+│
+├── wiki-graph/                 # Interactive knowledge-graph view of wiki/
+│   ├── build_graph.py          # Local builder (stdlib only)
+│   └── index.html              # Generated self-contained graph
 │
 └── .github/
     ├── copilot-instructions.md # Schema: rules, conventions, workflows
