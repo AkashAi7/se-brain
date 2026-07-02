@@ -97,8 +97,52 @@ Skills are modular instruction sets (`.github/skills/*/SKILL.md`) that agents us
 | **se-work-research** | Gathers sources from M365 (emails, Teams, meetings) | "check work emails about", "find internal context on" |
 | **se-html-explainer** | Converts markdown/responses to visual HTML pages | "visualize this", "make an HTML explainer" |
 | **se-make-skill-template** | Scaffolds new custom skills | "create a skill", "scaffold a skill" |
+| **se-unify-wiki** | Merges one wiki into another non-destructively, using a similarity-tiered rule (lite LLM-only or advanced script mode) | "unify the wiki", "merge wiki_v1 into wiki", "combine the wikis" |
 
 The customer-facing agent should know this skill surface already and choose the right path without making the user understand the underlying workflow.
+
+## Wiki Unification
+
+Two wikis can be merged into one **non-destructively** — the base wiki stays authoritative and is never deleted or overwritten (every change is append-only, so base content is always preserved). Because a real augment (e.g. `wiki_v1`) is usually **incremental content on similar topics**, the merge uses a **similarity-tiered rule** so the graph doesn't bloat with duplicate nodes:
+
+| Tier | Similarity to nearest same-category base page | Action |
+|------|-----------------------------------------------|--------|
+| **1. Exact** | identical / near-identical | keep base, **drop** the duplicate (no new node) |
+| **2. Close** | same topic + new detail | **merge into one file** (no new slug) |
+| **3. Related** | related but distinct | keep both + a **"Related" link** |
+| **4. Different** | unrelated | add as a **new** standalone node |
+
+A fully-local Python engine (`scripts/unify_wiki.py`, standard library only) applies this deterministically, and the `se-unify-wiki` skill is **configurable**: a **lite** mode integrates the two wikis with the LLM only, and an **advanced** mode runs the script then adds an LLM synthesis + deep-linking pass. Both honor natural-language "preserve / ensure / maintain X" instructions.
+
+```bash
+# Preview the plan + per-page tiers (no writes), then apply append-only onto the base:
+python scripts/unify_wiki.py --base wiki --augment wiki_v1 --in-place --dry-run --explain
+python scripts/unify_wiki.py --base wiki --augment wiki_v1 --in-place
+
+# Or produce a new dir and leave base + augment untouched:
+python scripts/unify_wiki.py --base wiki --augment wiki_v1 --out wiki_unified
+```
+
+Every run backs up the base, is idempotent, and emits `unify-report.md` (+ `.json`) with the **tier breakdown**, **base-retention**, and **link-integrity** metrics. See **[scripts/README.md](scripts/README.md)** for the full option reference, tier thresholds, recipes, and exit codes.
+
+## Wiki Knowledge Graph
+
+The wiki can be rendered as an **interactive knowledge graph** — every `wiki/**/*.md` page becomes a node (colored by type: concept, entity, source-summary, comparison, analysis, overview, index) and every markdown link or `backlinks`/`sources` reference becomes an edge. This is the fastest way to see clusters, hubs, and orphans at a glance (and to visually confirm a unification landed).
+
+A fully-local Python builder (`wiki-graph/build_graph.py`, standard library only — no deps, no build step) scans the wiki and emits a self-contained `wiki-graph/index.html`:
+
+```bash
+# Build (regenerates wiki-graph/index.html):
+python wiki-graph/build_graph.py
+
+# Then render it — open the generated file in a browser:
+#   Windows:  start wiki-graph/index.html
+#   macOS:    open wiki-graph/index.html
+#   Linux:    xdg-open wiki-graph/index.html
+# or right-click wiki-graph/index.html in VS Code → "Open in Default Browser".
+```
+
+The builder prints the node/edge count (e.g. `70 nodes, 664 edges`). The rendered page has a type legend, node search, hover-to-highlight neighbours, and a fit-view control. Re-run the builder after ingesting sources, filing analyses, or unifying a wiki to refresh the graph.
 
 ## Custom Agents
 
@@ -165,6 +209,14 @@ Everything compounds: new sources strengthen existing pages, answered questions 
 │
 ├── index.html                  # Interactive onboarding portal
 │
+├── scripts/                    # Local tools
+│   ├── unify_wiki.py           # Non-destructive wiki unification engine
+│   └── README.md               # Full how-to-run + options reference
+│
+├── wiki-graph/                 # Interactive knowledge-graph view of wiki/
+│   ├── build_graph.py          # Local builder (stdlib only)
+│   └── index.html              # Generated self-contained graph
+│
 └── .github/
     ├── copilot-instructions.md # Schema: rules, conventions, workflows
     ├── agents/                 # Engineer-facing agents that orchestrate work
@@ -176,6 +228,7 @@ Everything compounds: new sources strengthen existing pages, answered questions 
         ├── se-query-wiki/
         ├── se-lint-wiki/
         ├── se-html-explainer/
+        ├── se-unify-wiki/
         └── se-make-skill-template/
 ```
 
