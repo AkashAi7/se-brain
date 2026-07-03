@@ -1,7 +1,7 @@
 {
   "name": "se-graph-wiki-mcp",
   "version": "1.0.0",
-  "description": "MCP server for reading/writing wiki content to SharePoint document library via Microsoft Graph API",
+  "description": "Legacy migration-only MCP server for SharePoint document library access via Microsoft Graph API",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {

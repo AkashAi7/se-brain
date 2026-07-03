@@ -1,0 +1,499 @@
+{
+  "version": "1.0.0",
+  "updated": "2026-07-01",
+  "description": "SE team directory with roles and pod assignments",
+  "members": [
+    {
+      "pod_id": "MFG_POD_1",
+      "role": "apps",
+      "alias": "hemantrathore",
+      "name": "Hemant Rathore",
+      "sector": "manufacturing"
+    },
+    {
+      "pod_id": "MFG_POD_2",
+      "role": "data",
+      "alias": "gyanisinha",
+      "name": "Gyani Sinha",
+      "sector": "manufacturing"
+    },
+    {
+      "alias": "akashdwivedi",
+      "role": "software",
+      "pod_id": "ITES_POD_1",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "BFSI_POD 2",
+      "role": "apps",
+      "alias": "akhileshjanib",
+      "name": "Akhilesh Janib",
+      "sector": "bfsi"
+    },
+    {
+      "pod_id": "MFG_POD_1",
+      "role": "infra",
+      "alias": "sakshimalhotra",
+      "name": "Sakshi Malhotra",
+      "sector": "manufacturing"
+    },
+    {
+      "pod_id": "ITES_POD_2",
+      "role": "software",
+      "alias": "abhishekpatra",
+      "name": "Abhishek Patra",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "BFSI_POD 1",
+      "role": "software",
+      "alias": "poojad",
+      "name": "Pooja D",
+      "sector": "bfsi"
+    },
+    {
+      "pod_id": "ITES_POD_4",
+      "role": "apps",
+      "alias": "mohamedsabirmohamediqbalsopariwala",
+      "name": "Mohamed Sabir Mohamed Iqbal Sopariwala",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "ITES_POD_2",
+      "role": "apps",
+      "alias": "sapnagiddegowda",
+      "name": "Sapna Giddegowda",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "MFG_POD_2",
+      "role": "apps",
+      "alias": "vrajakishoremudumbai",
+      "name": "Vraja Kishore Mudumbai",
+      "sector": "manufacturing"
+    },
+    {
+      "alias": "arshadahmed",
+      "role": "ssp",
+      "pod_id": "ITES_POD_1",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "DN_POD_1",
+      "role": "infra",
+      "alias": "manasadevadas",
+      "name": "Manasa Devadas",
+      "sector": "dn"
+    },
+    {
+      "pod_id": "DN_POD_1",
+      "role": "data",
+      "alias": "arpankonar",
+      "name": "Arpan Konar",
+      "sector": "dn"
+    },
+    {
+      "alias": "GOSHANKA",
+      "role": "ssm",
+      "pod_id": "ITES_POD_2",
+      "sector": "ites"
+    },
+    {
+      "alias": "ashahwal",
+      "role": "data",
+      "pod_id": "ITES_POD_1",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "ITES_POD_2",
+      "role": "apps",
+      "alias": "rajatsrivastava",
+      "name": "Rajat Srivastava",
+      "sector": "ites"
+    },
+    {
+      "alias": "sgiddegowda",
+      "role": "ai",
+      "pod_id": "ITES_POD_2",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "ITES_POD_1",
+      "role": "infra",
+      "alias": "saurabhseth",
+      "name": "Saurabh Seth",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "ITES_POD_1",
+      "role": "apps",
+      "alias": "naveengopalakrishna",
+      "name": "Naveen Gopalakrishna",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "ITES_POD_4",
+      "role": "data",
+      "alias": "ambikeshmishra",
+      "name": "Ambikesh Mishra",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "MFG_POD_1",
+      "role": "infra",
+      "alias": "sangramabhang",
+      "name": "Sangram Abhang",
+      "sector": "manufacturing"
+    },
+    {
+      "pod_id": "BFSI_POD 2",
+      "role": "data",
+      "alias": "nehalunkad",
+      "name": "Neha Lunkad",
+      "sector": "bfsi"
+    },
+    {
+      "pod_id": "PS_PoD1",
+      "role": "data",
+      "alias": "antarikshshahwal",
+      "name": "Antariksh Shahwal",
+      "sector": "ps"
+    },
+    {
+      "pod_id": "BFSI_POD 2",
+      "role": "apps",
+      "alias": "aakashpanchagnula",
+      "name": "Aakash Panchagnula",
+      "sector": "bfsi"
+    },
+    {
+      "alias": "KARASI",
+      "role": "infra",
+      "pod_id": "ITES_POD_1",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "ITES_POD_2",
+      "role": "software",
+      "alias": "vandanachaudhary",
+      "name": "Vandana Chaudhary",
+      "sector": "ites"
+    },
+    {
+      "alias": "AMBANS",
+      "role": "ssp",
+      "pod_id": "ITES_POD_1",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "MFG_POD_1",
+      "role": "data",
+      "alias": "aneekarora",
+      "name": "Aneek Arora",
+      "sector": "manufacturing"
+    },
+    {
+      "pod_id": "BFSI_POD 2",
+      "role": "infra",
+      "alias": "prachitrivedi",
+      "name": "Prachi Trivedi",
+      "sector": "bfsi"
+    },
+    {
+      "pod_id": "MFG_POD_1",
+      "role": "software",
+      "alias": "nivedv",
+      "name": "Nived V",
+      "sector": "manufacturing"
+    },
+    {
+      "pod_id": "MFG_POD_2",
+      "role": "apps",
+      "alias": "deepamberkar",
+      "name": "Deep Amberkar",
+      "sector": "manufacturing"
+    },
+    {
+      "pod_id": "DN_POD_1",
+      "role": "infra",
+      "alias": "swarnamishra",
+      "name": "Swarna Mishra",
+      "sector": "dn"
+    },
+    {
+      "pod_id": "ITES_POD_2",
+      "role": "data",
+      "alias": "jaideeproy",
+      "name": "Jaideep Roy",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "MG_POD_1",
+      "role": "infra",
+      "alias": "rajanand",
+      "name": "Raj Anand",
+      "sector": "bfsi"
+    },
+    {
+      "pod_id": "ITES_POD_4",
+      "role": "infra",
+      "alias": "namratachaurasia",
+      "name": "Namrata Chaurasia",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "BFSI_POD 2",
+      "role": "data",
+      "alias": "akshayrashinkar",
+      "name": "Akshay Rashinkar",
+      "sector": "bfsi"
+    },
+    {
+      "alias": "nchaurasia",
+      "role": "infra",
+      "pod_id": "ITES_POD_2",
+      "sector": "ites"
+    },
+    {
+      "alias": "julievohra",
+      "role": "ssp",
+      "pod_id": "ITES_POD_2",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "MFG_POD_2",
+      "role": "data",
+      "alias": "surindersingh",
+      "name": "Surinder Singh",
+      "sector": "manufacturing"
+    },
+    {
+      "alias": "AMRITASRI",
+      "role": "sem",
+      "pod_id": "ITES_POD_1",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "MFG_POD_1",
+      "role": "data",
+      "alias": "usmankhan",
+      "name": "Usman Khan",
+      "sector": "manufacturing"
+    },
+    {
+      "alias": "MAYANKRAJA",
+      "role": "ssm",
+      "pod_id": "ITES_POD_1",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "ITES_POD_2",
+      "role": "software",
+      "alias": "deepankarborgohain",
+      "name": "Deepankar Borgohain",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "MG_POD_1",
+      "role": "apps",
+      "alias": "vipulrawal",
+      "name": "Vipul Rawal",
+      "sector": "bfsi"
+    },
+    {
+      "pod_id": "MFG_POD_2",
+      "role": "infra",
+      "alias": "faizaanmerchant",
+      "name": "Faizaan Merchant",
+      "sector": "manufacturing"
+    },
+    {
+      "pod_id": "DN_POD_1",
+      "role": "data",
+      "alias": "manjunathsuryanarayanasastry",
+      "name": "Manjunath Suryanarayana Sastry",
+      "sector": "dn"
+    },
+    {
+      "pod_id": "BFSI_POD 2",
+      "role": "data",
+      "alias": "rakeshsharma",
+      "name": "Rakesh Sharma",
+      "sector": "bfsi"
+    },
+    {
+      "alias": "PAKAKKAR",
+      "role": "ssp",
+      "pod_id": "ITES_POD_1",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "ITES_POD_1",
+      "role": "data",
+      "alias": "sankhachakraborty",
+      "name": "Sankha Chakraborty",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "ITES_POD_3",
+      "role": "apps",
+      "alias": "paridhigupta",
+      "name": "Paridhi Gupta",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "BFSI_POD 1",
+      "role": "data",
+      "alias": "kadambarimankar",
+      "name": "Kadambari Mankar",
+      "sector": "bfsi"
+    },
+    {
+      "alias": "sekharraju",
+      "role": "ssp",
+      "pod_id": "ITES_POD_1",
+      "sector": "ites"
+    },
+    {
+      "alias": "Deepiksharma",
+      "role": "ai",
+      "pod_id": "ITES_POD_1",
+      "sector": "ites"
+    },
+    {
+      "alias": "yogesh",
+      "role": "infra",
+      "pod_id": "ITES_POD_1",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "BFSI_POD 2",
+      "role": "infra",
+      "alias": "osamashaikh",
+      "name": "Osama Shaikh",
+      "sector": "bfsi"
+    },
+    {
+      "alias": "SRGOPAL",
+      "role": "ssp",
+      "pod_id": "ITES_POD_2",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "ITES_POD_2",
+      "role": "software",
+      "alias": "perinbarajthangavel",
+      "name": "Perinbaraj Thangavel",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "MG_POD_1",
+      "role": "data",
+      "alias": "shashankverma",
+      "name": "Shashank Verma",
+      "sector": "bfsi"
+    },
+    {
+      "pod_id": "BFSI_POD 1",
+      "role": "apps",
+      "alias": "kasamshaikh",
+      "name": "Kasam Shaikh",
+      "sector": "bfsi"
+    },
+    {
+      "pod_id": "ITES_POD_3",
+      "role": "infra",
+      "alias": "shaleenthapa",
+      "name": "Shaleen Thapa",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "ITES_POD_4",
+      "role": "infra",
+      "alias": "vineethmarar",
+      "name": "Vineeth Marar",
+      "sector": "ites"
+    },
+    {
+      "alias": "ajaybarun",
+      "role": "data",
+      "pod_id": "ITES_POD_1",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "BFSI_POD 1",
+      "role": "software",
+      "alias": "dhruvpaliwal",
+      "name": "Dhruv Paliwal",
+      "sector": "bfsi"
+    },
+    {
+      "pod_id": "MFG_POD_1",
+      "role": "software",
+      "alias": "ashutosh",
+      "name": "Ashutosh",
+      "sector": "manufacturing"
+    },
+    {
+      "pod_id": "ITES_POD_3",
+      "role": "data",
+      "alias": "abhijeetmukherjee",
+      "name": "Abhijeet Mukherjee",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "ITES_POD_4",
+      "role": "data",
+      "alias": "pulkitkumar",
+      "name": "Pulkit Kumar",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "PS_PoD1",
+      "role": "infra",
+      "alias": "karanmeetsingh",
+      "name": "Karanmeet Singh",
+      "sector": "ps"
+    },
+    {
+      "alias": "ambmishra",
+      "role": "data",
+      "pod_id": "ITES_POD_2",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "PS_PoD1",
+      "role": "apps",
+      "alias": "deepikasharma",
+      "name": "Deepika Sharma",
+      "sector": "ps"
+    },
+    {
+      "pod_id": "BFSI_POD 1",
+      "role": "infra",
+      "alias": "nadarajprabhu",
+      "name": "Nadaraj Prabhu",
+      "sector": "bfsi"
+    },
+    {
+      "pod_id": "PS_PoD1",
+      "role": "apps",
+      "alias": "mallikarjunaswamymahadevappa",
+      "name": "Mallikarjunaswamy Mahadevappa",
+      "sector": "ps"
+    },
+    {
+      "alias": "pthangavel",
+      "role": "software",
+      "pod_id": "ITES_POD_2",
+      "sector": "ites"
+    },
+    {
+      "pod_id": "ITES_POD_2",
+      "role": "infra",
+      "alias": "murugesanu",
+      "name": "Murugesan U",
+      "sector": "ites"
+    }
+  ]
+}

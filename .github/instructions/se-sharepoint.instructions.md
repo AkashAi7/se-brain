@@ -2,112 +2,114 @@
 applyTo: "**"
 ---
 
-# SE SharePoint Wiki — Usage Guidelines
+# SE Azure DevOps Wiki Source Guidelines
 
-## Knowledge Architecture: Local Wiki over SharePoint Raw Dump
+## Knowledge Architecture: Local Wiki over Azure DevOps Raw Sources
 
-SE Brain separates the **synthesized wiki layer** from the **raw source dump**, and the order you touch them matters. There is **one wiki, and it is local.** SharePoint holds only the raw dumps.
+SE Brain separates the synthesized wiki layer from the raw source dump, and the order you touch them matters. There is one wiki, and it is local. Azure DevOps now holds the shared raw source dump.
 
 | Layer | Where | Role | Access |
 |-------|-------|------|--------|
-| **Wiki (synthesized)** | **Local `wiki/`** | Compiled overview/context — the first stop for every answer | local `read_file` |
-| **Raw dump — shared** | SharePoint (`microsoftapc.sharepoint.com/teams/se-brain-wiki`) | Authoritative source documents | `wiki_read` / `wiki_list` / `wiki_search` |
-| **Raw dump — private** | Local `KB-Local/` (gitignored) | The user's personal source notes | `grep_search` → `read_file` |
+| **Wiki (synthesized)** | **Local `wiki/`** | Compiled overview/context; the first stop for every answer | local `read_file` |
+| **Raw dump - shared** | Azure DevOps project `SE-Brain-AzDev/SE-Brain`, repo path `raw/` | Authoritative source documents | Azure DevOps MCP tools or a confirmed-current local checkout |
+| **Raw dump - private** | Local `KB-Local/` (gitignored) | The user's personal source notes | `grep_search` -> `read_file` |
 
-**The non-negotiable retrieval flow:** consult the **local wiki first** for overview and context, then fetch **only the specific raw documents** the wiki points to. Never bypass the wiki to scan or dump the raw source dump.
+Canonical project URL: `https://dev.azure.com/SE-Brain-AzDev/SE-Brain`
 
-This ensures:
-- **Wiki as the lens** — the compiled local wiki gives the overview; the raw dump is consulted *through* it, one referenced doc at a time
-- **Single source of truth for raw sources** — the shared raw dump is centrally managed on SharePoint
-- **Live updates** — changes to the raw dump on SharePoint are immediately reflected without git operations
-- **Private augmentation** — users keep personal source notes locally in `KB-Local/` without polluting the shared dump
+Canonical raw source URL pattern:
 
-### Enforcement Rules
+```text
+https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/<path>
+```
 
-1. **Read the local wiki first.** `read_file` the relevant `wiki/` pages for overview and context. This is the backbone of every answer.
-2. **Then fetch the actual data from SharePoint.** Using the wiki's cues, `wiki_read` the *specific* raw files it points to (and `read_file` any cited `KB-Local/` note), and ground the answer's specifics in them. This runs on every data-backed answer — it is not a fallback for when the wiki "lacks detail." Target the cited docs; never blanket-`wiki_search`/`wiki_list` the raw dump and return its contents directly.
-3. **The `wiki/` is LOCAL — read it with `read_file`, not `wiki_read`.** It is the compiled knowledge base, not a SharePoint mirror. SharePoint does not store the wiki.
-4. **Do NOT use `read_file` on a stale local `raw/` mirror.** The authoritative raw dump is on SharePoint; `KB-Local/` is the only sanctioned local *source* read.
-5. **If `wiki_read` fails**, inform the user the SharePoint connection is required — answer from the wiki alone and flag the missing detail; do not silently fall back to a stale local raw mirror.
-6. **Optional private layer**: after grounding in the wiki, you MAY scan `KB-Local/` for the user's personal notes. `KB-Local/` is gitignored, so `file_search` cannot see it — discover with `grep_search` (`includeIgnoredFiles: true`, `includePattern: "KB-Local/**"`), then `read_file`. Fold in only if relevant; skip silently otherwise.
-7. **Precedence**: SharePoint shared sources are authoritative for shared facts. `KB-Local/` notes are additive — they never override shared truth and never substitute for it. On a conflict, SharePoint wins and the agent flags it.
-8. **Labeling**: clearly attribute any local-sourced content as "From your local notes (KB-Local)" so the user always knows the origin.
+Example:
+
+```text
+https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/onboarding/onboarding-overview.md
+```
+
+## Retrieval Flow
+
+1. **Read the local wiki first.** Read `wiki/index.md` and then the relevant `wiki/` pages for overview, context, and source paths.
+2. **Fetch only the specific raw documents the wiki points to.** Use Azure DevOps MCP tools when available. A local `raw/` file may be read only when the workspace is the current Azure DevOps checkout or the user explicitly confirms it is current.
+3. **Do not blanket-dump the raw source store.** Target the cited `raw/...` paths from the wiki; do not browse or paste large raw folders.
+4. **Keep `wiki/` local.** The local wiki is the compiled knowledge layer. Do not store generated wiki pages in the Azure DevOps raw source area unless the user explicitly asks to publish them.
+5. **Treat `raw/` as immutable.** Prefer adding new raw source files and updating manifests over rewriting historical source captures.
+6. **Use `KB-Local/` only as an additive private layer.** Private notes never override shared Azure DevOps raw sources. On conflict, shared Azure DevOps sources win and the conflict should be flagged.
+7. **Label private content clearly.** Attribute local-only content as "From your local notes (KB-Local)".
 
 ## Architecture
 
-The **raw source dump** is stored in a SharePoint Document Library at **microsoftapc.sharepoint.com/teams/se-brain-wiki** and accessed via Microsoft Graph API through the `se-graph-wiki` MCP server. The **wiki is built locally** from that dump and is **not** stored on SharePoint.
-
-```
-Local wiki/  ← read first (read_file)         The synthesized layer
-     │  cites specific raw docs
-     ▼
-Skills → MCP Tools → Graph API → SharePoint Document Library
-        (wiki_read,    (auth'd)    (the raw dump — source documents)
-         wiki_write,                + local KB-Local/ for private sources
-         wiki_list,
-         wiki_search,
-         wiki_delete)
+```text
+Local wiki/  <- read first with local file tools      The synthesized layer
+     | cites specific raw docs
+     v
+Skills -> Azure DevOps MCP / Git checkout -> Azure DevOps repo raw/
+                                      + local KB-Local/ for private notes
 ```
 
-## Available Tools
+The Azure DevOps MCP server is configured with:
 
-These tools operate on the **SharePoint raw dump**. The local `wiki/` is read/written with the ordinary local file tools (`read_file` / `create_file` / `edit`), never these.
-
-| Tool | Purpose | Example |
-|------|---------|---------|
-| `wiki_read` | Read a raw doc from SharePoint | `wiki_read("raw/se-day-1-complete-starter-guide.md")` |
-| `wiki_write` | Write/update a raw doc or the manifest | `wiki_write("raw/sources.md", content)` |
-| `wiki_list` | List folder contents | `wiki_list("raw")` |
-| `wiki_search` | Locate a raw file by keyword | `wiki_search("day 1 access")` |
-| `wiki_delete` | Delete a file (recycle bin) | `wiki_delete("raw/old-file.md")` |
-
-## When to Use These Tools
-
-**Use `wiki_read` when:**
-- A wiki page points to a specific raw source document you need a detail from
-- Ingesting raw sources to build the local wiki (via **se-wiki-generator**)
-
-**Use `wiki_write` when:**
-- Adding a new shared source to the raw dump (or updating `raw/sources.md`)
-
-**Use `wiki_list` when:**
-- Enumerating the raw dump to find sources not yet ingested into the wiki
-
-**Use `wiki_search` when:**
-- Locating a specific raw file when the exact path is unknown — to then read *that* file, not to bulk-dump the raw content
-
-**Do NOT use these tools for:**
-- Reading the wiki — that is local (`read_file`)
-- General knowledge questions unrelated to SE internal content
-- Code generation or debugging tasks
-- External/public information lookups (use `fetch_webpage` instead)
-
-## Path Convention
-
+```jsonc
+"microsoft/azure-devops-mcp": {
+  "type": "stdio",
+  "command": "npx",
+  "args": [
+    "-y",
+    "@azure-devops/mcp@latest",
+    "SE-Brain-AzDev",
+    "-d",
+    "all",
+    "-a",
+    "interactive"
+  ]
+}
 ```
-LOCAL                              SHAREPOINT (microsoftapc.sharepoint.com/teams/se-brain-wiki)
-wiki/         → the one wiki       raw/            → raw source dump (read via wiki_read)
-KB-Local/     → private sources    raw/sources.md  → manifest of collected sources
-```
+
+## Available Source Access Modes
+
+Prefer these in order:
+
+1. **Azure DevOps MCP** for reading, listing, searching, creating branches, committing, or opening PRs against the Azure DevOps project.
+2. **Confirmed-current local checkout** for direct local reads from `raw/` and local file edits before a Git commit/PR.
+3. **KB-Local** for private notes only.
+
+Do not use the old SharePoint MCP (`wiki_read`, `wiki_write`, `wiki_list`, `wiki_search`) as the source of truth after this transition. If legacy SharePoint access is needed for backfill, label it as migration-only and move the resulting source into Azure DevOps `raw/`.
+
+## Write Workflow for Shared Sources
+
+When adding or updating shared raw source material:
+
+1. Create or update the file under `raw/` in the Azure DevOps repo path.
+2. Preserve YAML frontmatter and existing naming conventions.
+3. Update the relevant manifest, usually `raw/sources.md`, if present for that source family.
+4. Commit on a feature branch and open an Azure DevOps PR unless the user explicitly asks for a direct local-only change.
+5. After merge or local acceptance, update the local `wiki/` through the wiki generator flow.
+6. Update `wiki/index.md`, `wiki/log.md`, and backlinks when generated wiki content changes.
 
 ## Reading Data Efficiently
 
-When fetching from SharePoint (raw docs, or any structured `mock-data/*.json` if present):
+When fetching from Azure DevOps raw sources:
 
-- **Parse JSON inline from the `wiki_read` result.** The tool returns the file contents directly in context — read and filter the records yourself. **Do NOT** write the tool output to a temp file and re-parse it with an external `python`/`Get-Content` command; that round-trip is brittle (it triggers `JSONDecodeError: Extra data` when the tool-output wrapper isn't pure JSON) and is unnecessary.
-- **Return structured markdown, never raw JSON.** Surface tables, lists, and labeled sections to the user — never dump the raw file contents.
-- **Max ~3 reads per question.** If you need more, you're over-reading. Go direct (read the path the wiki cited; don't browse first), cache within the conversation (don't re-read what you already pulled), and return only what's asked for.
+- Read only the few source files needed for the current answer, normally no more than three unless the task truly requires more.
+- Parse structured source data directly from the fetched content.
+- Return structured markdown, not raw JSON dumps.
+- Cache within the conversation; do not re-read the same source repeatedly.
 
 ## Error Handling
 
-If `wiki_read` / `wiki_list` errors:
-1. **404** — verify the path with `wiki_list`, then retry; if it genuinely doesn't exist, tell the user.
-2. **Auth error** — tell the user the SharePoint connection is required (e.g. "run `az login` to refresh credentials").
-3. **Never** fall back to a stale local `raw/` mirror — answer from the local wiki and flag the missing raw detail.
+If Azure DevOps source access fails:
+
+1. **Not found** - verify the `raw/...` path against the Azure DevOps repo or the current local checkout.
+2. **Auth error** - tell the user the Azure DevOps MCP interactive authentication or repo permissions need attention.
+3. **MCP unavailable** - use the local `raw/` checkout only if it is known current; otherwise answer from the local wiki and flag that raw source verification is blocked.
+4. **Legacy SharePoint mismatch** - do not silently fall back to SharePoint. Treat SharePoint as migration-only.
 
 ## How to Present Results
 
 When returning results grounded in the wiki and raw dump:
-1. Summarize the response clearly with headings and bullet points
-2. Cite local wiki pages (relative links) and raw sources (SharePoint URLs: `https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/<path>`, spaces → `%20`)
-3. If a raw file is not found (404), check the path with `wiki_list` and retry
+
+1. Summarize the response clearly with headings and bullet points.
+2. Cite local wiki pages with relative links.
+3. Cite raw sources with Azure DevOps URLs using the canonical pattern above.
+4. If a raw file cannot be verified, say so explicitly and separate wiki-derived context from source-verified claims.

@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "created": "2026-07-01",
+  "updated": "2026-07-01",
+  "description": "MSFT SE Directory - System Configuration",
+  "structure_version": "v1",
+  "conventions": {
+    "naming": "lowercase-hyphenated",
+    "max_filename_length": 60,
+    "frontmatter_required": true,
+    "source_of_truth_principle": "content lives in ONE canonical location; other folders reference via pointers only"
+  },
+  "directories": {
+    "se-roles": "Role-specific knowledge, playbooks, certs, learning — one subfolder per specialization",
+    "sectors": "Vertical/industry-specific content plus account data — one subfolder per sector",
+    "onboarding": "Phase-based onboarding PATH through content (references into se-roles and shared-resources)",
+    "product-updates": "Product news by product, with filtered views as pointers",
+    "process-guidelines": "SOPs, playbooks (cross-role scenarios only), best practices, governance",
+    "shared-resources": "Org-wide reusable content: templates, glossary, tools, competitive intel",
+    "metadata": "All mapping/config logic — role, sector, pod, account mappings"
+  }
+}

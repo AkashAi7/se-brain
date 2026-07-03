@@ -7,7 +7,7 @@ description: 'Research topics from internal work sources (Outlook emails, Teams 
 
 Gather raw sources from **internal workplace data** — Outlook emails, Teams messages, meetings, calendar events, and shared documents — using the [WorkIQ MCP server](https://github.com/microsoft/work-iq). This skill populates the **Raw sources** layer of the LLM Wiki pattern with internal/organizational knowledge that isn't available on the public internet.
 
-> **Where sources are saved (updated model):** the raw dump now lives on **SharePoint** (`microsoftapc.sharepoint.com/teams/se-brain-wiki`). Write shared work-derived sources there with `wiki_write("raw/work--<slug>.md", content)` (keep the `work--` prefix and `source_origin: work-research` frontmatter) and update `raw/sources.md` via `wiki_write`. Strictly-private results go to local `KB-Local/` instead. The `raw/` paths below are **logical paths within the SharePoint dump** — create them with `wiki_write`, not local file writes. The wiki is built locally by **se-wiki-generator** from this dump.
+> **Where sources are saved (updated model):** the shared raw dump now lives in **Azure DevOps** at `https://dev.azure.com/SE-Brain-AzDev/SE-Brain`, repo path `raw/`. Write shared work-derived sources under `raw/work--<slug>.md` (keep the `work--` prefix and `source_origin: work-research` frontmatter), update `raw/sources.md`, and commit/open an Azure DevOps PR unless the user asks for local-only staging. Strictly-private results go to local `KB-Local/` instead. The `raw/` paths below are paths in the Azure DevOps repo checkout. The wiki is built locally by **se-wiki-generator** from this dump.
 
 ## When to Use This Skill
 

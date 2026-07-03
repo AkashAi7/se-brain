@@ -1,192 +1,111 @@
-# SE Graph Wiki — Setup Guide
+# Azure DevOps Source Store Setup
 
-## Overview
+## Status
 
-This MCP server lets SE Brain skills read and write wiki content to a SharePoint document library via Microsoft Graph API, using your authenticated identity.
+SE Brain is transitioning the shared raw source store from the legacy SharePoint Graph MCP server to Azure DevOps.
 
-**Architecture:**
-```
-Skills → MCP Tools → Graph API → SharePoint Site → Document Library
-        (wiki_read,    (auth'd)    (/sites/X)     (wiki/, broadcasts/,
-         wiki_write,                                mock-data/)
-         wiki_list,
-         wiki_search)
+The authoritative shared source location is now:
+
+```text
+https://dev.azure.com/SE-Brain-AzDev/SE-Brain
 ```
 
-## Prerequisites
+The shared raw source tree is expected under:
 
-- Azure CLI installed (`az` command available)
-- Node.js 18+ installed
-- Access to a Microsoft 365 tenant (your @microsoft.com account)
-- Permission to create SharePoint sites (or ask your admin)
-
-## Step 1: Create a SharePoint Site
-
-1. Go to https://microsoft.sharepoint.com
-2. Click **+ Create site** → **Team site** (or Communication site)
-3. Name it: `SE-Brain-Wiki`
-4. Note the URL: `https://microsoft.sharepoint.com/sites/SE-Brain-Wiki`
-
-The site comes with a default "Documents" library — that's where your wiki files will live.
-
-## Step 2: Set Up Folder Structure in the Library
-
-In the SharePoint Documents library, create these folders:
-```
-Documents/
-├── wiki/
-│   ├── analyses/
-│   ├── concepts/
-│   ├── entities/
-│   └── sources/
-├── wiki-steady-state/
-│   ├── analyses/
-│   ├── concepts/
-│   ├── entities/
-│   └── sources/
-├── broadcasts/
-├── mock-data/
-└── raw-steady-state/
+```text
+raw/
 ```
 
-You can create these manually in the SharePoint UI, or the MCP server will auto-create folders when you write files (Graph API creates parent folders on PUT).
+Keep raw source paths stable as `raw/...` so existing wiki frontmatter continues to resolve.
 
-## Step 3: Authenticate Locally
+## Recommended MCP Server
 
-For local development, the easiest approach is Azure CLI:
+Use the published Azure DevOps MCP server in VS Code/Copilot:
 
-```powershell
-az login
-```
-
-This gives `DefaultAzureCredential` access to Graph API using your identity.
-
-**Your account needs these permissions:**
-- `Files.ReadWrite.All` — to read/write files in SharePoint
-- `Sites.ReadWrite.All` — to list sites and drives
-
-These are typically available to Microsoft employees by default through your Microsoft 365 license.
-
-## Step 3.5: Install Dependencies and Build
-
-The MCP server runs from compiled JavaScript in `dist/`. If you see an error like
-`Cannot find module '.../dist/index.js'`, the project hasn't been built yet.
-
-From the server folder, install dependencies and compile the TypeScript:
-
-```powershell
-cd mcp-servers/se-graph-wiki
-npm install
-npm run build
-```
-
-This produces `dist/index.js`. You only need to rebuild (`npm run build`) after
-changing files in `src/`. For continuous rebuilds during development, use `npm run dev`.
-
-
-Once you do this, save the path of the compiled dist
-```powershell
-echo "$(pwd)/dist/index.js"
-```
-
-This path needs to be added while setting the MCP server in a copilot dekstop application.
-
-## Step 4: Configure the MCP Server
-
-Edit `.vscode/mcp.json` and update the environment variables:
-
-```json
+```jsonc
 {
-  "se-graph-wiki": {
-    "command": "node",
-    "args": ["${workspaceFolder}/mcp-servers/se-graph-wiki/dist/index.js"],
-    "env": {
-      "GRAPH_SITE_HOSTNAME": "microsoft.sharepoint.com",
-      "GRAPH_SITE_PATH": "/teams/se-brain-wiki",
-      "GRAPH_LIBRARY_NAME": "Documents"
+  "servers": {
+    "microsoft/azure-devops-mcp": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@azure-devops/mcp@latest",
+        "SE-Brain-AzDev",
+        "-d",
+        "all",
+        "-a",
+        "interactive"
+      ],
+      "gallery": "https://api.mcp.github.com",
+      "version": "1.0.0"
     }
   }
 }
 ```
 
-## Step 5: Test
+This workspace already includes that server in `.vscode/mcp.json`.
 
-```powershell
-# Set env vars for manual testing
-$env:GRAPH_SITE_HOSTNAME = "microsoftapc.sharepoint.com"
-$env:GRAPH_SITE_PATH = "/teams/se-brain-wiki"
-$env:GRAPH_LIBRARY_NAME = "Documents"
+## Retrieval Model
 
-# Run the server (it uses stdio, so you'll see startup logs on stderr)
-node mcp-servers/se-graph-wiki/dist/index.js
+The wiki remains local. Azure DevOps owns shared raw sources.
+
+```text
+Local wiki/  -> read first with local file tools
+     |
+     v
+Azure DevOps raw/ -> fetch only the specific raw files cited by wiki pages
+     |
+     v
+Local wiki/ updates -> write generated summaries, concepts, analyses, index, and log locally
 ```
 
-Once running in VS Code via MCP, the tools will be available:
-- `wiki_read` — read any .md file
-- `wiki_write` — write/update any file
-- `wiki_list` — browse folder contents
-- `wiki_search` — search by keyword
-- `wiki_delete` — remove a file (goes to recycle bin)
+Use this order for data-backed answers:
 
-## Step 6: Migrate Wiki Content
+1. Read `wiki/index.md`.
+2. Read the relevant local wiki pages.
+3. Fetch the specific `raw/...` files those pages cite from Azure DevOps.
+4. Synthesize the answer with local wiki links and Azure DevOps raw source links.
 
-Once the SharePoint site is ready, you can push your local wiki to it:
+Canonical raw source URL pattern:
 
-```powershell
-# Example: Push all wiki-steady-state files
-Get-ChildItem -Recurse "wiki-steady-state" -Filter "*.md" | ForEach-Object {
-    $relativePath = $_.FullName.Replace((Get-Location).Path + "\", "").Replace("\", "/")
-    Write-Host "Uploading: $relativePath"
-    # The MCP server handles this, or you can use Graph API directly:
-    # Invoke-RestMethod -Method PUT -Uri "https://graph.microsoft.com/v1.0/drives/$driveId/root:/$relativePath:/content" ...
-}
+```text
+https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/<path>
 ```
 
-Or simply use the `wiki_write` tool through the agent to push files one at a time.
+Example:
 
-## Alternative: App Registration (for production/shared use)
+```text
+https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/onboarding/onboarding-overview.md
+```
 
-If you want a dedicated service identity instead of user-delegated:
+## Write Model
 
-1. Go to https://portal.azure.com → Microsoft Entra ID → App registrations
-2. Create: `SE-Brain-Graph-Wiki`
-3. API Permissions → Add → Microsoft Graph → Application:
-   - `Files.ReadWrite.All`
-   - `Sites.ReadWrite.All`
-4. Grant admin consent
-5. Create a client secret
-6. Set environment variables:
-   ```
-   AZURE_TENANT_ID=your-tenant-id
-   AZURE_CLIENT_ID=app-client-id
-   AZURE_CLIENT_SECRET=app-secret
-   ```
+Shared source updates should follow Git discipline:
 
-This lets the MCP run as a service without requiring `az login`.
+1. Add or update source files under `raw/`.
+2. Update `raw/sources.md` or the relevant manifest.
+3. Commit on a feature branch.
+4. Open an Azure DevOps PR unless the user explicitly asks for local-only staging.
+5. After acceptance, run the wiki ingest/update flow locally.
 
-## How Skills Use This
+Prefer adding new raw source files over rewriting historical source captures.
 
-Once configured, the data retrieval skills swap their backing store:
+## Legacy SharePoint Server
 
-| Skill | Before (local) | After (SharePoint) |
-|-------|---------------|-------------------|
-| `se_brain_account-data` | `read_file("wiki-steady-state/entities/active-accounts.md")` | `wiki_read("wiki-steady-state/entities/active-accounts.md")` |
-| `se_brain_pipeline-data` | `read_file("wiki-steady-state/entities/active-pipeline.md")` | `wiki_read("wiki-steady-state/entities/active-pipeline.md")` |
-| `se_brain_compete-intel` | `read_file("wiki-steady-state/concepts/compete-landscape.md")` | `wiki_read("wiki-steady-state/concepts/compete-landscape.md")` |
-| `se_brain_broadcast-insight` | `create_file("broadcasts/...")` | `wiki_write("broadcasts/...")` |
+The `se-graph-wiki` TypeScript server in this folder is retained as a legacy migration reference. It exposes the old SharePoint-style tools:
 
-The folder structure in SharePoint mirrors the local repo structure, so paths stay the same.
+- `wiki_read`
+- `wiki_write`
+- `wiki_list`
+- `wiki_search`
+- `wiki_delete`
+
+Do not use those tools as the source of truth after the Azure DevOps migration. If SharePoint is used for backfill, move the resulting source document into Azure DevOps `raw/` and cite the Azure DevOps location going forward.
 
 ## Troubleshooting
 
-### "AADSTS65001: The user or administrator has not consented"
-→ Run `az login` again, or ask your admin to grant Graph API permissions.
-
-### "Failed to resolve site: 404"
-→ Check `GRAPH_SITE_PATH` matches your SharePoint site URL exactly.
-
-### "Drive 'X' not found"
-→ Check `GRAPH_LIBRARY_NAME` matches the document library name in your SharePoint site.
-
-### "403 Forbidden"  
-→ Your account may need Sites.ReadWrite.All. Check in Azure Portal → Enterprise Apps → your app → Permissions.
+- **Azure DevOps MCP prompts for auth**: complete the interactive sign-in flow.
+- **Repo or project not found**: verify the organization is `SE-Brain-AzDev` and the project is `SE-Brain`.
+- **Raw path not found**: verify the file path starts with `raw/` and exists in the Azure DevOps repo.
+- **MCP unavailable**: use a confirmed-current local checkout only if it is synced with Azure DevOps; otherwise answer from the local wiki and flag that raw verification is blocked.

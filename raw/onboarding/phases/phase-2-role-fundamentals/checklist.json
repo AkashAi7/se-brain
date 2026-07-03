@@ -1,0 +1,22 @@
+{
+  "phase": "phase-2-role-fundamentals",
+  "display_name": "Phase 2 — Role Fundamentals",
+  "timeline": "Week 1-2",
+  "status": "not-started",
+  "tasks": [
+    {"id": "p2-01", "title": "Request MCAPS Azure Subscription", "priority": "critical", "week": 1},
+    {"id": "p2-02", "title": "Join Managed Environment", "priority": "critical", "week": 1},
+    {"id": "p2-03", "title": "Request External Tenant and Azure Subscription", "priority": "critical", "week": 1},
+    {"id": "p2-04", "title": "Complete GitHub Sales onboarding", "priority": "critical", "week": 1},
+    {"id": "p2-05", "title": "Deep-dive on SE charter: pre-sales, technical advisory, workshops, POCs", "priority": "critical", "week": 1},
+    {"id": "p2-06", "title": "Understand sales motion: AE, SSP, CSA, TSP — where SE fits", "priority": "critical", "week": 1},
+    {"id": "p2-07", "title": "Review Role Library for SE role expectations", "priority": "important", "week": 1},
+    {"id": "p2-08", "title": "Read FY26 Role Success Guide from manager", "priority": "important", "week": 1},
+    {"id": "p2-09", "title": "Complete Role Snapshot course in MCAPS Academy", "priority": "important", "week": 1},
+    {"id": "p2-10", "title": "Review MCEM overview — understand five engagement stages", "priority": "important", "week": 1},
+    {"id": "p2-11", "title": "Access MSX Insights (MSXi) and Power BI dashboards", "priority": "important", "week": 1},
+    {"id": "p2-12", "title": "Access Seismic (sales enablement)", "priority": "important", "week": 1},
+    {"id": "p2-13", "title": "Access FastTrack portal", "priority": "important", "week": 1},
+    {"id": "p2-14", "title": "Join Study Circles", "where": "https://aka.ms/onboardingstudycircles", "priority": "important", "week": 2}
+  ]
+}

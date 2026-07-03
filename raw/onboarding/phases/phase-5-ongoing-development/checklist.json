@@ -1,0 +1,17 @@
+{
+  "phase": "phase-5-ongoing-development",
+  "display_name": "Phase 5 — Ongoing Development",
+  "timeline": "Month 3+",
+  "status": "not-started",
+  "tasks": [
+    {"id": "p5-01", "title": "Own 1-2 customer opportunities end-to-end with mentor backup", "priority": "critical", "week": 9},
+    {"id": "p5-02", "title": "Deliver an internal tech talk", "priority": "important", "week": 10},
+    {"id": "p5-03", "title": "Contribute reusable assets to Seismic", "priority": "important", "week": 11},
+    {"id": "p5-04", "title": "Complete one advanced certification (AZ-305, AI-102, or SC-100)", "priority": "important", "week": 12}
+  ],
+  "checkpoints": [
+    {"day": 30, "activity": "Manager feedback session"},
+    {"day": 60, "activity": "Skills gap assessment and learning plan refresh"},
+    {"day": 90, "activity": "Performance baseline and quarterly goals"}
+  ]
+}

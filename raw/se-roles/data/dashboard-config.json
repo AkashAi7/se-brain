@@ -1,0 +1,31 @@
+{
+	"role": "data",
+	"display_name": "Data & AI SE",
+	"dashboard_sections": [
+		{
+			"id": "active-accounts",
+			"label": "My Accounts",
+			"source": "metadata/account-sector-mapping.json",
+			"filter": "team.ai_data == currentUser"
+		},
+		{
+			"id": "certifications",
+			"label": "Certification Path",
+			"items": ["DP-900", "DP-203", "DP-300", "DP-600"]
+		},
+		{
+			"id": "focus-areas",
+			"label": "Core Domains",
+			"items": ["SQL & Databases", "Analytics & Synapse", "Data Governance (Purview)", "Real-time & Event-driven", "Data + AI (Fabric)"]
+		},
+		{
+			"id": "quick-links",
+			"label": "Quick Links",
+			"items": [
+				{"label": "Microsoft Fabric Docs", "url": "https://learn.microsoft.com/fabric/"},
+				{"label": "Azure Data Architecture", "url": "https://learn.microsoft.com/azure/architecture/data-guide/"},
+				{"label": "Purview Governance", "url": "https://learn.microsoft.com/purview/"}
+			]
+		}
+	]
+}

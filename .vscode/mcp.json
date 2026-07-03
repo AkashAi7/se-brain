@@ -1,17 +1,23 @@
 {
   "servers": {
+    "microsoft/azure-devops-mcp": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@azure-devops/mcp@latest",
+        "SE-Brain-AzDev",
+        "-d",
+        "all",
+        "-a",
+        "interactive"
+      ],
+      "gallery": "https://api.mcp.github.com",
+      "version": "1.0.0"
+    },
     "workiq": {
       "command": "npx",
       "args": ["-y", "@microsoft/workiq@latest", "mcp"]
-    },
-    "se-graph-wiki": {
-      "command": "node",
-      "args": ["${workspaceFolder}/mcp-servers/se-graph-wiki/dist/index.js"],
-      "env": {
-        "GRAPH_SITE_HOSTNAME": "microsoftapc.sharepoint.com",
-        "GRAPH_SITE_PATH": "/teams/se-brain-wiki",
-        "GRAPH_LIBRARY_NAME": "Documents"
-      }
     }
   }
 }

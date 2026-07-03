@@ -1,0 +1,26 @@
+{
+  "phase": "phase-1-orientation",
+  "description": "Role-specific tracks that augment Phase 1 orientation",
+  "references": {
+    "infra": {
+      "path": "se-roles/infra/knowledge-base/",
+      "note": "Azure compute and networking fundamentals"
+    },
+    "data": {
+      "path": "se-roles/data/knowledge-base/",
+      "note": "Azure Data and AI fundamentals"
+    },
+    "software": {
+      "path": "se-roles/software/knowledge-base/",
+      "note": "App development and DevOps fundamentals"
+    },
+    "ai": {
+      "path": "se-roles/ai/knowledge-base/",
+      "note": "AI platform and Copilot fundamentals"
+    }
+  },
+  "shared_resources": [
+    {"path": "shared-resources/tools-and-utilities/se-tools-full-reference.md", "note": "Full tool directory with URLs"},
+    {"path": "shared-resources/microsoft-101/se-onboarding-platform-documentation.md", "note": "Platform overview"}
+  ]
+}

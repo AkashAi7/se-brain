@@ -87,6 +87,7 @@ The master catalog of this SE knowledge base. Source references point to the Sha
 | How to structure the first 30 days? | 2026-06-10 | [Page](analyses/first-30-days-ramp-plan.md) |
 | What is the health of the active pipeline? | 2026-06-10 | [Page](analyses/pipeline-health-snapshot.md) |
 | What does seamless onboarding look like end-to-end? | 2026-06-10 | [Page](analyses/seamless-onboarding-playbook.md) |
+| How should insights flow from local wiki to Azure DevOps with governance? | 2026-06-17 | [Page](analyses/azure-devops-insights-governance-model.md) |
 
 ## Known Data Inconsistencies (flagged, not resolved)
 

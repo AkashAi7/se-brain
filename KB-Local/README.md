@@ -1,6 +1,6 @@
 # KB-Local — Your Private Augmentation Layer
 
-This folder is **your personal, local-only knowledge store**. It is gitignored and never uploaded to SharePoint, so anything you put here stays on your machine.
+This folder is **your personal, local-only knowledge store**. It is gitignored and never uploaded to Azure DevOps, so anything you put here stays on your machine.
 
 ## How it fits the two-tier model
 
@@ -8,16 +8,16 @@ SE Brain agents use a **two-tier retrieval model**:
 
 | Tier | Source | Role | Always used? |
 |------|--------|------|--------------|
-| **1. Universal** | SharePoint wiki (`microsoftapc.sharepoint.com/teams/se-brain-wiki`) | Shared source of truth for all SEs | ✅ Always queried |
+| **1. Universal** | Azure DevOps raw source store (`https://dev.azure.com/SE-Brain-AzDev/SE-Brain`) | Shared source of truth for all SEs | Always queried |
 | **2. Private** | This `KB-Local/` folder | Your personal notes, drafts, private context | ⚙️ Optional — used only if relevant |
 
-The agent **always** grounds in SharePoint first. It then **optionally** checks `KB-Local/` and folds in anything that genuinely adds value to the answer. If nothing here is relevant, it's skipped silently.
+The agent **always** grounds in the local wiki and Azure DevOps shared sources first. It then **optionally** checks `KB-Local/` and folds in anything that genuinely adds value to the answer. If nothing here is relevant, it's skipped silently.
 
 ## Rules the agent follows
 
-1. SharePoint is authoritative for **shared facts**. Local notes can **add** personal context but never override shared truth. On a conflict, SharePoint wins and the agent flags the discrepancy.
+1. Azure DevOps shared sources are authoritative for **shared facts**. Local notes can **add** personal context but never override shared truth. On a conflict, Azure DevOps wins and the agent flags the discrepancy.
 2. Local content is clearly labeled in answers (e.g. *"From your local notes (KB-Local)…"*) so you always know what came from where.
-3. The agent reads local files **only from `KB-Local/`** — never from the stale local mirrors of the shared wiki (`mock-data/`, `wiki/`, etc.).
+3. The agent reads local private files **only from `KB-Local/`**. It may read shared files from a confirmed-current Azure DevOps checkout, but never treats stale local mirrors as authoritative.
 
 ## What to put here
 

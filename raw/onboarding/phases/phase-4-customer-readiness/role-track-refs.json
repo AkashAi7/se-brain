@@ -1,0 +1,13 @@
+{
+  "phase": "phase-4-customer-readiness",
+  "references": {
+    "infra": {"path": "se-roles/infra/playbooks/", "note": "Infra customer engagement patterns"},
+    "data": {"path": "se-roles/data/playbooks/", "note": "Data solution demos and workshops"},
+    "software": {"path": "se-roles/software/playbooks/", "note": "App modernization demos"},
+    "ai": {"path": "se-roles/ai/playbooks/", "note": "AI/Copilot demos and POCs"}
+  },
+  "shared_resources": [
+    {"path": "sectors/", "note": "Account context for customer meetings"},
+    {"path": "process-guidelines/best-practices/", "note": "Customer engagement best practices"}
+  ]
+}

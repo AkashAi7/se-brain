@@ -78,11 +78,15 @@ This keeps the engineer-facing experience simple while preserving a grounded bac
 
 | KB Layer | Path | Ownership | Purpose |
 |----------|------|-----------|---------|
-| **Raw Sources** | `raw/` | Immutable (user-curated) | Markdown source files fetched from the web or work data |
+| **Raw Sources** | Azure DevOps `raw/` | Immutable (user-curated) | Markdown source files fetched from the web or work data |
 | **Wiki** | `wiki/` | LLM-owned | Structured, interlinked synthesis generated from raw sources |
 | **HTML Explainers** | `html-files/` | LLM-owned | Visual derivatives generated from wiki pages, raw sources, or filed answers |
 
 This separation ensures you always know what's a raw fact, what's compiled analysis, and what's a presentation layer.
+
+The shared raw source store is now Azure DevOps: https://dev.azure.com/SE-Brain-AzDev/SE-Brain. Keep source paths stable as `raw/...`; wiki frontmatter should continue to reference those logical paths, and rendered source links should expand to Azure DevOps URLs such as `https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/source.md`.
+
+The workspace MCP config includes `microsoft/azure-devops-mcp` for this organization. Use it, or a confirmed-current local checkout, to read and update shared raw sources. The old SharePoint Graph MCP server is retained only as a legacy migration reference.
 
 ## Skills
 

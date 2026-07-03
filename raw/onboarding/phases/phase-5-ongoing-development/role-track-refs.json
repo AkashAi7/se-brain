@@ -1,0 +1,13 @@
+{
+  "phase": "phase-5-ongoing-development",
+  "references": {
+    "infra": {"path": "se-roles/infra/learning-resources/", "note": "Advanced infra specialization"},
+    "data": {"path": "se-roles/data/learning-resources/", "note": "Advanced data specialization"},
+    "software": {"path": "se-roles/software/learning-resources/", "note": "Advanced dev specialization"},
+    "ai": {"path": "se-roles/ai/learning-resources/", "note": "Advanced AI specialization"}
+  },
+  "shared_resources": [
+    {"path": "product-updates/", "note": "Stay current with product changes"},
+    {"path": "shared-resources/competitive-intelligence/", "note": "Compete positioning"}
+  ]
+}

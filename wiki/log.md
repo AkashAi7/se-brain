@@ -17,3 +17,8 @@ Append-only chronological record of wiki operations. Newest entries at the botto
 - Hero products: Azure AI Foundry (cloud + Foundry Local + Web IQ), Voice Live APIs
 - Pipeline: 7 deals / $12.65M across Tata Group + Mahindra
 - Validated proof point: Voice Live = 22% conversion lift over Google Dialogflow at Mahindra Finance
+
+## [2026-06-17] query | Azure DevOps insights governance model
+- Filed as: wiki/analyses/azure-devops-insights-governance-model.md
+- Referenced: local wiki operating conventions + onboarding flow/tooling source context
+- Key output: landing-zone branch model, context exclusion policy, raw versioning strategy, PR-gated promotion flow

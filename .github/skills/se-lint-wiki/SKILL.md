@@ -18,10 +18,10 @@ Periodically health-check the wiki to keep it accurate, well-linked, and complet
 ## Prerequisites
 
 - A local `wiki/` directory with existing pages (produced by the **se-wiki-generator** skill) — the lint operates on this local wiki
-- The SharePoint **raw dump** for cross-checking coverage (enumerate with `wiki_list("raw")`); `KB-Local/` for private sources
+- The Azure DevOps **raw dump** for cross-checking coverage (enumerate through Azure DevOps MCP tools or a confirmed-current local checkout); `KB-Local/` for private sources
 - `wiki/index.md` for index consistency checks
 
-> **Architecture note:** the wiki is **local** (read/edit with local file tools); the raw dump lives on **SharePoint** (`wiki_read`/`wiki_list`). Coverage checks compare the local `wiki/sources/` against the SharePoint `raw/` dump.
+> **Architecture note:** the wiki is **local** (read/edit with local file tools); the shared raw dump lives in **Azure DevOps**. Coverage checks compare the local `wiki/sources/` against Azure DevOps `raw/` plus any private `KB-Local/` notes.
 
 ## Lint Checks
 
@@ -137,7 +137,7 @@ Find concepts and entities **mentioned in sources but lacking their own wiki pag
 2. Extract all entity and concept names referenced.
 3. Check if each has a corresponding page in `wiki/entities/` or `wiki/concepts/`.
 4. Flag any that appear in **2 or more source summaries** but have no dedicated page.
-5. Also scan for raw sources not yet ingested — enumerate the SharePoint dump with `wiki_list("raw")` (plus any `KB-Local/` notes) and flag any missing from the local `wiki/sources/`.
+5. Also scan for raw sources not yet ingested — enumerate Azure DevOps `raw/` (plus any `KB-Local/` notes) and flag any missing from the local `wiki/sources/`.
 
 **Report format:**
 ```

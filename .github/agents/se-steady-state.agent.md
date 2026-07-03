@@ -69,34 +69,34 @@ If your response fails any of these checks, rewrite the failing section to be mo
 
 ## Data Access Rule
 
-**The wiki is LOCAL (the map); the raw dump + data are on SharePoint (the actual data).** Every data-backed answer runs the **`se-query-wiki`** flow: navigate with the wiki, then fetch the real details from SharePoint. First `read_file` the relevant local `wiki/` pages for overview/context and to learn *which* source documents hold the details. Then fetch those — `wiki_read` the cited `raw/` docs and any relevant `mock-data/*.json` from SharePoint — and ground the answer's specifics in them. **Fetching from SharePoint is a standard step on every substantive answer, not a fallback.** The discipline is targeting (let the wiki tell you which docs to pull) and synthesizing — never blanket-scan or dump the raw folder, and never pass the wiki's summary off as the sourced answer.
+**The wiki is LOCAL (the map); the raw dump + data are in Azure DevOps (the actual data).** Every data-backed answer runs the **`se-query-wiki`** flow: navigate with the wiki, then fetch the real details from Azure DevOps. First `read_file` the relevant local `wiki/` pages for overview/context and to learn *which* source documents hold the details. Then fetch those cited `raw/` docs and any relevant `mock-data/*.json` from Azure DevOps through MCP tools or a confirmed-current local checkout, and ground the answer's specifics in them. **Fetching from Azure DevOps is a standard step on every substantive answer, not a fallback.** The discipline is targeting (let the wiki tell you which docs to pull) and synthesizing — never blanket-scan or dump the raw folder, and never pass the wiki's summary off as the sourced answer.
 
-**NEVER use `read_file` on a stale local mirror of *shared* SharePoint content** (`mock-data/`, `raw/`, `raw-steady-state/`, `broadcasts/`). The local `wiki/`, by contrast, is NOT a mirror — it is the synthesized knowledge base, read with `read_file`.
+**NEVER use a stale local mirror of shared Azure DevOps content** (`mock-data/`, `raw/`, `raw-steady-state/`, `broadcasts/`) as authoritative. The local `wiki/`, by contrast, is NOT a mirror — it is the synthesized knowledge base, read with `read_file`.
 
-**Optional private layer — `KB-Local/`.** After grounding in the wiki, you may optionally scan the gitignored `KB-Local/` folder for the user's personal notes. **`file_search` cannot see `KB-Local/` (it is gitignored)** — discover notes with `grep_search` (`includeIgnoredFiles: true`, `includePattern: "KB-Local/**"`), then read with `read_file`. Use it only if it adds value; skip silently otherwise. It augments, never substitutes — if you need a SharePoint raw/data doc and the connection is unreachable, answer from the wiki alone and flag the gap. On any conflict over a shared fact, SharePoint wins. Label local-sourced content as "From your local notes (KB-Local)". Never read local files outside `wiki/` and `KB-Local/`.
+**Optional private layer — `KB-Local/`.** After grounding in the wiki, you may optionally scan the gitignored `KB-Local/` folder for the user's personal notes. **`file_search` cannot see `KB-Local/` (it is gitignored)** — discover notes with `grep_search` (`includeIgnoredFiles: true`, `includePattern: "KB-Local/**"`), then read with `read_file`. Use it only if it adds value; skip silently otherwise. It augments, never substitutes — if you need an Azure DevOps raw/data doc and access is unavailable, answer from the wiki alone and flag the gap. On any conflict over a shared fact, Azure DevOps wins. Label local-sourced content as "From your local notes (KB-Local)". Never read local files outside `wiki/`, `KB-Local/`, and confirmed-current shared source paths.
 
 **Quick-reference — what to read:**
 - Synthesized compete, deal methodology, engagement, pitch, workshop, strategy, learning → the **local wiki**: `read_file("wiki/index.md")` then the relevant `wiki/concepts/`, `wiki/entities/`, `wiki/comparisons/`, `wiki/analyses/` page
 - Competitor profiles, head-to-head comparisons → local `wiki/entities/<competitor>.md`, `wiki/comparisons/<x-vs-y>.md`
-- Account profiles → `wiki_read("mock-data/accounts.json")` (SharePoint, if present)
-- Pipeline/deals → `wiki_read("mock-data/opportunities.json")` (SharePoint, if present)
-- Skills matrix → `wiki_read("mock-data/skills-and-growth.json")` (SharePoint, if present)
-- A specific source doc a wiki page cites → `wiki_read("raw/<file>.md")` (SharePoint raw dump)
-- Broadcasts → `wiki_read("broadcasts/index.md")` (SharePoint, if present)
+- Account profiles -> `mock-data/accounts.json` from Azure DevOps, if present
+- Pipeline/deals -> `mock-data/opportunities.json` from Azure DevOps, if present
+- Skills matrix -> `mock-data/skills-and-growth.json` from Azure DevOps, if present
+- A specific source doc a wiki page cites -> `raw/<file>.md` from Azure DevOps
+- Broadcasts -> `broadcasts/index.md` from Azure DevOps, if present
 
 ## Citations (Required)
 
 **Non-negotiable: every answer ships with proper links and references.** Every substantive answer MUST end with a compact **Sources** section, and any tool/portal/asset named in the body gets its link inline when the KB has one.
 
 - **Wiki pages are local** — cite them by title (the user browses them in the local `wiki/`).
-- **Raw sources and data files are on SharePoint** — link them with the URL pattern `https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/<path>` (spaces → `%20`).
+- **Raw sources and data files are on Azure DevOps** — link them with the URL pattern `https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/<path>` (spaces as `%20`).
 - Only cite pages/docs you genuinely retrieved this turn — never invent a path or a URL.
 
 Example:
 ```markdown
 **Sources:**
 - Wiki (local): Compete Landscape, Deal Execution & MCEM
-- Data: [Account Data](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/mock-data/accounts.json)
+- Data: [Account Data](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/mock-data/accounts.json)
 ```
 
 ## Operating Mode
@@ -166,7 +166,7 @@ When preparing for a specific customer meeting or compete engagement, act as the
 
 Treat natural execution-phase language as actionable requests:
 
-Most steady-state intents do **not** have a dedicated skill — handle them **inline**, always grounded through the `se-query-wiki` flow (navigate the local wiki → fetch the cited SharePoint data) and `se-customer-intel` for account/pipeline data. Use `se-work-research` (WorkIQ / M365) when the answer needs live internal artifacts (battlecards, calendar, past wins, emails), and `se-open-research` for public/competitor news.
+Most steady-state intents do **not** have a dedicated skill — handle them **inline**, always grounded through the `se-query-wiki` flow (navigate the local wiki -> fetch the cited Azure DevOps data) and `se-customer-intel` for account/pipeline data. Use `se-work-research` (WorkIQ / M365) when the answer needs live internal artifacts (battlecards, calendar, past wins, emails), and `se-open-research` for public/competitor news.
 
 **Customer prep** (dedicated skill exists):
 - `help me prep for a customer meeting` / `I have a call with Contoso tomorrow` → `se-customer-intel`: pull account context + signals, generate a brief with talking points.
@@ -234,7 +234,7 @@ Want me to file it into the wiki as an analysis so it compounds?
 `Yes — file it` · `Not yet` · `Skip`
 ```
 
-**On "yes":** use `se-wiki-generator` to file it as an analysis in the local `wiki/analyses/`, with citations to the SharePoint sources it draws on. (A dedicated "broadcast to a universal SE repo" skill isn't available yet — capture into the wiki is the current path.)
+**On "yes":** use `se-wiki-generator` to file it as an analysis in the local `wiki/analyses/`, with citations to the Azure DevOps sources it draws on. (A dedicated "broadcast to a universal SE repo" skill isn't available yet — capture into the wiki is the current path.)
 
 ## Domain Coverage
 
@@ -288,24 +288,24 @@ Want me to file it into the wiki as an analysis so it compounds?
 
 ## Knowledge Base Paths
 
-The synthesized wiki is **local**; the raw dump and data live on **SharePoint**:
+The synthesized wiki is **local**; the raw dump and data live in **Azure DevOps**:
 
 - **Wiki concepts** (LOCAL): `wiki/concepts/` (compete, deals, engagement, pitch, workshops, learning, strategy)
 - **Wiki entities** (LOCAL): `wiki/entities/` (accounts, pipeline, competitor profiles)
 - **Wiki comparisons** (LOCAL): `wiki/comparisons/` (head-to-head)
 - **Wiki analyses** (LOCAL): `wiki/analyses/` (filed answers and deep dives)
 - **Wiki index** (LOCAL): `wiki/index.md` — read first
-- **Raw sources** (SharePoint): the raw dump (e.g. `raw/`, `raw-steady-state/`) — `wiki_read` a specific file only when a wiki page cites it
-- **Live data** (SharePoint, if present): `mock-data/accounts.json`, `mock-data/opportunities.json`, `mock-data/skills-and-growth.json`
+- **Raw sources** (Azure DevOps): the raw dump (e.g. `raw/`, `raw-steady-state/`) — fetch a specific file only when a wiki page cites it
+- **Live data** (Azure DevOps, if present): `mock-data/accounts.json`, `mock-data/opportunities.json`, `mock-data/skills-and-growth.json`
 
 ## Core Skill Stack
 
 These are the skills that currently exist. Anything else (deal strategy, compete deep-dives, week planning, win-pattern mining, decks, broadcasts) is handled **inline**, grounded through the skills below.
 
-- **`se-query-wiki` (navigate-then-fetch engine)** — 🔑 the meta-skill behind every grounded answer: navigate the local `wiki/` for the map and context, then fetch the actual data from the SharePoint sources it points to (`raw/` docs + any `mock-data/*.json`), then synthesize and surface to the user with links/references. Both steps run every time — wiki for the map, SharePoint for the data.
-- `se-customer-intel` — generate pre-meeting intelligence briefs. Grounds in the local wiki, then pulls account/opportunity data (`mock-data/*.json`) from SharePoint. The go-to for any meeting-prep or account-context request, and the data source for deal/pipeline answers.
+- **`se-query-wiki` (navigate-then-fetch engine)** — the meta-skill behind every grounded answer: navigate the local `wiki/` for the map and context, then fetch the actual data from the Azure DevOps sources it points to (`raw/` docs + any `mock-data/*.json`), then synthesize and surface to the user with links/references. Both steps run every time — wiki for the map, Azure DevOps for the data.
+- `se-customer-intel` — generate pre-meeting intelligence briefs. Grounds in the local wiki, then pulls account/opportunity data (`mock-data/*.json`) from Azure DevOps. The go-to for any meeting-prep or account-context request, and the data source for deal/pipeline answers.
 - `se-work-research` — pull live internal context from emails, Teams, meetings, and Seismic via WorkIQ/M365. Use for "find me a battlecard", "what compete content do we have", calendar/week data, and past-win/reference mining.
 - `se-open-research` — gather external compete intel, competitor/Microsoft news, frameworks, and public reference material into the raw dump.
-- `se-wiki-generator` — ingest sources from the SharePoint raw dump into the **local `wiki/`**, maintaining structure and cross-references. Also the way to "file an insight" as an analysis.
+- `se-wiki-generator` — ingest sources from Azure DevOps `raw/` into the **local `wiki/`**, maintaining structure and cross-references. Also the way to "file an insight" as an analysis.
 - `se-lint-wiki` — health-check the local wiki for quality.
 - `se-html-explainer` — produce visual explainers for complex topics (compete maps, architecture decisions).

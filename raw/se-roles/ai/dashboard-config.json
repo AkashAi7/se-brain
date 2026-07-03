@@ -1,0 +1,31 @@
+{
+	"role": "ai",
+	"display_name": "AI SE",
+	"dashboard_sections": [
+		{
+			"id": "active-accounts",
+			"label": "My Accounts",
+			"source": "metadata/account-sector-mapping.json",
+			"filter": "team.ai_apps == currentUser"
+		},
+		{
+			"id": "certifications",
+			"label": "Certification Path",
+			"items": ["AI-900", "AI-102", "AI-050"]
+		},
+		{
+			"id": "focus-areas",
+			"label": "Core Domains",
+			"items": ["Azure AI Foundry", "Copilot Studio & Extensions", "Azure OpenAI Service", "AI Services (Vision, Speech, Language)", "Responsible AI"]
+		},
+		{
+			"id": "quick-links",
+			"label": "Quick Links",
+			"items": [
+				{"label": "Azure AI Foundry", "url": "https://ai.azure.com/"},
+				{"label": "Azure OpenAI Service", "url": "https://learn.microsoft.com/azure/ai-services/openai/"},
+				{"label": "Copilot Studio", "url": "https://copilotstudio.microsoft.com/"}
+			]
+		}
+	]
+}

@@ -1,0 +1,31 @@
+{
+	"role": "software",
+	"display_name": "Software/Developer SE",
+	"dashboard_sections": [
+		{
+			"id": "active-accounts",
+			"label": "My Accounts",
+			"source": "metadata/account-sector-mapping.json",
+			"filter": "team.developer == currentUser"
+		},
+		{
+			"id": "certifications",
+			"label": "Certification Path",
+			"items": ["AZ-900", "AZ-204", "AZ-400", "AZ-305"]
+		},
+		{
+			"id": "focus-areas",
+			"label": "Core Domains",
+			"items": ["App Development (App Service, Functions, AKS)", "DevOps & GitHub", "App Modernization", "Integration (API Management, Logic Apps)", "Developer Experience (Copilot, VS Code)"]
+		},
+		{
+			"id": "quick-links",
+			"label": "Quick Links",
+			"items": [
+				{"label": "Azure Developer Docs", "url": "https://learn.microsoft.com/azure/developer/"},
+				{"label": "GitHub Copilot", "url": "https://github.com/features/copilot"},
+				{"label": "Azure DevOps", "url": "https://dev.azure.com/"}
+			]
+		}
+	]
+}

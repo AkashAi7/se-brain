@@ -1,0 +1,13 @@
+{
+  "phase": "phase-2-role-fundamentals",
+  "references": {
+    "infra": {"path": "se-roles/infra/playbooks/", "note": "Infrastructure pre-sales playbooks"},
+    "data": {"path": "se-roles/data/playbooks/", "note": "Data & analytics playbooks"},
+    "software": {"path": "se-roles/software/playbooks/", "note": "App modernization playbooks"},
+    "ai": {"path": "se-roles/ai/playbooks/", "note": "AI/ML solution playbooks"}
+  },
+  "shared_resources": [
+    {"path": "shared-resources/tools-and-utilities/se-tools-full-reference.md", "note": "All tool URLs"},
+    {"path": "process-guidelines/playbooks/scenario-playbooks/", "note": "Scenario-based engagement playbooks"}
+  ]
+}

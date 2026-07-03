@@ -7,7 +7,7 @@ description: 'Research a topic on the internet and build a curated collection of
 
 Gather raw sources from the internet on a given topic and add them to the immutable raw dump. This skill populates the **Raw sources** layer of the LLM Wiki pattern — a curated set of source documents that the LLM reads from but never modifies.
 
-> **Where sources are saved (updated model):** the raw dump now lives on **SharePoint** (`microsoftapc.sharepoint.com/teams/se-brain-wiki`). Write new shared sources there with `wiki_write("raw/<slug>.md", content)` and update `raw/sources.md` via `wiki_write`. Strictly-private sources go to the local `KB-Local/` folder instead. The local `raw/` paths in the steps below are **logical paths within the SharePoint dump** — create them with `wiki_write`, not local file writes. (Assets that can't be written as markdown can stay referenced by URL.) The wiki itself is built locally by **se-wiki-generator** from this dump.
+> **Where sources are saved (updated model):** the shared raw dump now lives in **Azure DevOps** at `https://dev.azure.com/SE-Brain-AzDev/SE-Brain`, repo path `raw/`. Write new shared sources under `raw/<slug>.md`, update `raw/sources.md`, and commit/open an Azure DevOps PR unless the user asks for local-only staging. Strictly-private sources go to the local `KB-Local/` folder instead. The local `raw/` paths in the steps below are paths in the Azure DevOps repo checkout. The wiki itself is built locally by **se-wiki-generator** from this dump.
 
 ## When to Use This Skill
 

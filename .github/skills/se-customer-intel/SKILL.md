@@ -16,15 +16,15 @@ Generate sharp, actionable pre-meeting intelligence that makes the SE walk in kn
 
 ## Data Sources
 
-**Grounding:** The synthesized wiki is **local** — `read_file` the relevant `wiki/` pages (e.g. compete, account strategy) for overview/context first. Live deal/account data lives on **SharePoint** and is read via the `wiki_read()` MCP tool against `microsoftapc.sharepoint.com/teams/se-brain-wiki`. NEVER `read_file` a stale local mirror of *shared* SharePoint content (`mock-data/`, `raw/`, `broadcasts/`). If `wiki_read` is unavailable, tell the user the SharePoint connection is required — do not fall back to those mirrors.
+**Grounding:** The synthesized wiki is **local** — `read_file` the relevant `wiki/` pages (e.g. compete, account strategy) for overview/context first. Live deal/account data and shared raw sources live in **Azure DevOps** and are read through Azure DevOps MCP tools or a confirmed-current local checkout. NEVER use a stale local mirror of shared Azure DevOps content (`mock-data/`, `raw/`, `broadcasts/`) as authoritative. If Azure DevOps access is unavailable, tell the user Azure DevOps MCP auth or repo permissions are required — do not silently fall back.
 
-**Always also check the private layer.** After grounding, scan the user's `KB-Local/` folder for personal notes relevant to this account or meeting. **`KB-Local/` is gitignored, so `file_search` cannot see it** — discover notes with `grep_search` (set `includeIgnoredFiles: true`, `includePattern: "KB-Local/**"`) and read them with `read_file`. Fold them in only if they add value, label them "From your local notes (KB-Local)", and let SharePoint win any conflict on shared facts. Never read local files outside `wiki/` and `KB-Local/`.
+**Always also check the private layer.** After grounding, scan the user's `KB-Local/` folder for personal notes relevant to this account or meeting. **`KB-Local/` is gitignored, so `file_search` cannot see it** — discover notes with `grep_search` (set `includeIgnoredFiles: true`, `includePattern: "KB-Local/**"`) and read them with `read_file`. Fold them in only if they add value, label them "From your local notes (KB-Local)", and let Azure DevOps win any conflict on shared facts. Never read local files outside `wiki/`, `KB-Local/`, and confirmed-current shared source paths.
 
 - `read_file("wiki/concepts/compete-landscape.md")` (and other relevant local wiki pages) — synthesized account/compete context
-- `wiki_read("mock-data/opportunities.json")` — active deals, stages, blockers, contacts, deal notes (SharePoint)
-- `wiki_read("mock-data/accounts.json")` — account profile, industry, competitive footprint, recent signals, strategic priorities (SharePoint)
+- `mock-data/opportunities.json` from Azure DevOps — active deals, stages, blockers, contacts, deal notes
+- `mock-data/accounts.json` from Azure DevOps — account profile, industry, competitive footprint, recent signals, strategic priorities
 
-The brief is built from three layers: the **local wiki** (synthesized context), **SharePoint** (live data + raw sources), and **`KB-Local/`** (your private notes). Do not call any other live data source.
+The brief is built from three layers: the **local wiki** (synthesized context), **Azure DevOps** (live data + raw sources), and **`KB-Local/`** (your private notes). Do not call any other live data source.
 
 ## Execution Steps
 
@@ -34,7 +34,7 @@ Match the user's request to an account in the datastore. If ambiguous, ask.
 
 ### Step 2: Pull Static Context
 
-Read both via `wiki_read("mock-data/opportunities.json")` and `wiki_read("mock-data/accounts.json")` for the matched account. Extract:
+Read both `mock-data/opportunities.json` and `mock-data/accounts.json` from Azure DevOps for the matched account. Extract:
 - Active opportunity details (stage, value, blockers, competitor)
 - Key contacts and their sentiment
 - Recent signals (news, hiring, usage changes, pain points)
@@ -124,16 +124,16 @@ Every brief MUST end with a **Sources** section so the SE can trace every claim.
 ```markdown
 ---
 **Sources** (SE Brain wiki):
-- [Account Data](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/mock-data/accounts.json)
-- [Pipeline Data](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/mock-data/opportunities.json)
+- [Account Data](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/mock-data/accounts.json)
+- [Pipeline Data](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/mock-data/opportunities.json)
 - Compete Landscape (local wiki: `wiki/concepts/compete-landscape.md`)
 
 _Plus your local notes (KB-Local) where labeled above._
 ```
 
-- URL pattern: `https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/<path>` (spaces → `%20`).
-- List only the SharePoint pages you read this turn — never invent a path.
-- If you used `KB-Local/` notes, acknowledge them with the "_Plus your local notes (KB-Local)_" line — do not give them a SharePoint URL (they're local-only).
+- URL pattern: `https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/<path>` (spaces as `%20`).
+- List only the Azure DevOps source/data files you read this turn — never invent a path.
+- If you used `KB-Local/` notes, acknowledge them with the "_Plus your local notes (KB-Local)_" line — do not give them an Azure DevOps URL (they're local-only).
 
 ## SE Identity Rule
 
@@ -147,7 +147,7 @@ Do NOT include AE-domain items like pricing negotiation, contract urgency, or ex
 
 ## Compete Enrichment (live battlecards)
 
-When the opportunity has an active competitor (check `competitor` field in `wiki_read("mock-data/opportunities.json")`):
+When the opportunity has an active competitor (check `competitor` field in `mock-data/opportunities.json` from Azure DevOps):
 - Use `se-work-research` (WorkIQ / M365) to find live Seismic-distributed battlecard content for that competitor.
 - Include the top objection handling points and trap questions in the brief's "Talking Points" and "Competitive Counter" sections.
 - Reference specific battlecard assets by name so the SE can pull them up before the meeting.
