@@ -3,14 +3,14 @@ title: "Summary: SE Onboarding Platform Documentation"
 type: source-summary
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw/se-onboarding-platform-documentation.md]
+sources: [raw/shared-resources/microsoft-101/se-onboarding-platform-documentation.md]
 tags: [se-onboarding, platform, dashboard, account-insights, capability-model]
 backlinks: [wiki/concepts/onboarding-platform-capabilities.md]
 ---
 
 # SE Onboarding Platform Documentation
 
-> Source: attachment (legacy .docx export) | On SharePoint: [raw/se-onboarding-platform-documentation.md](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw/se-onboarding-platform-documentation.md) | Retrieved: 2026-05-26 | Type: reference
+> Source: attachment (legacy .docx export) | In Azure DevOps: [raw/shared-resources/microsoft-101/se-onboarding-platform-documentation.md](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/shared-resources/microsoft-101/se-onboarding-platform-documentation.md) | Retrieved: 2026-05-26 | Type: reference
 
 ## Key Takeaways
 

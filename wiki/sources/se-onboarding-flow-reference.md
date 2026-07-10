@@ -3,14 +3,14 @@ title: "Summary: SE Onboarding Flow & Azure DevOps Wiki Integration"
 type: source-summary
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw/se-onboarding-flow-reference.md]
+sources: [legacy/raw/se-onboarding-flow-reference.md]
 tags: [se-onboarding, onboarding-flow, wiki, azure-devops]
 backlinks: [wiki/concepts/se-onboarding-journey.md]
 ---
 
 # SE Onboarding Flow & Azure DevOps Wiki Integration
 
-> Source: [akashai7.github.io/se-onboarding-wiki](https://akashai7.github.io/se-onboarding-wiki/) | On SharePoint: [raw/se-onboarding-flow-reference.md](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw/se-onboarding-flow-reference.md) | Retrieved: 2026-05-25 | Type: reference
+> Source: [akashai7.github.io/se-onboarding-wiki](https://akashai7.github.io/se-onboarding-wiki/) | Legacy capture — not present in the current Azure DevOps raw/ dump | Retrieved: 2026-05-25 | Type: reference
 
 ## Key Takeaways
 

@@ -10,7 +10,7 @@ backlinks: [wiki/entities/ashish-arora.md, wiki/concepts/active-pipeline.md]
 
 # Hours-of-Knowledge Log Data (hok-log.json)
 
-> Source: structured mock data | On SharePoint: [mock-data/hok-log.json](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/mock-data/hok-log.json) | Type: data
+> Source: structured mock data | Legacy capture — not present in the current Azure DevOps raw/ dump | Type: data
 
 ## Key Takeaways
 

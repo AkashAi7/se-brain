@@ -10,7 +10,7 @@ backlinks: [wiki/concepts/se-skills-and-growth.md, wiki/entities/ashish-arora.md
 
 # Skills and Growth Data (skills-and-growth.json)
 
-> Source: structured mock data | On SharePoint: [mock-data/skills-and-growth.json](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/mock-data/skills-and-growth.json) | Type: data
+> Source: structured mock data | Legacy capture — not present in the current Azure DevOps raw/ dump | Type: data
 
 ## Key Takeaways
 

@@ -2,10 +2,10 @@
 title: "Staged Ramp Plan"
 type: concept
 created: "2026-06-10"
-updated: "2026-06-10"
-sources: [raw/se-onboarding-staged-ramp-playbook.md, raw/se-day-1-complete-starter-guide.md]
+updated: "2026-07-09"
+sources: [legacy/raw/se-onboarding-staged-ramp-playbook.md, raw/onboarding/phases/phase-1-orientation/day-1-starter-guide.md, raw/onboarding/onboarding-overview.md]
 tags: [se-onboarding, ramp-plan, staged-ramp, timeline, certifications]
-backlinks: [wiki/sources/se-onboarding-staged-ramp-playbook.md, wiki/concepts/se-onboarding-journey.md, wiki/analyses/first-30-days-ramp-plan.md]
+backlinks: [wiki/sources/se-onboarding-staged-ramp-playbook.md, wiki/sources/onboarding-overview.md, wiki/concepts/se-onboarding-journey.md, wiki/analyses/first-30-days-ramp-plan.md]
 ---
 
 # Staged Ramp Plan

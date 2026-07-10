@@ -3,14 +3,14 @@ title: "Summary: Workshop and POC Delivery Patterns for Solution Engineers"
 type: source-summary
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw-steady-state/workshop-and-poc-delivery-patterns.md]
+sources: [legacy/raw-steady-state/workshop-and-poc-delivery-patterns.md]
 tags: [workshop, poc, delivery, patterns, success-criteria, environments, technical-win]
 backlinks: [wiki/concepts/workshop-and-poc-delivery.md, wiki/concepts/technical-win.md]
 ---
 
 # Workshop and POC Delivery Patterns for Solution Engineers
 
-> Source: user-provided | On SharePoint: [raw-steady-state/workshop-and-poc-delivery-patterns.md](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw-steady-state/workshop-and-poc-delivery-patterns.md) | Retrieved: 2026-05-31 | Type: reference
+> Source: user-provided | Legacy capture — not present in the current Azure DevOps raw/ dump | Retrieved: 2026-05-31 | Type: reference
 
 ## Key Takeaways
 

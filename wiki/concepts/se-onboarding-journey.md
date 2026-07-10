@@ -2,10 +2,10 @@
 title: "SE Onboarding Journey"
 type: concept
 created: "2026-06-10"
-updated: "2026-06-10"
-sources: [raw/se-onboarding-flow-reference.md, raw/se-day-1-complete-starter-guide.md, raw/se-onboarding-staged-ramp-playbook.md]
+updated: "2026-07-09"
+sources: [legacy/raw/se-onboarding-flow-reference.md, raw/onboarding/phases/phase-1-orientation/day-1-starter-guide.md, legacy/raw/se-onboarding-staged-ramp-playbook.md, raw/onboarding/onboarding-overview.md]
 tags: [se-onboarding, onboarding-flow, journey, stages]
-backlinks: [wiki/sources/se-onboarding-flow-reference.md, wiki/sources/se-day-1-complete-starter-guide.md, wiki/sources/se-onboarding-staged-ramp-playbook.md, wiki/concepts/staged-ramp-plan.md, wiki/overview.md]
+backlinks: [wiki/sources/se-onboarding-flow-reference.md, wiki/sources/se-day-1-complete-starter-guide.md, wiki/sources/se-onboarding-staged-ramp-playbook.md, wiki/sources/onboarding-overview.md, wiki/concepts/staged-ramp-plan.md, wiki/overview.md]
 ---
 
 # SE Onboarding Journey

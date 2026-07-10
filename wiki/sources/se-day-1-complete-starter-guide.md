@@ -3,14 +3,14 @@ title: "Summary: Day 1 as a Solution Engineer - Complete Starter Guide"
 type: source-summary
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw/se-day-1-complete-starter-guide.md]
+sources: [raw/onboarding/phases/phase-1-orientation/day-1-starter-guide.md]
 tags: [se-onboarding, day-1, mcaps, onboarding-hub, learning-rhythm]
 backlinks: [wiki/concepts/se-onboarding-journey.md, wiki/concepts/onboarding-tooling-and-resources.md, wiki/analyses/day-1-onboarding-guide.md]
 ---
 
 # Day 1 as a Solution Engineer - Complete Starter Guide
 
-> Source: user-provided | On SharePoint: [raw/se-day-1-complete-starter-guide.md](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw/se-day-1-complete-starter-guide.md) | Retrieved: 2026-05-29 | Type: reference
+> Source: user-provided | In Azure DevOps: [raw/onboarding/phases/phase-1-orientation/day-1-starter-guide.md](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/onboarding/phases/phase-1-orientation/day-1-starter-guide.md) | Retrieved: 2026-05-29 | Type: reference
 
 ## Key Takeaways
 

@@ -3,14 +3,14 @@ title: "Summary: Azure vs AWS — SE Positioning Guide"
 type: source-summary
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw-steady-state/azure-vs-aws-positioning-guide.md]
+sources: [legacy/raw-steady-state/azure-vs-aws-positioning-guide.md]
 tags: [compete, aws, azure, positioning, differentiation, service-mapping]
 backlinks: [wiki/comparisons/azure-vs-aws.md, wiki/concepts/customer-engagement-patterns.md]
 ---
 
 # Azure vs AWS — SE Positioning Guide
 
-> Source: [Azure for AWS Professionals](https://learn.microsoft.com/en-us/azure/architecture/aws-professional/services) | On SharePoint: [raw-steady-state/azure-vs-aws-positioning-guide.md](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw-steady-state/azure-vs-aws-positioning-guide.md) | Retrieved: 2026-05-31 | Type: reference
+> Source: [Azure for AWS Professionals](https://learn.microsoft.com/en-us/azure/architecture/aws-professional/services) | Legacy capture — see [raw/shared-resources/competitive-intelligence/compete-overview.md](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/shared-resources/competitive-intelligence/compete-overview.md) | Retrieved: 2026-05-31 | Type: reference
 
 ## Key Takeaways
 

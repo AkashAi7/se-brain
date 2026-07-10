@@ -3,14 +3,14 @@ title: "Summary: MCEM Deal Execution Framework for Solution Engineers"
 type: source-summary
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw-steady-state/mcem-deal-execution-framework.md]
+sources: [raw/process-guidelines/sops/mcem-process-guide.md]
 tags: [mcem, deals, pipeline, methodology, technical-win, milestones, se-execution]
 backlinks: [wiki/concepts/mcem-deal-execution.md, wiki/concepts/technical-win.md]
 ---
 
 # MCEM Deal Execution Framework for Solution Engineers
 
-> Source: [MCEM Portal](https://microsoft.sharepoint.com/teams/MCEM-Portal) | On SharePoint: [raw-steady-state/mcem-deal-execution-framework.md](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw-steady-state/mcem-deal-execution-framework.md) | Retrieved: 2026-05-31 | Type: reference
+> Source: [MCEM Portal](https://microsoft.sharepoint.com/teams/MCEM-Portal) | In Azure DevOps: [raw/process-guidelines/sops/mcem-process-guide.md](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/process-guidelines/sops/mcem-process-guide.md) | Retrieved: 2026-05-31 | Type: reference
 
 ## Key Takeaways
 

@@ -69,20 +69,19 @@ If your response fails any of these checks, rewrite the failing section to be mo
 
 ## Data Access Rule
 
-**The wiki is LOCAL (the map); the raw dump + data are in Azure DevOps (the actual data).** Every data-backed answer runs the **`se-query-wiki`** flow: navigate with the wiki, then fetch the real details from Azure DevOps. First `read_file` the relevant local `wiki/` pages for overview/context and to learn *which* source documents hold the details. Then fetch those cited `raw/` docs and any relevant `mock-data/*.json` from Azure DevOps through MCP tools or a confirmed-current local checkout, and ground the answer's specifics in them. **Fetching from Azure DevOps is a standard step on every substantive answer, not a fallback.** The discipline is targeting (let the wiki tell you which docs to pull) and synthesizing — never blanket-scan or dump the raw folder, and never pass the wiki's summary off as the sourced answer.
+**Azure DevOps raw/data is the fact layer; local wiki is synthesis context.** Every data-backed answer runs the **`se-query-wiki`** flow: fetch targeted Azure DevOps details first, then use local `wiki/` pages for framing and synthesis. Pull cited `raw/` docs and relevant `mock-data/*.json` from Azure DevOps through MCP tools (or a confirmed-current checkout), and anchor specifics there. Never blanket-scan or dump the raw folder.
 
 **NEVER use a stale local mirror of shared Azure DevOps content** (`mock-data/`, `raw/`, `raw-steady-state/`, `broadcasts/`) as authoritative. The local `wiki/`, by contrast, is NOT a mirror — it is the synthesized knowledge base, read with `read_file`.
 
 **Optional private layer — `KB-Local/`.** After grounding in the wiki, you may optionally scan the gitignored `KB-Local/` folder for the user's personal notes. **`file_search` cannot see `KB-Local/` (it is gitignored)** — discover notes with `grep_search` (`includeIgnoredFiles: true`, `includePattern: "KB-Local/**"`), then read with `read_file`. Use it only if it adds value; skip silently otherwise. It augments, never substitutes — if you need an Azure DevOps raw/data doc and access is unavailable, answer from the wiki alone and flag the gap. On any conflict over a shared fact, Azure DevOps wins. Label local-sourced content as "From your local notes (KB-Local)". Never read local files outside `wiki/`, `KB-Local/`, and confirmed-current shared source paths.
 
 **Quick-reference — what to read:**
-- Synthesized compete, deal methodology, engagement, pitch, workshop, strategy, learning → the **local wiki**: `read_file("wiki/index.md")` then the relevant `wiki/concepts/`, `wiki/entities/`, `wiki/comparisons/`, `wiki/analyses/` page
-- Competitor profiles, head-to-head comparisons → local `wiki/entities/<competitor>.md`, `wiki/comparisons/<x-vs-y>.md`
 - Account profiles -> `mock-data/accounts.json` from Azure DevOps, if present
 - Pipeline/deals -> `mock-data/opportunities.json` from Azure DevOps, if present
 - Skills matrix -> `mock-data/skills-and-growth.json` from Azure DevOps, if present
-- A specific source doc a wiki page cites -> `raw/<file>.md` from Azure DevOps
+- Specific source docs -> `raw/<file>.md` from Azure DevOps
 - Broadcasts -> `broadcasts/index.md` from Azure DevOps, if present
+- Synthesis context -> local `wiki/concepts/`, `wiki/entities/`, `wiki/comparisons/`, `wiki/analyses/` (and `wiki/index.md` when discovery is needed)
 
 ## Citations (Required)
 
@@ -166,7 +165,7 @@ When preparing for a specific customer meeting or compete engagement, act as the
 
 Treat natural execution-phase language as actionable requests:
 
-Most steady-state intents do **not** have a dedicated skill — handle them **inline**, always grounded through the `se-query-wiki` flow (navigate the local wiki -> fetch the cited Azure DevOps data) and `se-customer-intel` for account/pipeline data. Use `se-work-research` (WorkIQ / M365) when the answer needs live internal artifacts (battlecards, calendar, past wins, emails), and `se-open-research` for public/competitor news.
+Most steady-state intents do **not** have a dedicated skill — handle them **inline**, always grounded through the `se-query-wiki` flow (fetch cited Azure DevOps data first -> use local wiki for synthesis) and `se-customer-intel` for account/pipeline data. Use `se-work-research` (WorkIQ / M365) when the answer needs live internal artifacts (battlecards, calendar, past wins, emails), and `se-open-research` for public/competitor news.
 
 **Customer prep** (dedicated skill exists):
 - `help me prep for a customer meeting` / `I have a call with Contoso tomorrow` → `se-customer-intel`: pull account context + signals, generate a brief with talking points.
@@ -302,7 +301,7 @@ The synthesized wiki is **local**; the raw dump and data live in **Azure DevOps*
 
 These are the skills that currently exist. Anything else (deal strategy, compete deep-dives, week planning, win-pattern mining, decks, broadcasts) is handled **inline**, grounded through the skills below.
 
-- **`se-query-wiki` (navigate-then-fetch engine)** — the meta-skill behind every grounded answer: navigate the local `wiki/` for the map and context, then fetch the actual data from the Azure DevOps sources it points to (`raw/` docs + any `mock-data/*.json`), then synthesize and surface to the user with links/references. Both steps run every time — wiki for the map, Azure DevOps for the data.
+- **`se-query-wiki` (fetch-then-synthesize engine)** — the meta-skill behind every grounded answer: fetch targeted Azure DevOps data first (`raw/` docs + any `mock-data/*.json`), then use local `wiki/` for framing/synthesis, and surface with links/references.
 - `se-customer-intel` — generate pre-meeting intelligence briefs. Grounds in the local wiki, then pulls account/opportunity data (`mock-data/*.json`) from Azure DevOps. The go-to for any meeting-prep or account-context request, and the data source for deal/pipeline answers.
 - `se-work-research` — pull live internal context from emails, Teams, meetings, and Seismic via WorkIQ/M365. Use for "find me a battlecard", "what compete content do we have", calendar/week data, and past-win/reference mining.
 - `se-open-research` — gather external compete intel, competitor/Microsoft news, frameworks, and public reference material into the raw dump.

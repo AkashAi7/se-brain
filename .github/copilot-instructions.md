@@ -45,7 +45,7 @@ The shared raw source dump now lives in **Azure DevOps**, with an optional **pri
 
 **Two rules that follow from this:**
 - **Build:** read raw from Azure DevOps `raw/` **+ `KB-Local/`** -> write the compiled wiki **locally** in `wiki/`.
-- **Query:** read the **local wiki first** for overview/context -> then fetch only the *specific* raw docs the wiki points to from Azure DevOps `raw/` or from a confirmed-current local checkout, plus `read_file` on any cited `KB-Local/` note. Never bypass the wiki to scan/dump the raw source store.
+- **Query:** fetch the *specific* Azure DevOps `raw/` docs needed for the question first (or from a confirmed-current local checkout), then use local `wiki/` pages for synthesis/context, plus `read_file` on any cited `KB-Local/` note. Never scan/dump the raw source store wholesale.
 
 **Source references in wiki pages and answers point to Azure DevOps** via the URL pattern `https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/<path>` (spaces as `%20` when needed). Wiki-to-wiki links stay local relative paths. KB-Local-derived material is labeled "From local notes (KB-Local)" with no Azure DevOps URL.
 
@@ -115,13 +115,13 @@ Examples of preferred interpretation:
 
 ## Retrieval Contract For Onboarding Answers
 
-Before answering an onboarding question, navigate with the wiki, then fetch the data from Azure DevOps:
+Before answering an onboarding question, fetch the data from Azure DevOps, then synthesize with the wiki:
 
-1. Read the local `wiki/index.md` first to navigate.
-2. Read the relevant `wiki/analyses/` (stage plans/checklists), `wiki/concepts/` (tooling, platform, journey), `wiki/entities/` (stakeholders), and `wiki/sources/` pages — for the overview and to learn *which* Azure DevOps source documents hold the details.
-3. **Fetch the actual data from Azure DevOps:** read the cited `raw/<file>.md` sources through the Azure DevOps MCP tools or a confirmed-current local checkout (and `read_file` any cited `KB-Local/` note), and ground the answer's specifics in them. This step runs on every data-backed answer — it is not a fallback.
+1. **Fetch the actual data from Azure DevOps first:** read targeted `raw/<file>.md` sources through Azure DevOps MCP tools or a confirmed-current local checkout (and `read_file` any cited `KB-Local/` note), and ground answer specifics in them.
+2. Read relevant local `wiki/analyses/`, `wiki/concepts/`, `wiki/entities/`, and `wiki/sources/` pages for synthesis, structure, and cross-links.
+3. Use `wiki/index.md` when discovery breadth is needed.
 
-The wiki is the map; Azure DevOps is the shared data store. Navigate with the wiki, then pull the real details from the source documents it points to — don't pass the wiki's compressed summary off as the sourced answer, don't reach into Azure DevOps blind (without the wiki), and don't scan or dump the raw folder wholesale. Don't fall back to generic memory.
+Azure DevOps is the shared fact store; the wiki is the synthesis layer. Pull real details from source documents first, then use wiki context for framing — don't pass compressed wiki summaries off as sourced facts, and don't scan or dump the raw folder wholesale. Don't fall back to generic memory.
 
 ## Seeded Onboarding Knowledge Base
 
@@ -136,7 +136,7 @@ For this repo, the main customer-facing knowledge base includes at least:
 - `wiki/concepts/account-coverage-and-pod-map.md`
 - `wiki/entities/onboarding-stakeholders.md`
 
-Treat these pages as the first stop for practical answers.
+Treat these pages as synthesis references for practical answers.
 
 ## Skill Awareness
 
@@ -226,8 +226,8 @@ backlinks: [wiki/concepts/related.md]
 
 ### When the user asks a question
 1. Use the **se-query-wiki** skill.
-2. **Read the local `wiki/index.md` first** to navigate, then read the relevant pages for the overview/context and to learn which source documents hold the details.
-3. **Fetch the actual data from Azure DevOps:** read the cited `raw/<file>.md` sources through Azure DevOps MCP tools or a confirmed-current local checkout (and `read_file` any cited `KB-Local/` note), and ground the answer's specifics in them. This runs on every data-backed answer — not just when the wiki "lacks detail." Target the cited docs; never blanket-scan or dump the raw dump.
+2. **Fetch the actual data from Azure DevOps first:** read the specific cited `raw/<file>.md` sources through Azure DevOps MCP tools or a confirmed-current local checkout (and `read_file` any cited `KB-Local/` note), and ground the answer's specifics in them.
+3. Read local wiki pages (`index`, analyses, concepts, entities, sources) for synthesis/context and concise presentation. Never blanket-scan or dump the raw dump.
 4. Answer with citations to specific wiki pages (local relative links) and raw sources (Azure DevOps URLs) — every answer ships with proper links and references.
 5. **Choose the right output format** based on the question type (see Answer Formats below).
 6. If the answer is substantial (synthesizes 3+ pages, reveals new connections, or is a comparison), **file it into the local wiki** as `wiki/analyses/<slug>.md`.

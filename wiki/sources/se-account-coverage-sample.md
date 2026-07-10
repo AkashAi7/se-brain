@@ -3,14 +3,14 @@ title: "Summary: SE Account Coverage Snapshot Sample"
 type: source-summary
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw/accounts/se-account-coverage-sample.md]
+sources: [legacy/raw/accounts/se-account-coverage-sample.md]
 tags: [accounts, coverage, pod-map, se-onboarding]
 backlinks: [wiki/concepts/account-coverage-and-pod-map.md]
 ---
 
 # SE Account Coverage Snapshot Sample
 
-> Source: attachment (transcribed screenshot) | On SharePoint: [raw/accounts/se-account-coverage-sample.md](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw/accounts/se-account-coverage-sample.md) | Retrieved: 2026-05-25 | Type: data
+> Source: attachment (transcribed screenshot) | Legacy capture — superseded by sector account profiles under [raw/sectors/](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/sectors) | Retrieved: 2026-05-25 | Type: data
 
 ## Key Takeaways
 

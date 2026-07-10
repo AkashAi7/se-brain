@@ -10,7 +10,7 @@ backlinks: [wiki/concepts/account-coverage-and-pod-map.md, wiki/entities/tata-st
 
 # Account Portfolio Data (accounts.json)
 
-> Source: structured mock data | On SharePoint: [mock-data/accounts.json](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/mock-data/accounts.json) | Type: data
+> Source: structured mock data | Legacy capture — see [raw/metadata/](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/metadata) and sector account profiles | Type: data
 
 ## Key Takeaways
 

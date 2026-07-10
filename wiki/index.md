@@ -1,12 +1,12 @@
 ---
 title: "Wiki Index"
 type: index
-updated: "2026-06-10"
+updated: "2026-07-09"
 ---
 
 # Wiki Index
 
-The master catalog of this SE knowledge base. Source references point to the SharePoint raw dump; wiki-to-wiki links are local.
+The master catalog of this SE knowledge base. Source references point to the Azure DevOps raw dump (`https://dev.azure.com/SE-Brain-AzDev/SE-Brain`, path `raw/`); wiki-to-wiki links are local. Sources marked *(legacy capture)* were ingested from the pre-migration dump and no longer exist in the current `raw/`.
 
 ## Overview
 - [Overview](overview.md) — High-level synthesis of onboarding + steady-state execution for the SE territory.
@@ -16,32 +16,33 @@ The master catalog of this SE knowledge base. Source references point to the Sha
 ### Onboarding sources
 | Source | Type | Tags | Page |
 |--------|------|------|------|
-| [SE Day 1 Complete Starter Guide](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw/se-day-1-complete-starter-guide.md) | reference | onboarding, day-1 | [Summary](sources/se-day-1-complete-starter-guide.md) |
-| [SE Onboarding Flow Reference](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw/se-onboarding-flow-reference.md) | reference | onboarding, flow | [Summary](sources/se-onboarding-flow-reference.md) |
-| [SE Onboarding Platform Documentation](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw/se-onboarding-platform-documentation.md) | reference | platform, labs | [Summary](sources/se-onboarding-platform-documentation.md) |
-| [SE Onboarding Staged Ramp Playbook](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw/se-onboarding-staged-ramp-playbook.md) | reference | onboarding, ramp | [Summary](sources/se-onboarding-staged-ramp-playbook.md) |
-| [SE Tools Full Reference](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw/se-tools-full-reference.md) | reference | tools | [Summary](sources/se-tools-full-reference.md) |
-| [SE Account Coverage Sample](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw/accounts/se-account-coverage-sample.md) | data | accounts, coverage | [Summary](sources/se-account-coverage-sample.md) |
+| [SE Onboarding Overview (Phased Journey)](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/onboarding/onboarding-overview.md) | reference | onboarding, phased-journey | [Summary](sources/onboarding-overview.md) |
+| [SE Day 1 Complete Starter Guide](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/onboarding/phases/phase-1-orientation/day-1-starter-guide.md) | reference | onboarding, day-1 | [Summary](sources/se-day-1-complete-starter-guide.md) |
+| SE Onboarding Flow Reference *(legacy capture)* | reference | onboarding, flow | [Summary](sources/se-onboarding-flow-reference.md) |
+| [SE Onboarding Platform Documentation](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/shared-resources/microsoft-101/se-onboarding-platform-documentation.md) | reference | platform, labs | [Summary](sources/se-onboarding-platform-documentation.md) |
+| SE Onboarding Staged Ramp Playbook *(legacy capture — see [Onboarding Overview](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/onboarding/onboarding-overview.md))* | reference | onboarding, ramp | [Summary](sources/se-onboarding-staged-ramp-playbook.md) |
+| [SE Tools Full Reference](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/shared-resources/tools-and-utilities/se-tools-full-reference.md) | reference | tools | [Summary](sources/se-tools-full-reference.md) |
+| SE Account Coverage Sample *(legacy capture — see sector account profiles under [raw/sectors/](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/sectors))* | data | accounts, coverage | [Summary](sources/se-account-coverage-sample.md) |
 
 ### Steady-state sources
 | Source | Type | Tags | Page |
 |--------|------|------|------|
-| [Azure vs AWS Positioning Guide](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw-steady-state/azure-vs-aws-positioning-guide.md) | reference | compete | [Summary](sources/azure-vs-aws-positioning-guide.md) |
-| [MCEM Deal Execution Framework](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw-steady-state/mcem-deal-execution-framework.md) | reference | mcem, deals | [Summary](sources/mcem-deal-execution-framework.md) |
-| [Workshop and POC Delivery Patterns](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw-steady-state/workshop-and-poc-delivery-patterns.md) | reference | workshops, poc | [Summary](sources/workshop-and-poc-delivery-patterns.md) |
+| Azure vs AWS Positioning Guide *(legacy capture — see [Compete Overview](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/shared-resources/competitive-intelligence/compete-overview.md))* | reference | compete | [Summary](sources/azure-vs-aws-positioning-guide.md) |
+| [MCEM Deal Execution Framework](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/process-guidelines/sops/mcem-process-guide.md) | reference | mcem, deals | [Summary](sources/mcem-deal-execution-framework.md) |
+| Workshop and POC Delivery Patterns *(legacy capture)* | reference | workshops, poc | [Summary](sources/workshop-and-poc-delivery-patterns.md) |
 
 ### Broadcast sources
 | Source | Type | Tags | Page |
 |--------|------|------|------|
-| [Voice Live Conversion Pattern](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/broadcasts/2026-06-09-voice-live-conversion-pattern.md) | report | voice-ai, validated | [Summary](sources/voice-live-conversion-pattern.md) |
+| Voice Live Conversion Pattern *(legacy capture)* | report | voice-ai, validated | [Summary](sources/voice-live-conversion-pattern.md) |
 
 ### Mock data sources
 | Source | Type | Tags | Page |
 |--------|------|------|------|
-| [Accounts Data](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/mock-data/accounts.json) | data | accounts | [Summary](sources/accounts-data.md) |
-| [Opportunities Data](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/mock-data/opportunities.json) | data | pipeline, deals | [Summary](sources/opportunities-data.md) |
-| [HOK Log Data](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/mock-data/hok-log.json) | data | activity, hok | [Summary](sources/hok-log-data.md) |
-| [Skills and Growth Data](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/mock-data/skills-and-growth.json) | data | skills, growth | [Summary](sources/skills-and-growth-data.md) |
+| Accounts Data *(legacy capture — see [raw/metadata/](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/metadata) and sector account profiles)* | data | accounts | [Summary](sources/accounts-data.md) |
+| Opportunities Data *(legacy capture)* | data | pipeline, deals | [Summary](sources/opportunities-data.md) |
+| HOK Log Data *(legacy capture)* | data | activity, hok | [Summary](sources/hok-log-data.md) |
+| Skills and Growth Data *(legacy capture)* | data | skills, growth | [Summary](sources/skills-and-growth-data.md) |
 
 ### Private sources (KB-Local)
 | Source | Type | Tags | Page |

@@ -10,7 +10,7 @@ SE Brain separates the synthesized wiki layer from the raw source dump, and the 
 
 | Layer | Where | Role | Access |
 |-------|-------|------|--------|
-| **Wiki (synthesized)** | **Local `wiki/`** | Compiled overview/context; the first stop for every answer | local `read_file` |
+| **Wiki (synthesized)** | **Local `wiki/`** | Compiled overview/context used for synthesis and cross-linking | local `read_file` |
 | **Raw dump - shared** | Azure DevOps project `SE-Brain-AzDev/SE-Brain`, repo path `raw/` | Authoritative source documents | Azure DevOps MCP tools or a confirmed-current local checkout |
 | **Raw dump - private** | Local `KB-Local/` (gitignored) | The user's personal source notes | `grep_search` -> `read_file` |
 
@@ -30,8 +30,8 @@ https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/onboarding
 
 ## Retrieval Flow
 
-1. **Read the local wiki first.** Read `wiki/index.md` and then the relevant `wiki/` pages for overview, context, and source paths.
-2. **Fetch only the specific raw documents the wiki points to.** Use Azure DevOps MCP tools when available. A local `raw/` file may be read only when the workspace is the current Azure DevOps checkout or the user explicitly confirms it is current.
+1. **Fetch Azure DevOps raw sources first.** Read the specific `raw/...` documents needed for the question via Azure DevOps MCP tools. A local `raw/` file may be read only when the workspace is the current Azure DevOps checkout or the user explicitly confirms it is current.
+2. **Use the local wiki for synthesis.** Read `wiki/index.md` and relevant `wiki/` pages to structure, summarize, and cross-link the Azure-grounded answer.
 3. **Do not blanket-dump the raw source store.** Target the cited `raw/...` paths from the wiki; do not browse or paste large raw folders.
 4. **Keep `wiki/` local.** The local wiki is the compiled knowledge layer. Do not store generated wiki pages in the Azure DevOps raw source area unless the user explicitly asks to publish them.
 5. **Treat `raw/` as immutable.** Prefer adding new raw source files and updating manifests over rewriting historical source captures.
@@ -41,11 +41,11 @@ https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/onboarding
 ## Architecture
 
 ```text
-Local wiki/  <- read first with local file tools      The synthesized layer
-     | cites specific raw docs
+Azure DevOps repo raw/  <- fetch first via MCP         The fact layer
+  | then synthesize with
      v
-Skills -> Azure DevOps MCP / Git checkout -> Azure DevOps repo raw/
-                                      + local KB-Local/ for private notes
+Local wiki/                                              The synthesized layer
+  + local KB-Local/ for private notes
 ```
 
 The Azure DevOps MCP server is configured with:
@@ -74,7 +74,7 @@ Prefer these in order:
 2. **Confirmed-current local checkout** for direct local reads from `raw/` and local file edits before a Git commit/PR.
 3. **KB-Local** for private notes only.
 
-Do not use the old SharePoint MCP (`wiki_read`, `wiki_write`, `wiki_list`, `wiki_search`) as the source of truth after this transition. If legacy SharePoint access is needed for backfill, label it as migration-only and move the resulting source into Azure DevOps `raw/`.
+Use Azure DevOps as the only shared source of truth. Do not fall back to any legacy non-Azure source systems.
 
 ## Write Workflow for Shared Sources
 
@@ -103,7 +103,7 @@ If Azure DevOps source access fails:
 1. **Not found** - verify the `raw/...` path against the Azure DevOps repo or the current local checkout.
 2. **Auth error** - tell the user the Azure DevOps MCP interactive authentication or repo permissions need attention.
 3. **MCP unavailable** - use the local `raw/` checkout only if it is known current; otherwise answer from the local wiki and flag that raw source verification is blocked.
-4. **Legacy SharePoint mismatch** - do not silently fall back to SharePoint. Treat SharePoint as migration-only.
+4. **Legacy source mismatch** - do not silently fall back to any non-Azure source. Keep Azure DevOps as the authoritative source.
 
 ## How to Present Results
 

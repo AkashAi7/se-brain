@@ -3,14 +3,14 @@ title: "Summary: SE Onboarding Staged Ramp Playbook"
 type: source-summary
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw/se-onboarding-staged-ramp-playbook.md]
+sources: [legacy/raw/se-onboarding-staged-ramp-playbook.md]
 tags: [se-onboarding, ramp-plan, staged-ramp, learning]
 backlinks: [wiki/concepts/staged-ramp-plan.md, wiki/concepts/se-onboarding-journey.md]
 ---
 
 # SE Onboarding Staged Ramp Playbook
 
-> Source: user-provided | On SharePoint: [raw/se-onboarding-staged-ramp-playbook.md](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw/se-onboarding-staged-ramp-playbook.md) | Retrieved: 2026-05-26 | Type: reference
+> Source: user-provided | Legacy capture — superseded by [raw/onboarding/onboarding-overview.md](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/onboarding/onboarding-overview.md) and phase folders | Retrieved: 2026-05-26 | Type: reference
 
 ## Key Takeaways
 

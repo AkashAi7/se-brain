@@ -10,7 +10,7 @@ backlinks: [wiki/concepts/customer-engagement-patterns.md, wiki/entities/mahindr
 
 # Voice Live APIs — 22% Conversion Lift Pattern
 
-> Source: Team broadcast (pattern), contributed by Ashish Arora | On SharePoint: [broadcasts/2026-06-09-voice-live-conversion-pattern.md](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/broadcasts/2026-06-09-voice-live-conversion-pattern.md) | Date: 2026-06-09 | Type: broadcast | Confidence: validated
+> Source: Team broadcast (pattern), contributed by Ashish Arora | Legacy capture — not present in the current Azure DevOps raw/ dump | Date: 2026-06-09 | Type: broadcast | Confidence: validated
 
 ## Key Takeaways
 

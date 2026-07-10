@@ -3,14 +3,14 @@ title: "Summary: SE Tools Full Reference"
 type: source-summary
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw/se-tools-full-reference.md]
+sources: [raw/shared-resources/tools-and-utilities/se-tools-full-reference.md]
 tags: [se-onboarding, tooling, links, expertise, week-1]
 backlinks: [wiki/concepts/onboarding-tooling-and-resources.md, wiki/entities/microsoft-sales-tools.md]
 ---
 
 # SE Tools Full Reference
 
-> Source: user-provided | On SharePoint: [raw/se-tools-full-reference.md](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/raw/se-tools-full-reference.md) | Retrieved: 2026-05-29 | Type: reference
+> Source: user-provided | In Azure DevOps: [raw/shared-resources/tools-and-utilities/se-tools-full-reference.md](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/shared-resources/tools-and-utilities/se-tools-full-reference.md) | Retrieved: 2026-05-29 | Type: reference
 
 ## Key Takeaways
 

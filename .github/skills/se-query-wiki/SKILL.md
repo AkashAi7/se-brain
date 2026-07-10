@@ -1,31 +1,31 @@
 ---
 name: se-query-wiki
-description: 'Answer complex questions by navigating the local LLM wiki and fetching the actual data from the Azure DevOps raw dump. Use when asked to "query the wiki", "answer from wiki", "what does the wiki say about", "synthesize an answer", "compare X and Y", "analyze X", "summarize what we know about", or any question that should be answered from the knowledge base. Uses wiki/index.md and pages as the navigational map to identify the relevant source documents, then fetches those documents from Azure DevOps raw/ for the real details, synthesizes a cited answer, and optionally files it back into wiki/analyses/. Always returns proper links and references. Supports markdown, comparison tables, and structured analyses.'
+description: 'Answer complex questions by fetching authoritative data from Azure DevOps raw first, then using the local LLM wiki for synthesis and cross-linking. Use when asked to "query the wiki", "answer from wiki", "what does the wiki say about", "synthesize an answer", "compare X and Y", "analyze X", "summarize what we know about", or any question that should be answered from the knowledge base. Pulls targeted documents from Azure DevOps raw/ for factual details, optionally uses local wiki pages for framing, synthesizes a cited answer, and optionally files it back into wiki/analyses/. Always returns proper links and references. Supports markdown, comparison tables, and structured analyses.'
 ---
 
 # Query Wiki
 
-Answer questions by navigating the local wiki to find what's relevant, fetching the actual data from the Azure DevOps source documents it points to, and synthesizing a grounded, cited answer. The key insight: **good answers get filed back into the wiki** so your explorations compound in the knowledge base just like ingested sources do.
+Answer questions by fetching authoritative data from Azure DevOps first, then using the local wiki for synthesis, structure, and cross-links. The key insight: **good answers get filed back into the wiki** so your explorations compound in the knowledge base just like ingested sources do.
 
 ## Knowledge Architecture & Retrieval Discipline (read this first)
 
-Two layers with two distinct jobs. **The wiki is the map; Azure DevOps raw/ is the territory.** You navigate with the wiki, then pull the actual data from Azure DevOps. Both steps happen on essentially every substantive answer.
+Two layers with two distinct jobs. **Azure DevOps raw/ is the fact layer; the local wiki is the synthesis layer.** You pull factual data from Azure DevOps first, then optionally use wiki context to sharpen the response.
 
 | Layer | Where | Role | Access |
 |-------|-------|------|--------|
-| **Wiki** | **Local `wiki/`** | The **navigational layer** — overview, structure, and which source documents hold the details. Your first stop, but **not** the final source of the data you surface. | `read_file` / search local files |
+| **Wiki** | **Local `wiki/`** | The **synthesis layer** — summaries, structure, and cross-links that help present the answer clearly | `read_file` / search local files |
 | **Raw dump — shared** | Azure DevOps project `SE-Brain-AzDev/SE-Brain`, repo path `raw/` | The **authoritative data layer** — the real source documents the answer's specifics come from | Azure DevOps MCP tools or a confirmed-current local checkout |
 | **Raw dump — private** | Local `KB-Local/` (gitignored) | The user's personal source notes (private data layer) | `grep_search` (`includeIgnoredFiles: true`, `includePattern: "KB-Local/**"`) → `read_file` |
 
-**The standard flow — both halves are required, not optional:**
+**The standard flow:**
 
-1. **Read the local wiki first for navigation and context.** Use it to understand the topic's shape, how things connect, and — crucially — *which specific source documents in Azure DevOps hold the relevant details*. Treat the wiki's summaries as a guide, not as the final word on the data.
-2. **Fetch the actual data from Azure DevOps.** For each relevant source the wiki pointed you to, read `raw/<file>.md` through Azure DevOps MCP tools or a confirmed-current local checkout and pull the real details from the source document (plus `read_file` any cited `KB-Local/` note). **This is a normal, expected step on every data-backed answer — not a fallback.** The substantive content you surface should be grounded in these source documents, not just the wiki's compressed summary.
-3. **Synthesize and cite** — combine the wiki's framing with the Azure DevOps source data; cite Azure DevOps URLs for raw sources and local relative links for wiki pages.
+1. **Fetch the actual data from Azure DevOps first.** Read targeted `raw/<file>.md` (and other required data files) through Azure DevOps MCP tools or a confirmed-current local checkout, and pull concrete details from source documents.
+2. **Use local wiki pages for synthesis and framing.** Read relevant `wiki/` pages to improve structure, context, and cross-links.
+3. **Synthesize and cite** — ground facts in Azure DevOps sources, and cite local wiki pages when used for context.
 
-**Two guardrails (this is about *targeting*, not avoidance):**
-- **Don't bypass the wiki.** It tells you *what* is relevant and *where* the data lives. Reaching into Azure DevOps blind — without first navigating via the wiki — is wrong.
-- **Don't blanket-dump Azure DevOps raw/.** Use the wiki's cues to fetch the *specific* documents that matter; never list/search the whole dump and return its contents wholesale. Fetch with purpose, then synthesize — don't paste raw files at the user.
+**Guardrails:**
+- **Don't blanket-dump Azure DevOps raw/.** Fetch only specific documents relevant to the question; never list/search the whole dump and paste it.
+- **Don't treat wiki summaries as evidence.** Use wiki pages to frame answers, but keep factual claims anchored to Azure DevOps sources.
 
 ## When to Use This Skill
 
@@ -45,7 +45,7 @@ Two layers with two distinct jobs. **The wiki is the map; Azure DevOps raw/ is t
 
 ## Core Principle
 
-**The wiki navigates; Azure DevOps supplies the data.** The wiki is your first stop because it tells you what's relevant, how it connects, and which source documents hold the details — but the actual specifics you surface come from the Azure DevOps source documents the wiki points to. Read the wiki for the map and context, then fetch the relevant Azure DevOps raw documents for the real data, then synthesize. Fetching from Azure DevOps is a routine part of answering, not a last resort. The discipline is in *targeting* (let the wiki tell you which docs to pull) and *synthesizing* (never paste raw files at the user) — not in avoiding Azure DevOps.
+**Azure DevOps supplies facts; the wiki improves synthesis.** Start from targeted Azure DevOps source documents, then use local wiki pages to improve framing, structure, and cross-links. Fetching from Azure DevOps is the default for data-backed answers. The discipline is in *targeting* (only pull what is needed) and *synthesizing* (never paste raw files at the user).
 
 ## Step-by-Step Workflow
 
@@ -64,7 +64,7 @@ Classify the question to determine the best answer format:
 
 ### Step 2: Search the Wiki Index
 
-1. Read the local `wiki/index.md`.
+1. Read the local `wiki/index.md` only when needed to discover relevant synthesis pages.
 2. Identify all pages potentially relevant to the question — check:
    - **Source summaries** that cover the topic
    - **Concept pages** that match the subject
@@ -85,13 +85,13 @@ Classify the question to determine the best answer format:
 
 ### Step 4: Fetch the Relevant Data from Azure DevOps
 
-Now pull the actual data. The wiki told you *which* sources matter; go read them. This is a standard step on every substantive answer — the details you surface should be grounded in the source documents, not just the wiki's summary.
+Now pull the actual data first. Details you surface should be grounded in source documents from Azure DevOps.
 
-1. From the relevant wiki pages' `sources:` frontmatter and inline citations, collect the source paths that hold the data the question needs (e.g. `raw/se-day-1-complete-starter-guide.md`).
+1. Identify the source paths that hold the data the question needs (for example from prior citations, known paths, or relevant wiki `sources:` frontmatter).
 2. Fetch each one:
    - Shared: read `raw/<file>.md` from Azure DevOps via MCP tools or a confirmed-current local checkout. Parse the returned content directly and pull the specifics (numbers, names, links, exact wording) the answer needs.
    - Private: if the wiki attributes a detail to a `KB-Local/` note, `read_file` that specific note. Never read local files outside `KB-Local/`.
-3. Fetch with purpose: pull the documents the wiki pointed to, not the whole dump. If you find the wiki under-cited a relevant area, it's fine to read an obviously-related source — but you're still *targeting*, never list-and-dumping the entire raw folder.
+3. Fetch with purpose: pull only the documents needed for the question. Never list-and-dump the entire raw folder.
 4. If Azure DevOps access is unavailable, tell the user the Azure DevOps MCP/auth or repo checkout is required — do not fall back to a stale local `raw/` mirror, and don't pass off the wiki's summary as the sourced answer.
 5. If the wiki pointed at nothing for a needed area, note the gap and offer to enrich the wiki via **se-wiki-generator**.
 
@@ -221,8 +221,8 @@ Mark speculative claims clearly so the user knows the difference.
 
 ## Tips
 
-- **Navigate with the wiki, get the data from Azure DevOps.** Read the local wiki first for the map and context, then fetch the actual details from the Azure DevOps source docs it points to. Both halves run on every substantive answer — the wiki is not the final source of the data you surface.
-- **Never reach into Azure DevOps blind, never dump it.** Don't query the raw dump without navigating via the wiki first, and don't list/search the whole dump and paste its contents. Fetch the *specific* docs the wiki cited, then synthesize.
+- **Fetch facts from Azure DevOps first, then synthesize with wiki context.** The wiki is useful framing, but factual details come from Azure DevOps sources.
+- **Never dump Azure DevOps raw/.** Query only specific source docs and synthesize results.
 - **Read the index, not everything.** The index is your table of contents. Don't read every wiki page for every question — use the index to find the 3-5 most relevant ones.
 - **Follow backlinks.** A page's `backlinks` frontmatter tells you what other pages reference it — those are often relevant context for the question.
 - **Check existing analyses first.** Someone (or you) may have already asked a similar question. Check `wiki/analyses/` before doing fresh synthesis.

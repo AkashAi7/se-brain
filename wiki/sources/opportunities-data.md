@@ -10,7 +10,7 @@ backlinks: [wiki/concepts/active-pipeline.md, wiki/concepts/mcem-deal-execution.
 
 # Opportunity Pipeline Data (opportunities.json)
 
-> Source: structured mock data | On SharePoint: [mock-data/opportunities.json](https://microsoftapc.sharepoint.com/teams/se-brain-wiki/Shared%20Documents/mock-data/opportunities.json) | Type: data
+> Source: structured mock data | Legacy capture — not present in the current Azure DevOps raw/ dump | Type: data
 
 ## Key Takeaways
 

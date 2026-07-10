@@ -23,7 +23,7 @@ Gather raw sources from **internal workplace data** — Outlook emails, Teams me
 
 - **WorkIQ MCP server** configured and accessible (`mcp_workiq_ask_work_iq` tool available)
 - User must have accepted the WorkIQ EULA (`mcp_workiq_accept_eula` if prompted)
-- Microsoft 365 account with access to Outlook, Teams, Calendar, SharePoint/OneDrive
+- Microsoft 365 account with access to Outlook, Teams, Calendar, and OneDrive
 - File creation tools to write sources to disk
 - The workspace should have (or will get) a `raw/` directory at the project root
 
