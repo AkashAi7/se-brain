@@ -3,7 +3,7 @@ title: "Analysis: Pipeline Health Snapshot"
 type: analysis
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [mock-data/opportunities.json, mock-data/accounts.json, broadcasts/2026-06-09-voice-live-conversion-pattern.md, kb-local/accounts/tata-steel.md]
+sources: [legacy/mock-data/opportunities.json, legacy/mock-data/accounts.json, legacy/broadcasts/2026-06-09-voice-live-conversion-pattern.md, KB-Local/accounts/tata-steel.md]
 tags: [pipeline, deals, mcem, at-risk, forecast]
 backlinks: [wiki/concepts/active-pipeline.md, wiki/concepts/mcem-deal-execution.md, wiki/index.md]
 ---

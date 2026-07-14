@@ -3,7 +3,7 @@ title: "Summary: Account Portfolio Data (accounts.json)"
 type: source-summary
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [mock-data/accounts.json]
+sources: [legacy/mock-data/accounts.json]
 tags: [accounts, portfolio, tata, mahindra, india-enterprise, data]
 backlinks: [wiki/concepts/account-coverage-and-pod-map.md, wiki/entities/tata-steel.md, wiki/entities/mahindra.md, wiki/entities/tata-sons.md, wiki/entities/tata-agratas.md]
 ---

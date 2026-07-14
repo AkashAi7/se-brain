@@ -3,7 +3,7 @@ title: "SE Skills and Growth Model"
 type: concept
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [mock-data/skills-and-growth.json, raw/se-onboarding-staged-ramp-playbook.md, raw/se-onboarding-platform-documentation.md]
+sources: [legacy/mock-data/skills-and-growth.json, legacy/raw/se-onboarding-staged-ramp-playbook.md, raw/shared-resources/microsoft-101/se-onboarding-platform-documentation.md]
 tags: [skills, certifications, growth, role-transition, learning]
 backlinks: [wiki/sources/skills-and-growth-data.md, wiki/sources/se-onboarding-staged-ramp-playbook.md, wiki/entities/ashish-arora.md, wiki/concepts/staged-ramp-plan.md]
 ---

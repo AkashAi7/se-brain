@@ -3,7 +3,7 @@ title: "Tata Sons"
 type: entity
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [mock-data/accounts.json, mock-data/opportunities.json]
+sources: [legacy/mock-data/accounts.json, legacy/mock-data/opportunities.json]
 tags: [account, tata-group, conglomerate, ai-agents, partner-delivery, lighthouse]
 backlinks: [wiki/concepts/active-pipeline.md, wiki/concepts/account-coverage-and-pod-map.md, wiki/entities/azure-ai-foundry.md]
 ---

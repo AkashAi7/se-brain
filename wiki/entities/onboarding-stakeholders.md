@@ -3,7 +3,7 @@ title: "Onboarding Stakeholders"
 type: entity
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw/se-day-1-complete-starter-guide.md, raw/se-onboarding-flow-reference.md, raw/accounts/se-account-coverage-sample.md, mock-data/accounts.json]
+sources: [raw/onboarding/phases/phase-1-orientation/day-1-starter-guide.md, legacy/raw/se-onboarding-flow-reference.md, legacy/raw/accounts/se-account-coverage-sample.md, legacy/mock-data/accounts.json]
 tags: [stakeholders, roles, pod, account-team, onboarding]
 backlinks: [wiki/concepts/se-onboarding-journey.md, wiki/concepts/account-coverage-and-pod-map.md, wiki/analyses/day-1-onboarding-guide.md]
 ---

@@ -3,7 +3,7 @@ title: "Ashish Arora"
 type: entity
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [mock-data/skills-and-growth.json, mock-data/accounts.json, mock-data/opportunities.json, mock-data/hok-log.json, broadcasts/2026-06-09-voice-live-conversion-pattern.md]
+sources: [legacy/mock-data/skills-and-growth.json, legacy/mock-data/accounts.json, legacy/mock-data/opportunities.json, legacy/mock-data/hok-log.json, legacy/broadcasts/2026-06-09-voice-live-conversion-pattern.md]
 tags: [person, solution-engineer, ai-ml, india-enterprise]
 backlinks: [wiki/concepts/active-pipeline.md, wiki/concepts/se-skills-and-growth.md, wiki/concepts/account-coverage-and-pod-map.md, wiki/overview.md]
 ---

@@ -3,7 +3,7 @@ title: "Azure vs AWS — Compete Positioning"
 type: comparison
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw-steady-state/azure-vs-aws-positioning-guide.md, mock-data/opportunities.json, broadcasts/2026-06-09-voice-live-conversion-pattern.md]
+sources: [legacy/raw-steady-state/azure-vs-aws-positioning-guide.md, legacy/mock-data/opportunities.json, legacy/broadcasts/2026-06-09-voice-live-conversion-pattern.md]
 tags: [compete, azure, aws, gcp, positioning, ai-platform]
 backlinks: [wiki/concepts/customer-engagement-patterns.md, wiki/entities/azure-ai-foundry.md, wiki/concepts/active-pipeline.md]
 ---

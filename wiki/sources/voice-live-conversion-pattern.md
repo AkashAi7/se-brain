@@ -3,7 +3,7 @@ title: "Summary: Voice Live APIs — 22% Conversion Lift Pattern"
 type: source-summary
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [broadcasts/2026-06-09-voice-live-conversion-pattern.md]
+sources: [legacy/broadcasts/2026-06-09-voice-live-conversion-pattern.md]
 tags: [voice, ai, conversion, outbound, pattern, broadcast]
 backlinks: [wiki/concepts/customer-engagement-patterns.md, wiki/entities/mahindra.md]
 ---

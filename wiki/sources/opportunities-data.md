@@ -3,7 +3,7 @@ title: "Summary: Opportunity Pipeline Data (opportunities.json)"
 type: source-summary
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [mock-data/opportunities.json]
+sources: [legacy/mock-data/opportunities.json]
 tags: [pipeline, opportunities, deals, mcem, data]
 backlinks: [wiki/concepts/active-pipeline.md, wiki/concepts/mcem-deal-execution.md]
 ---

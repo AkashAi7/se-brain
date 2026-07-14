@@ -3,7 +3,7 @@ title: "Account Coverage and Pod Map"
 type: concept
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw/accounts/se-account-coverage-sample.md, mock-data/accounts.json]
+sources: [legacy/raw/accounts/se-account-coverage-sample.md, legacy/mock-data/accounts.json]
 tags: [accounts, coverage, pod-map, team, segmentation]
 backlinks: [wiki/sources/se-account-coverage-sample.md, wiki/sources/accounts-data.md, wiki/entities/tata-steel.md, wiki/entities/mahindra.md, wiki/entities/tata-sons.md, wiki/entities/tata-agratas.md]
 ---

@@ -3,7 +3,7 @@ title: "Analysis: First 30 Days Ramp Plan"
 type: analysis
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw/se-onboarding-staged-ramp-playbook.md, raw/se-onboarding-flow-reference.md, raw/se-tools-full-reference.md, raw/se-onboarding-platform-documentation.md]
+sources: [legacy/raw/se-onboarding-staged-ramp-playbook.md, legacy/raw/se-onboarding-flow-reference.md, raw/shared-resources/tools-and-utilities/se-tools-full-reference.md, raw/shared-resources/microsoft-101/se-onboarding-platform-documentation.md]
 tags: [onboarding, ramp, 30-days, staged-plan, learning]
 backlinks: [wiki/concepts/staged-ramp-plan.md, wiki/concepts/se-onboarding-journey.md, wiki/index.md]
 ---

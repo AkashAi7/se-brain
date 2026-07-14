@@ -3,7 +3,7 @@ title: "Technical Win"
 type: concept
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw-steady-state/mcem-deal-execution-framework.md, raw-steady-state/workshop-and-poc-delivery-patterns.md, mock-data/opportunities.json]
+sources: [raw/process-guidelines/sops/mcem-process-guide.md, legacy/raw-steady-state/workshop-and-poc-delivery-patterns.md, legacy/mock-data/opportunities.json]
 tags: [technical-win, mcem, proof, poc, se-execution]
 backlinks: [wiki/sources/mcem-deal-execution-framework.md, wiki/sources/workshop-and-poc-delivery-patterns.md, wiki/concepts/mcem-deal-execution.md, wiki/concepts/workshop-and-poc-delivery.md]
 ---

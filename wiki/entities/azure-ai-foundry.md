@@ -3,7 +3,7 @@ title: "Azure AI Foundry"
 type: entity
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [mock-data/accounts.json, mock-data/opportunities.json, raw-steady-state/azure-vs-aws-positioning-guide.md, raw-steady-state/workshop-and-poc-delivery-patterns.md, kb-local/accounts/tata-steel.md]
+sources: [legacy/mock-data/accounts.json, legacy/mock-data/opportunities.json, legacy/raw-steady-state/azure-vs-aws-positioning-guide.md, legacy/raw-steady-state/workshop-and-poc-delivery-patterns.md, KB-Local/accounts/tata-steel.md]
 tags: [tool, azure, ai-platform, foundry, foundry-local, web-iq, hero-product]
 backlinks: [wiki/concepts/active-pipeline.md, wiki/concepts/customer-engagement-patterns.md, wiki/comparisons/azure-vs-aws.md, wiki/entities/tata-steel.md, wiki/entities/tata-agratas.md]
 ---

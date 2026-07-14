@@ -3,7 +3,7 @@ title: "Active Pipeline"
 type: concept
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [mock-data/opportunities.json, mock-data/accounts.json, mock-data/hok-log.json, broadcasts/2026-06-09-voice-live-conversion-pattern.md]
+sources: [legacy/mock-data/opportunities.json, legacy/mock-data/accounts.json, legacy/mock-data/hok-log.json, legacy/broadcasts/2026-06-09-voice-live-conversion-pattern.md]
 tags: [pipeline, opportunities, deals, tata, mahindra, india-enterprise]
 backlinks: [wiki/sources/opportunities-data.md, wiki/sources/accounts-data.md, wiki/concepts/mcem-deal-execution.md, wiki/entities/ashish-arora.md, wiki/overview.md, wiki/analyses/pipeline-health-snapshot.md]
 ---

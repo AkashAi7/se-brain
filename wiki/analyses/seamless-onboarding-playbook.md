@@ -3,7 +3,7 @@ title: "Analysis: Seamless Onboarding Playbook"
 type: analysis
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw/se-day-1-complete-starter-guide.md, raw/se-onboarding-staged-ramp-playbook.md, raw/se-onboarding-flow-reference.md, raw/se-onboarding-platform-documentation.md, raw/se-tools-full-reference.md]
+sources: [raw/onboarding/phases/phase-1-orientation/day-1-starter-guide.md, legacy/raw/se-onboarding-staged-ramp-playbook.md, legacy/raw/se-onboarding-flow-reference.md, raw/shared-resources/microsoft-101/se-onboarding-platform-documentation.md, raw/shared-resources/tools-and-utilities/se-tools-full-reference.md]
 tags: [onboarding, playbook, ramp, experience, end-to-end]
 backlinks: [wiki/concepts/se-onboarding-journey.md, wiki/concepts/staged-ramp-plan.md, wiki/index.md]
 ---

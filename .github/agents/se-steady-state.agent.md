@@ -69,17 +69,18 @@ If your response fails any of these checks, rewrite the failing section to be mo
 
 ## Data Access Rule
 
-**Azure DevOps raw/data is the fact layer; local wiki is synthesis context.** Every data-backed answer runs the **`se-query-wiki`** flow: fetch targeted Azure DevOps details first, then use local `wiki/` pages for framing and synthesis. Pull cited `raw/` docs and relevant `mock-data/*.json` from Azure DevOps through MCP tools (or a confirmed-current checkout), and anchor specifics there. Never blanket-scan or dump the raw folder.
+**Azure DevOps raw/data is the fact layer; local wiki is synthesis context.** Every data-backed answer runs the **`se-query-wiki`** flow: fetch targeted Azure DevOps details first, then use local `wiki/` pages for framing and synthesis. Pull cited `raw/` docs, `raw/metadata/*.json`, and sector account profiles from Azure DevOps through MCP tools (or a confirmed-current checkout), and anchor specifics there. Never blanket-scan or dump the raw folder.
 
-**NEVER use a stale local mirror of shared Azure DevOps content** (`mock-data/`, `raw/`, `raw-steady-state/`, `broadcasts/`) as authoritative. The local `wiki/`, by contrast, is NOT a mirror — it is the synthesized knowledge base, read with `read_file`.
+**NEVER use a stale local mirror of shared Azure DevOps content** (`raw/`) as authoritative. The local `wiki/`, by contrast, is NOT a mirror — it is the synthesized knowledge base, read with `read_file`.
 
 **Optional private layer — `KB-Local/`.** After grounding in the wiki, you may optionally scan the gitignored `KB-Local/` folder for the user's personal notes. **`file_search` cannot see `KB-Local/` (it is gitignored)** — discover notes with `grep_search` (`includeIgnoredFiles: true`, `includePattern: "KB-Local/**"`), then read with `read_file`. Use it only if it adds value; skip silently otherwise. It augments, never substitutes — if you need an Azure DevOps raw/data doc and access is unavailable, answer from the wiki alone and flag the gap. On any conflict over a shared fact, Azure DevOps wins. Label local-sourced content as "From your local notes (KB-Local)". Never read local files outside `wiki/`, `KB-Local/`, and confirmed-current shared source paths.
 
 **Quick-reference — what to read:**
-- Account profiles -> `mock-data/accounts.json` from Azure DevOps, if present
-- Pipeline/deals -> `mock-data/opportunities.json` from Azure DevOps, if present
-- Skills matrix -> `mock-data/skills-and-growth.json` from Azure DevOps, if present
-- Specific source docs -> `raw/<file>.md` from Azure DevOps
+- Account profiles -> `raw/sectors/{sector}/accounts/{account}/account-profile.md` + `raw/metadata/account-sector-mapping.json` from Azure DevOps
+- Team/coverage -> `raw/metadata/se-directory.json` + `raw/metadata/pod-mappings.json` from Azure DevOps
+- Pipeline/deals -> the relevant account profile and linked process source under `raw/`
+- Skills matrix -> role content under `raw/se-roles/{infra,data,software,ai}/`
+- Specific source docs -> `raw/<path>.md` from Azure DevOps
 - Broadcasts -> `broadcasts/index.md` from Azure DevOps, if present
 - Synthesis context -> local `wiki/concepts/`, `wiki/entities/`, `wiki/comparisons/`, `wiki/analyses/` (and `wiki/index.md` when discovery is needed)
 
@@ -95,7 +96,7 @@ Example:
 ```markdown
 **Sources:**
 - Wiki (local): Compete Landscape, Deal Execution & MCEM
-- Data: [Account Data](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/mock-data/accounts.json)
+- Data: [Account Sector Mapping](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/metadata/account-sector-mapping.json)
 ```
 
 ## Operating Mode
@@ -294,15 +295,15 @@ The synthesized wiki is **local**; the raw dump and data live in **Azure DevOps*
 - **Wiki comparisons** (LOCAL): `wiki/comparisons/` (head-to-head)
 - **Wiki analyses** (LOCAL): `wiki/analyses/` (filed answers and deep dives)
 - **Wiki index** (LOCAL): `wiki/index.md` — read first
-- **Raw sources** (Azure DevOps): the raw dump (e.g. `raw/`, `raw-steady-state/`) — fetch a specific file only when a wiki page cites it
-- **Live data** (Azure DevOps, if present): `mock-data/accounts.json`, `mock-data/opportunities.json`, `mock-data/skills-and-growth.json`
+- **Raw sources** (Azure DevOps): the raw dump (`raw/`) — fetch a specific file only when a wiki page cites it
+- **Live data** (Azure DevOps): `raw/metadata/*.json` + sector account profiles
 
 ## Core Skill Stack
 
 These are the skills that currently exist. Anything else (deal strategy, compete deep-dives, week planning, win-pattern mining, decks, broadcasts) is handled **inline**, grounded through the skills below.
 
-- **`se-query-wiki` (fetch-then-synthesize engine)** — the meta-skill behind every grounded answer: fetch targeted Azure DevOps data first (`raw/` docs + any `mock-data/*.json`), then use local `wiki/` for framing/synthesis, and surface with links/references.
-- `se-customer-intel` — generate pre-meeting intelligence briefs. Grounds in the local wiki, then pulls account/opportunity data (`mock-data/*.json`) from Azure DevOps. The go-to for any meeting-prep or account-context request, and the data source for deal/pipeline answers.
+- **`se-query-wiki` (fetch-then-synthesize engine)** — the meta-skill behind every grounded answer: fetch targeted Azure DevOps data first (`raw/` docs + `raw/metadata/*.json`), then use local `wiki/` for framing/synthesis, and surface with links/references.
+- `se-customer-intel` — generate pre-meeting intelligence briefs. Grounds in the local wiki, then pulls account/deal data (`raw/metadata/*.json` and sector account profiles) from Azure DevOps. The go-to for any meeting-prep or account-context request, and the data source for deal/pipeline answers.
 - `se-work-research` — pull live internal context from emails, Teams, meetings, and Seismic via WorkIQ/M365. Use for "find me a battlecard", "what compete content do we have", calendar/week data, and past-win/reference mining.
 - `se-open-research` — gather external compete intel, competitor/Microsoft news, frameworks, and public reference material into the raw dump.
 - `se-wiki-generator` — ingest sources from Azure DevOps `raw/` into the **local `wiki/`**, maintaining structure and cross-references. Also the way to "file an insight" as an analysis.

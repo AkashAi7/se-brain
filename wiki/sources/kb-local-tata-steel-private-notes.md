@@ -3,7 +3,7 @@ title: "Summary: Tata Steel — Private Call Notes (KB-Local)"
 type: source-summary
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [kb-local/accounts/tata-steel.md]
+sources: [KB-Local/accounts/tata-steel.md]
 tags: [tata-steel, private, call-notes, foundry, web-iq, kb-local]
 backlinks: [wiki/entities/tata-steel.md, wiki/entities/azure-ai-foundry.md]
 ---

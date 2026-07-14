@@ -3,7 +3,7 @@ title: "Summary: Skills and Growth Data (skills-and-growth.json)"
 type: source-summary
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [mock-data/skills-and-growth.json]
+sources: [legacy/mock-data/skills-and-growth.json]
 tags: [skills, certifications, growth, role-transition, data]
 backlinks: [wiki/concepts/se-skills-and-growth.md, wiki/entities/ashish-arora.md]
 ---

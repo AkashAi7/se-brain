@@ -16,13 +16,13 @@ Generate sharp, actionable pre-meeting intelligence that makes the SE walk in kn
 
 ## Data Sources
 
-**Grounding:** Fetch live deal/account data and shared raw sources from **Azure DevOps** first through MCP tools (or a confirmed-current local checkout). Then use local `wiki/` pages (e.g. compete, account strategy) for synthesis/context as needed. NEVER use a stale local mirror of shared Azure DevOps content (`mock-data/`, `raw/`, `broadcasts/`) as authoritative. If Azure DevOps access is unavailable, tell the user Azure DevOps MCP auth or repo permissions are required — do not silently fall back.
+**Grounding:** Fetch live deal/account data and shared raw sources from **Azure DevOps** first through MCP tools (or a confirmed-current local checkout). Then use local `wiki/` pages (e.g. account strategy) for synthesis/context as needed. NEVER use a stale local mirror of shared Azure DevOps `raw/` content as authoritative. If Azure DevOps access is unavailable, tell the user Azure DevOps MCP auth or repo permissions are required — do not silently fall back.
 
 **Always also check the private layer.** After grounding, scan the user's `KB-Local/` folder for personal notes relevant to this account or meeting. **`KB-Local/` is gitignored, so `file_search` cannot see it** — discover notes with `grep_search` (set `includeIgnoredFiles: true`, `includePattern: "KB-Local/**"`) and read them with `read_file`. Fold them in only if they add value, label them "From your local notes (KB-Local)", and let Azure DevOps win any conflict on shared facts. Never read local files outside `wiki/`, `KB-Local/`, and confirmed-current shared source paths.
 
 - `read_file("wiki/concepts/compete-landscape.md")` (and other relevant local wiki pages) — synthesized account/compete context
-- `mock-data/opportunities.json` from Azure DevOps — active deals, stages, blockers, contacts, deal notes
-- `mock-data/accounts.json` from Azure DevOps — account profile, industry, competitive footprint, recent signals, strategic priorities
+- `raw/sectors/{sector}/accounts/{account}/account-profile.md` from Azure DevOps — account profile, team, competitive footprint, strategic priorities
+- `raw/metadata/account-sector-mapping.json` from Azure DevOps — account-to-sector/pod resolution
 
 The brief is built from three layers: **Azure DevOps** (live data + raw sources, primary), the **local wiki** (synthesized context), and **`KB-Local/`** (your private notes). Do not call any other live data source.
 
@@ -34,7 +34,7 @@ Match the user's request to an account in the datastore. If ambiguous, ask.
 
 ### Step 2: Pull Static Context
 
-Read both `mock-data/opportunities.json` and `mock-data/accounts.json` from Azure DevOps for the matched account. Extract:
+Read the account's profile (`raw/sectors/{sector}/accounts/{account}/account-profile.md`, resolved via `raw/metadata/account-sector-mapping.json`) from Azure DevOps. Extract:
 - Active opportunity details (stage, value, blockers, competitor)
 - Key contacts and their sentiment
 - Recent signals (news, hiring, usage changes, pain points)
@@ -124,8 +124,8 @@ Every brief MUST end with a **Sources** section so the SE can trace every claim.
 ```markdown
 ---
 **Sources** (SE Brain wiki):
-- [Account Data](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/mock-data/accounts.json)
-- [Pipeline Data](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/mock-data/opportunities.json)
+- [Account Profile](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/sectors/manufacturing/accounts/tata-steel/account-profile.md)
+- [Account Sector Mapping](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/metadata/account-sector-mapping.json)
 - Compete Landscape (local wiki: `wiki/concepts/compete-landscape.md`)
 
 _Plus your local notes (KB-Local) where labeled above._
@@ -147,7 +147,7 @@ Do NOT include AE-domain items like pricing negotiation, contract urgency, or ex
 
 ## Compete Enrichment (live battlecards)
 
-When the opportunity has an active competitor (check `competitor` field in `mock-data/opportunities.json` from Azure DevOps):
+When the account profile identifies an active competitor in its competitive footprint:
 - Use `se-work-research` (WorkIQ / M365) to find live Seismic-distributed battlecard content for that competitor.
 - Include the top objection handling points and trap questions in the brief's "Talking Points" and "Competitive Counter" sections.
 - Reference specific battlecard assets by name so the SE can pull them up before the meeting.

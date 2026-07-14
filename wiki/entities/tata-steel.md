@@ -3,7 +3,7 @@ title: "Tata Steel"
 type: entity
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [mock-data/accounts.json, mock-data/opportunities.json, mock-data/hok-log.json, kb-local/accounts/tata-steel.md]
+sources: [legacy/mock-data/accounts.json, legacy/mock-data/opportunities.json, legacy/mock-data/hok-log.json, KB-Local/accounts/tata-steel.md]
 tags: [account, tata-group, manufacturing, steel, gcp-displacement, edge-ai]
 backlinks: [wiki/concepts/active-pipeline.md, wiki/concepts/account-coverage-and-pod-map.md, wiki/entities/azure-ai-foundry.md, wiki/comparisons/azure-vs-aws.md]
 ---

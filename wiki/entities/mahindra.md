@@ -3,7 +3,7 @@ title: "Mahindra"
 type: entity
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [mock-data/accounts.json, mock-data/opportunities.json, broadcasts/2026-06-09-voice-live-conversion-pattern.md]
+sources: [legacy/mock-data/accounts.json, legacy/mock-data/opportunities.json, legacy/broadcasts/2026-06-09-voice-live-conversion-pattern.md]
 tags: [account, financial-services, hospitality, voice-ai, gcp-displacement]
 backlinks: [wiki/concepts/active-pipeline.md, wiki/concepts/customer-engagement-patterns.md, wiki/entities/azure-ai-foundry.md]
 ---

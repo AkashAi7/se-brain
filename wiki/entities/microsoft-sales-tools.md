@@ -3,7 +3,7 @@ title: "Microsoft Sales & Execution Tools"
 type: entity
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw/se-tools-full-reference.md, raw-steady-state/mcem-deal-execution-framework.md, raw/se-day-1-complete-starter-guide.md]
+sources: [raw/shared-resources/tools-and-utilities/se-tools-full-reference.md, raw/process-guidelines/sops/mcem-process-guide.md, raw/onboarding/phases/phase-1-orientation/day-1-starter-guide.md]
 tags: [tools, msx, msxi, rain, mcem, seismic, fasttrack, mtc]
 backlinks: [wiki/concepts/onboarding-tooling-and-resources.md, wiki/concepts/mcem-deal-execution.md, wiki/sources/se-tools-full-reference.md]
 ---

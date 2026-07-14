@@ -3,7 +3,7 @@ title: "Analysis: Day 1 Onboarding Guide"
 type: analysis
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw/se-day-1-complete-starter-guide.md, raw/se-onboarding-flow-reference.md, raw/se-tools-full-reference.md]
+sources: [raw/onboarding/phases/phase-1-orientation/day-1-starter-guide.md, legacy/raw/se-onboarding-flow-reference.md, raw/shared-resources/tools-and-utilities/se-tools-full-reference.md]
 tags: [onboarding, day-1, checklist, tools, stakeholders]
 backlinks: [wiki/sources/se-day-1-complete-starter-guide.md, wiki/concepts/se-onboarding-journey.md, wiki/index.md]
 ---

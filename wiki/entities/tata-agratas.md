@@ -3,7 +3,7 @@ title: "Tata Agratas"
 type: entity
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [mock-data/accounts.json, mock-data/opportunities.json]
+sources: [legacy/mock-data/accounts.json, legacy/mock-data/opportunities.json]
 tags: [account, tata-group, battery-manufacturing, edge-ai, foundry-local, showcase]
 backlinks: [wiki/concepts/active-pipeline.md, wiki/concepts/customer-engagement-patterns.md, wiki/entities/azure-ai-foundry.md]
 ---

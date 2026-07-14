@@ -3,7 +3,7 @@ title: "Summary: Hours-of-Knowledge Log Data (hok-log.json)"
 type: source-summary
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [mock-data/hok-log.json]
+sources: [legacy/mock-data/hok-log.json]
 tags: [activity-log, time-tracking, effort, data]
 backlinks: [wiki/entities/ashish-arora.md, wiki/concepts/active-pipeline.md]
 ---

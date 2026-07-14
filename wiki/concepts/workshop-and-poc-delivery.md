@@ -3,7 +3,7 @@ title: "Workshop and POC Delivery"
 type: concept
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw-steady-state/workshop-and-poc-delivery-patterns.md, mock-data/hok-log.json]
+sources: [legacy/raw-steady-state/workshop-and-poc-delivery-patterns.md, legacy/mock-data/hok-log.json]
 tags: [workshop, poc, delivery, patterns, success-criteria, environments]
 backlinks: [wiki/sources/workshop-and-poc-delivery-patterns.md, wiki/concepts/technical-win.md, wiki/concepts/mcem-deal-execution.md]
 ---

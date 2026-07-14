@@ -3,7 +3,7 @@ title: "Analysis: Azure DevOps Insights Governance Model"
 type: analysis
 created: "2026-06-17"
 updated: "2026-06-17"
-sources: [raw/se-onboarding-flow-reference.md, raw/se-tools-full-reference.md]
+sources: [legacy/raw/se-onboarding-flow-reference.md, raw/shared-resources/tools-and-utilities/se-tools-full-reference.md]
 tags: [azure-devops, governance, wiki, raw, versioning, mcp, foundry]
 backlinks: [wiki/index.md, wiki/concepts/onboarding-tooling-and-resources.md, wiki/concepts/se-onboarding-journey.md]
 ---

@@ -81,7 +81,7 @@ End every substantive answer with a compact **Sources** section. Keep the answer
   ```markdown
   **Sources:**
   - Wiki (local): Day 1 Onboarding Guide, Onboarding Tooling & Resources
-  - Raw: [SE Day 1 Starter Guide](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/se-day-1-complete-starter-guide.md)
+  - Raw: [SE Day 1 Starter Guide](https://dev.azure.com/SE-Brain-AzDev/SE-Brain/_git/SE-Brain?path=/raw/onboarding/phases/phase-1-orientation/day-1-starter-guide.md)
   ```
 
 ## Primary Responsibilities

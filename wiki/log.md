@@ -35,3 +35,12 @@ Append-only chronological record of wiki operations. Newest entries at the botto
 - Updated: wiki/concepts/se-onboarding-journey.md, wiki/concepts/staged-ramp-plan.md (+1 source, backlinks)
 - Updated: wiki/index.md (new source row)
 - First ingest from the restructured Azure DevOps raw dump — growth loop verified working. ~325 raw docs remain un-ingested; recommend a batch se-wiki-generator run (sector profiles, se-roles, process-guidelines).
+
+## [2026-07-13] repair | Complete frontmatter repair + agent/skill data-ref alignment
+- Completed the 2026-07-09 repair across the remaining 30 wiki pages: applied path moves (day-1 guide, platform docs, tools reference, MCEM guide) and legacy/ prefixes (mock-data, raw-steady-state, broadcasts, flow-reference, staged-ramp, coverage-sample) to all analyses, concepts, entities, comparisons, and source-summary frontmatter.
+- Fixed kb-local/ case to KB-Local/ in 4 pages.
+- Agents/skills: se-brain router skill list now includes se-directory-manager and se-unify-wiki; se-brain, se-steady-state, and se-customer-intel now point account data at raw/metadata/*.json + sector account profiles, with mock-data/*.json demoted to legacy-if-present.
+- Moved azure-devops-insights-governance-model.html from wiki/analyses/ to html-files/; updated html-files/index.html catalog (added 2 missing cards).
+- Created raw/sources.md manifest (source families, key sources, legacy capture register) — needs commit to Azure DevOps via PR.
+- Verified KB-Local/accounts/tata-steel.md is mock/template content (safe to ship).
+- Open items: verify whether mock-data/*.json still exists in Azure DevOps; decide raw/ checkout untracking for GitHub/AzDev PR separation.

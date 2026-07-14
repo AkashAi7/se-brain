@@ -3,7 +3,7 @@ title: "Onboarding Tooling and Resources"
 type: concept
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw/se-tools-full-reference.md, raw/se-day-1-complete-starter-guide.md, raw/se-onboarding-staged-ramp-playbook.md]
+sources: [raw/shared-resources/tools-and-utilities/se-tools-full-reference.md, raw/onboarding/phases/phase-1-orientation/day-1-starter-guide.md, legacy/raw/se-onboarding-staged-ramp-playbook.md]
 tags: [se-onboarding, tooling, links, week-1, resources]
 backlinks: [wiki/sources/se-tools-full-reference.md, wiki/sources/se-day-1-complete-starter-guide.md, wiki/entities/microsoft-sales-tools.md, wiki/concepts/se-onboarding-journey.md]
 ---

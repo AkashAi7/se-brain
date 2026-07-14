@@ -3,7 +3,7 @@ title: "Onboarding Platform Capabilities"
 type: concept
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw/se-onboarding-platform-documentation.md, raw/se-onboarding-flow-reference.md]
+sources: [raw/shared-resources/microsoft-101/se-onboarding-platform-documentation.md, legacy/raw/se-onboarding-flow-reference.md]
 tags: [se-onboarding, platform, dashboard, account-insights, capability-model]
 backlinks: [wiki/sources/se-onboarding-platform-documentation.md, wiki/sources/se-onboarding-flow-reference.md, wiki/concepts/se-onboarding-journey.md]
 ---

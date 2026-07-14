@@ -3,7 +3,7 @@ title: "MCEM Deal Execution"
 type: concept
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [raw-steady-state/mcem-deal-execution-framework.md, mock-data/opportunities.json]
+sources: [raw/process-guidelines/sops/mcem-process-guide.md, legacy/mock-data/opportunities.json]
 tags: [mcem, deals, pipeline, methodology, technical-win, se-execution]
 backlinks: [wiki/sources/mcem-deal-execution-framework.md, wiki/concepts/technical-win.md, wiki/concepts/active-pipeline.md, wiki/concepts/workshop-and-poc-delivery.md, wiki/overview.md]
 ---

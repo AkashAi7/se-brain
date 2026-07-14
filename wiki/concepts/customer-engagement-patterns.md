@@ -3,7 +3,7 @@ title: "Customer Engagement Patterns"
 type: concept
 created: "2026-06-10"
 updated: "2026-06-10"
-sources: [broadcasts/2026-06-09-voice-live-conversion-pattern.md, raw-steady-state/azure-vs-aws-positioning-guide.md, mock-data/opportunities.json, mock-data/accounts.json]
+sources: [legacy/broadcasts/2026-06-09-voice-live-conversion-pattern.md, legacy/raw-steady-state/azure-vs-aws-positioning-guide.md, legacy/mock-data/opportunities.json, legacy/mock-data/accounts.json]
 tags: [patterns, compete, displacement, engagement, broadcast]
 backlinks: [wiki/sources/voice-live-conversion-pattern.md, wiki/sources/azure-vs-aws-positioning-guide.md, wiki/comparisons/azure-vs-aws.md, wiki/concepts/active-pipeline.md]
 ---
