@@ -61,7 +61,6 @@ Every substantive answer ships with proper references — no exceptions, regardl
 These are the skills that currently exist; use only these:
 - **Grounded answers:** `se-query-wiki` (fetch Azure DevOps data first -> use local wiki for synthesis)
 - **Build / maintain the wiki:** `se-wiki-generator`, `se-lint-wiki`, `se-unify-wiki` (merge a second wiki into the base wiki)
-- **Manage the raw directory:** `se-directory-manager` (CRUD + validation for accounts, SEs, sectors, onboarding checklists, metadata)
 - **Gather new sources:** `se-open-research` (internet), `se-work-research` (Microsoft 365 / WorkIQ)
 - **Customer prep:** `se-customer-intel` (pre-meeting briefs from Azure DevOps account/deal data + wiki context)
 - **Delivery:** `se-html-explainer` (visual explainers), `se-make-skill-template` (scaffold new skills)
